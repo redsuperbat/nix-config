@@ -1,22 +1,10 @@
-{pkgs, ...}: {
+{}: {
   programs.fish = {
     enable = true;
     shellInit = ''
       # Source theme
       source $HOME/.config/fish/kanagawa.fish
     '';
-
-    plugins = [
-      {
-        name = "nvm.fish";
-        src = pkgs.fetchFromGitHub {
-          owner = "jorgebucaran";
-          repo = "nvm.fish";
-          rev = "846f1f20b2d1d0a99e344f250493c41a450f9448";
-          sha256 = "";
-        };
-      }
-    ];
 
     functions = {
       # Clear all logs in all windows

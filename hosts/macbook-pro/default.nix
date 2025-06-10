@@ -1,13 +1,10 @@
 {
   pkgs,
   userConfig,
+  ...
 }: {
   # Nixpkgs configuration
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
+  nixpkgs.config.allowUnfree = true;
 
   # Nix settings
   nix = {
@@ -20,6 +17,7 @@
 
   # User configuration
   users.users.${userConfig.name} = {
+    description = userConfig.fullName;
     name = "${userConfig.name}";
     home = "/Users/${userConfig.name}";
   };
@@ -29,6 +27,8 @@
 
   # System settings
   system = {
+    primaryUser = userConfig.name;
+
     defaults = {
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";

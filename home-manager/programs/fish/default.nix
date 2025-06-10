@@ -3,7 +3,7 @@
     enable = true;
     shellInit = ''
       # Source theme
-      source $HOME/.config/fish/kanagawa.fish
+      # source $HOME/.config/fish/kanagawa.fish
     '';
 
     functions = {

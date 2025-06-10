@@ -30,14 +30,12 @@
   # System settings
   system = {
     defaults = {
-      CustomUserPreferences = {
-        NSGlobalDomain."com.apple.mouse.linear" = true;
-      };
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";
         ApplePressAndHoldEnabled = false;
         AppleShowAllExtensions = true;
-        KeyRepeat = 2;
+        KeyRepeat = 2; # Time ms between key-repeats when holding key down
+        InitialKeyRepeat = 10; # Time ms before key repeat starts
         NSAutomaticCapitalizationEnabled = false;
         NSAutomaticDashSubstitutionEnabled = false;
         NSAutomaticQuoteSubstitutionEnabled = false;
@@ -47,20 +45,17 @@
         NSNavPanelExpandedStateForSaveMode = true;
         PMPrintingExpandedStateForPrint = true;
       };
-      LaunchServices = {
-        LSQuarantine = false;
-      };
+      LaunchServices.LSQuarantine = false; # Do not ask when opening downloaded apps
       trackpad = {
         TrackpadRightClick = true;
-        TrackpadThreeFingerDrag = true;
         Clicking = true;
       };
       finder = {
         AppleShowAllFiles = true;
         CreateDesktop = false;
-        FXDefaultSearchScope = "SCcf";
-        FXEnableExtensionChangeWarning = false;
-        FXPreferredViewStyle = "Nlsv";
+        FXDefaultSearchScope = "SCcf"; # Search in current folder
+        FXEnableExtensionChangeWarning = false; # Do not warn when changing file extensions
+        FXPreferredViewStyle = "Nlsv"; # Show list mode always
         QuitMenuItem = true;
         ShowPathbar = true;
         ShowStatusBar = true;
@@ -74,31 +69,26 @@
         showhidden = true;
         persistent-apps = [];
         tilesize = 30;
-        wvous-bl-corner = 1;
+        wvous-bl-corner = 5;
         wvous-br-corner = 1;
         wvous-tl-corner = 1;
         wvous-tr-corner = 1;
       };
       screencapture = {
-        location = "/Users/${userConfig.name}/Downloads/temp";
+        location = "/Users/${userConfig.name}/Downloads/tmp";
         type = "png";
         disable-shadow = true;
       };
     };
     keyboard = {
       enableKeyMapping = true;
-      # Remap §± to ~
-      userKeyMapping = [
-        {
-          HIDKeyboardModifierMappingDst = 30064771125;
-          HIDKeyboardModifierMappingSrc = 30064771172;
-        }
-      ];
+      remapCapsLockToEscape = true;
     };
   };
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
   ];
 
   # Used for backwards compatibility, please read the changelog before changing.

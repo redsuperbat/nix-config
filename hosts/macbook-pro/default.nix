@@ -8,9 +8,7 @@
 
   # Nix settings
   nix = {
-    settings = {
-      experimental-features = "nix-command flakes";
-    };
+    settings.experimental-features = "nix-command flakes";
     optimise.automatic = true;
     package = pkgs.nix;
   };
@@ -34,7 +32,7 @@
         AppleInterfaceStyle = "Dark";
         ApplePressAndHoldEnabled = false;
         AppleShowAllExtensions = true;
-        KeyRepeat = 2; # Time ms between key-repeats when holding key down
+        KeyRepeat = 1; # Time ms between key-repeats when holding key down
         InitialKeyRepeat = 10; # Time ms before key repeat starts
         NSAutomaticCapitalizationEnabled = false;
         NSAutomaticDashSubstitutionEnabled = false;

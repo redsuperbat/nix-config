@@ -50,6 +50,9 @@
               enable = true;
               enableRosetta = true;
               user = username;
+              casks = [
+                "ghostty"
+              ];
             };
           }
           home-manager.darwinModules.home-manager

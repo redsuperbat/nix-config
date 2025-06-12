@@ -33,6 +33,7 @@
         pkgs = import nixpkgs {system = system;};
         specialArgs = {
           userConfig = users.${username};
+          homeManagerEntrypoint = "${self}/home-manager";
         };
         modules = [
           ./home/${username}/${hostname}

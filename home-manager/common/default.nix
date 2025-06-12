@@ -1,6 +1,7 @@
 {
   userConfig,
   pkgs,
+  ...
 }: {
   imports =
     builtins.map (name: ../programs/${name}) (builtins.attrNames (builtins.readDir ../programs));
@@ -15,6 +16,7 @@
     username = "${userConfig.name}";
     homeDirectory = "/Users/${userConfig.name}";
     shell.enableFishIntegration = true;
+    stateVersion = "25.05";
   };
 
   home.sessionVariables = {
@@ -37,6 +39,7 @@
     eza
     fd
     ffmpeg
+    delta
     fish
     fzf
     gh
@@ -46,11 +49,10 @@
     lazydocker
     marksman
     ncspot # Spotify for the terminal
-    prettier
     pylint
     ripgrep
     shfmt
-    sponge
+    moreutils # sponge etc
     sqlfluff
     stylua
     taplo # Toml toolkit
@@ -69,11 +71,10 @@
     vue-language-server
     ruby-lsp
     gopls
-    dockerfile-language-server
+    dockerfile-language-server-nodejs
 
     # Desktop applications
     slack
-    linear
     bitwarden-desktop
     docker
     raycast

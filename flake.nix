@@ -3,6 +3,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,6 +21,7 @@
     darwin,
     home-manager,
     nixpkgs,
+    nix-homebrew,
   }: let
     users = {
       maxnetterberg = {
@@ -28,36 +31,41 @@
       };
     };
 
-    mkHomeConfiguration = system: username: hostname:
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {system = system;};
-        specialArgs = {
-          userConfig = users.${username};
-          homeManagerEntrypoint = "${self}/home-manager";
-        };
-        modules = [
-          ./home/${username}/${hostname}
-        ];
-      };
-
     mkDarwinConfiguration = system: username: hostname:
       darwin.lib.darwinSystem {
         system = system;
         specialArgs = {
-          pkgs = import nixpkgs {system = system;};
+          pkgs = import nixpkgs {
+            system = system;
+            # Allow unfree packages to be installed, without a MIT license etc
+            config.allowUnfree = true;
+          };
           userConfig = users.${username};
         };
         modules = [
           ./hosts/${hostname}
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              user = username;
+            };
+          }
           home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.${username} = "${self}/home-manager/common";
+            home-manager.extraSpecialArgs = {
+              userConfig = users.${username};
+            };
+          }
         ];
       };
   in {
     darwinConfigurations = {
       macbook-pro = mkDarwinConfiguration "aarch64-darwin" "maxnetterberg" "macbook-pro";
-    };
-    homeConfigurations = {
-      "maxnetterberg@macbook-pro" = mkHomeConfiguration "aarch64-darwin" "maxnetterberg" "macbook-pro";
     };
   };
 }

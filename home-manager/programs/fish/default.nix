@@ -1,4 +1,6 @@
-{}: {
+{
+...
+}: {
   programs.fish = {
     enable = true;
     shellInit = ''

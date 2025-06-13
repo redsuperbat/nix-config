@@ -1,11 +1,8 @@
-{
-...
-}: {
+{...}: {
   programs.fish = {
     enable = true;
     shellInit = ''
-      # Source theme
-      # source $HOME/.config/fish/kanagawa.fish
+      fish_vi_key_bindings
     '';
 
     functions = {

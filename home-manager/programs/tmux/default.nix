@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  output,
+  ...
+}: {
   # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;
@@ -10,6 +14,7 @@
     keyMode = "vi";
     mouse = true;
     terminal = "screen-256color";
+    shell = "${pkgs.fish}/bin/fish";
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
       resurrect
@@ -20,8 +25,7 @@
     ];
 
     extraConfig = ''
-      set -g default-shell $SHELL                 # Use fish as default shell
-      set -g allow-passthrough on                 # To render images in tmux panes
+      set -g allow-passthrough on                                                        # To render images in tmux panes
 
       bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded!"  # Source config with <prefix>+r
       bind s popup -h 85% -w 85% -E "tms switch"                                         # Switch between sessions

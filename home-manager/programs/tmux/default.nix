@@ -19,7 +19,6 @@
       vim-tmux-navigator
       resurrect
       continuum
-      sensible
       catppuccin
       battery
     ];

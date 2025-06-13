@@ -3,11 +3,18 @@
 return {
   { "nvim-lua/plenary.nvim", lazy = true },
   { "nvim-treesitter/nvim-treesitter", lazy = true },
+  { "echasnovski/mini.diff", lazy = true, opts = {}, version = "*" },
   {
     "olimorris/codecompanion.nvim",
     event = "VeryLazy",
     config = function()
       require("codecompanion").setup({
+        display = {
+          diff = {
+            layout = "horizontal",
+            provider = "mini_diff",
+          },
+        },
         adapters = {
           openai = function()
             return require("codecompanion.adapters").extend("openai", {

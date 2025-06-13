@@ -26,12 +26,6 @@ return {
       },
       sections = {
         { section = "header" },
-        {
-          section = "terminal",
-          cmd = 'cowsay_centered (curl -s -H "Accept: application/json" https://icanhazdadjoke.com | jq -r .joke); sleep 0.1',
-          random = 10,
-          padding = 3,
-        },
         { section = "keys", gap = 1, padding = 1 },
         { section = "startup" },
       },

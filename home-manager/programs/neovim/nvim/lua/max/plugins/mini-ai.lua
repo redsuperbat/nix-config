@@ -12,7 +12,9 @@ return {
         -- Disable brackets alias in favor of builtin block textobject
         b = false,
         -- Allow to select inside and outside of function nodes
-        F = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+        f = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+        c = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
+        d = spec_treesitter({ a = "@block.outer", i = "@block.inner" }),
       },
     })
   end,

@@ -25,8 +25,6 @@
   };
   # Ensure common packages are installed
   home.packages = with pkgs; [
-    actionlint
-    alejandra
     bat
     biome
     black
@@ -35,15 +33,12 @@
     curl
     deno
     dig
-    eslint_d
     eza
     fd
     ffmpeg
     delta
-    fish
     fzf
     gh
-    hadolint # Dockerfile linter
     jq
     kubectl
     lazydocker
@@ -53,25 +48,11 @@
     ripgrep
     shfmt
     moreutils # sponge etc
-    sqlfluff
-    stylua
-    taplo # Toml toolkit
-    terraform
     tmux
     tmux-sessionizer
     uv # Python package manager
     watch
-
-    # Language servers
-    lua-language-server
-    rust-analyzer
-    tailwindcss-language-server
-    typescript-language-server
-    vscode-langservers-extracted
-    vue-language-server
-    ruby-lsp
-    gopls
-    dockerfile-language-server-nodejs
+    terraform
 
     # Desktop applications
     slack

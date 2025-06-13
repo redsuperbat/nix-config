@@ -60,8 +60,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "bak";
             home-manager.users.${username} = "${self}/home-manager/common";
             home-manager.extraSpecialArgs.userConfig = users.${username};
+            home-manager.extraSpecialArgs.self = self;
           }
         ];
       };

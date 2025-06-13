@@ -50,9 +50,10 @@
               enable = true;
               enableRosetta = true;
               user = username;
-              casks = [
-                "ghostty"
-              ];
+            };
+            homebrew = {
+              enable = true;
+              casks = ["ghostty"];
             };
           }
           home-manager.darwinModules.home-manager
@@ -60,9 +61,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${username} = "${self}/home-manager/common";
-            home-manager.extraSpecialArgs = {
-              userConfig = users.${username};
-            };
+            home-manager.extraSpecialArgs.userConfig = users.${username};
           }
         ];
       };

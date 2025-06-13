@@ -36,7 +36,6 @@
     eza
     fd
     ffmpeg
-    delta
     fzf
     gh
     jq

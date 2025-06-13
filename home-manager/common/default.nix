@@ -47,11 +47,11 @@
     ripgrep
     shfmt
     moreutils # sponge etc
-    tmux
     tmux-sessionizer
     uv # Python package manager
     watch
     terraform
+    google-cloud-sdk
 
     # Desktop applications
     slack

@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  # source lua config from this repo
   xdg.configFile = {
     "ghostty/config" = {
       text = ''

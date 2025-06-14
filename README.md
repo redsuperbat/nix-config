@@ -1,4 +1,4 @@
-# Nix configuratio for reproducible work machines
+# Nix configuration for reproducible work machines
 
 ## Fresh install
 

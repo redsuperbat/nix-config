@@ -10,6 +10,7 @@ return {
     "toml",
     "vue",
     "markdown",
+    "nix",
     "json",
     "typescript",
     "typescriptreact",

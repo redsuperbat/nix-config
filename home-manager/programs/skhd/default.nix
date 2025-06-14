@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   services.skhd = {
-    enable = true;
+    enable = pkgs.stdenv.isDarwin;
     config = ''
       cmd - 1 : open -a "${pkgs.brave}/Applications/Brave Browser.app"
 

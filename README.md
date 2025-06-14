@@ -1,4 +1,4 @@
-# Nix-darwin Configurations for My Machine
+# Nix configuratio for reproducible work machines
 
 ## Fresh install
 

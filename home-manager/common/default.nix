@@ -52,11 +52,12 @@
     watch
     terraform
     google-cloud-sdk
+    docker
+    colima # Docker container runtime for macos
 
     # Desktop applications
     slack
     bitwarden-desktop
-    docker
     raycast
   ];
 }

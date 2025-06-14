@@ -53,7 +53,10 @@
             };
             homebrew = {
               enable = true;
-              casks = ["ghostty"];
+              casks = [
+                "ghostty"
+                "linear-linear"
+              ];
             };
           }
           home-manager.darwinModules.home-manager

@@ -21,6 +21,7 @@
       gotools
       hadolint # Dockerfile linter
       isort
+      intelephense # php language server
       lua-language-server
       nil # nix language server
       nodePackages.prettier

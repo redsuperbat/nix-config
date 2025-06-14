@@ -9,6 +9,7 @@ help:
 	@echo "Available targets:"
 	@echo "  install-nix          - Install the Nix package manager"
 	@echo "  install-nix-darwin   - Install nix-darwin using flake $(FLAKE)"
+	@echo "  uninstall-nix        - Uninstall the Nix package manager"
 	@echo "  flake-update         - Update flake inputs"
 	@echo "  flake-check          - Check the flake for issues"
 	@echo "  bootstrap-mac        - Install Nix and nix-darwin sequentially"
@@ -22,6 +23,11 @@ install-nix-darwin:
 	@echo "Installing nix-darwin..."
 	@sudo nix run nix-darwin $(EXPERIMENTAL) -- switch --flake $(FLAKE)
 	@echo "nix-darwin installation complete."
+
+uninstall-nix:
+	@echo "Uninstalling nix"
+	@sudo /nix/nix-installer uninstall
+	@echo "Nix uninstallation complete"
 
 flake-update:
 	@echo "Updating flake inputs..."

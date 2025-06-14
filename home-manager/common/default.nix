@@ -1,6 +1,7 @@
 {
   userConfig,
   pkgs,
+  rustproof,
   ...
 }: {
   imports =
@@ -55,6 +56,7 @@
     docker
     colima # Docker container runtime for macos
     rustup
+    rustproof
 
     # Desktop applications
     slack

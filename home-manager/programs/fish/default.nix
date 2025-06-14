@@ -1,4 +1,4 @@
-{self, ...}: {
+{...}: {
   programs.fish = {
     enable = true;
     shellInit = ''
@@ -47,12 +47,8 @@
         end
       '';
       cl = "clear; tmux clear-history";
-      # Do not print fish greeting
-      fish_greeting = "";
+      fish_greeting = ""; # Do not print fish greeting
       kill_port = "kill -9 $(lsof -ti:$argv[1])";
-      darwin_rebuild = ''
-        sudo darwin-rebuild switch --flake ${self}#macbook-pro
-      '';
       fish_prompt = ''
         set -l __last_command_exit_status $status
 

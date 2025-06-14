@@ -5,6 +5,11 @@
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
+    rustproof = {
+      url = "github:redsuperbat/rustproof";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +27,7 @@
     home-manager,
     nixpkgs,
     nix-homebrew,
+    rustproof,
   }: let
     users = {
       maxnetterberg = {
@@ -68,6 +74,7 @@
             home-manager.extraSpecialArgs = {
               userConfig = users.${username};
               self = self;
+              rustproof = rustproof.packages.${system}.default;
             };
           }
         ];

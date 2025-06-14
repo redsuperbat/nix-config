@@ -54,6 +54,7 @@
     google-cloud-sdk
     docker
     colima # Docker container runtime for macos
+    rustup
 
     # Desktop applications
     slack

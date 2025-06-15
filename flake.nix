@@ -37,7 +37,11 @@
       };
     };
 
-    mkDarwinConfiguration = system: username: hostname:
+    mkDarwinConfiguration = {
+      system,
+      username,
+      hostname,
+    }:
       darwin.lib.darwinSystem {
         system = system;
         specialArgs = {
@@ -81,7 +85,11 @@
       };
   in {
     darwinConfigurations = {
-      macbook-pro = mkDarwinConfiguration "aarch64-darwin" "maxnetterberg" "macbook-pro";
+      macbook-pro = mkDarwinConfiguration {
+        system = "aarch64-darwin";
+        username = "maxnetterberg";
+        hostname = "macbook-pro";
+      };
     };
   };
 }

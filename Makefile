@@ -32,7 +32,7 @@ uninstall-nix:
 
 flake-update:
 	@echo "Updating flake inputs..."
-	@nix flake update
+	@sudo nix flake update
 	@echo "Flake update complete."
 
 darwin-rebuild:
@@ -42,7 +42,7 @@ darwin-rebuild:
 
 flake-check:
 	@echo "Checking flake..."
-	@nix flake check
+	@sudo nix flake check
 	@echo "Flake check complete."
 
 bootstrap-mac: install-nix install-nix-darwin

@@ -49,6 +49,42 @@
       cl = "clear; tmux clear-history";
       fish_greeting = ""; # Do not print fish greeting
       kill_port = "kill -9 $(lsof -ti:$argv[1])";
+      github_tms = ''
+        if not gh auth status &>/dev/null
+            echo "Not logged in, authenticate with github first"
+            gh auth login
+        end
+
+        set org $argv[1]
+        set repos (gh repo list --json sshUrl,name -L 1000 $org)
+        set selected_item (echo $repos | jq -r ".[].name" | cat -n | fzf | string trim)
+        if test -z "$selected_item"
+            return
+        end
+        set selected_item_index (echo $selected_item | awk '{print $1}')
+        set index (math "$selected_item_index - 1")
+        set repo_url (echo $repos | jq -r ".[$index].sshUrl")
+        set repo_name (echo $repos | jq -r ".[$index].name")
+        set repo_path "$HOME/Workspace/$repo_name"
+
+        if tmux has-session -t $repo_name &>/dev/null
+            echo "Session exists switching to it"
+            tmux switch-client -t $repo_name
+            return
+        end
+
+        if test -d $repo_path
+            echo "Repo exists on machine creating new session"
+            tmux new-session -ds $repo_name -c $repo_path
+            tmux switch-client -t $repo_name
+            return
+        end
+
+        echo "Bootstrapping $repo_name"
+        git clone $repo_url $repo_path
+        tmux new-session -ds $repo_name -c $repo_path
+        tmux switch-client -t $repo_name
+      '';
       fish_prompt = ''
         set -l __last_command_exit_status $status
 

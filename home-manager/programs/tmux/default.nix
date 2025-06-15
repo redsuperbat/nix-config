@@ -41,6 +41,7 @@
       bind s popup -h 85% -w 85% -E "tms switch"                                         # Switch between sessions
       bind w popup -h 85% -w 85% -E "tms windows"                                        # Switch between windows
       bind F popup -E "tms"                                                              # Run tms to add new session
+      bind G popup -E "github_tms"                                                       # Run function similar to tms but for github
       bind K run-shell "tms kill"                                                        # Kill current
       bind C-k respawn-pane -k                                                           # Restart current pane
       bind W command-prompt -p "Rename active session to: " "run-shell 'tms rename %1'". # Rename sessions

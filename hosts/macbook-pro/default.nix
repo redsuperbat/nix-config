@@ -6,6 +6,7 @@
   # Nix settings
   nix = {
     settings.experimental-features = "nix-command flakes";
+    settings.download-buffer-size = 524288000;
     optimise.automatic = true;
     package = pkgs.nix;
   };

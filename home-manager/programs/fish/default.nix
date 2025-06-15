@@ -1,4 +1,4 @@
-{...}: {
+{userConfig, ...}: {
   programs.fish = {
     enable = true;
     shellInit = ''
@@ -49,6 +49,7 @@
       cl = "clear; tmux clear-history";
       fish_greeting = ""; # Do not print fish greeting
       kill_port = "kill -9 $(lsof -ti:$argv[1])";
+      fzf_file = ''cat (fzf --walker-root ${userConfig.workspaceDir} --preview "bat {}")'';
       github_tms = ''
         if not gh auth status &>/dev/null
             echo "Not logged in, authenticate with github first"
@@ -65,7 +66,7 @@
         set index (math "$selected_item_index - 1")
         set repo_url (echo $repos | jq -r ".[$index].sshUrl")
         set repo_name (echo $repos | jq -r ".[$index].name")
-        set repo_path "$HOME/Workspace/$repo_name"
+        set repo_path "${userConfig.workspaceDir}/$repo_name"
 
         if tmux has-session -t $repo_name &>/dev/null
             echo "Session exists switching to it"

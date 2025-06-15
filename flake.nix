@@ -34,6 +34,14 @@
         email = "max.netterberg@gmail.com";
         fullName = "Max Netterberg";
         name = "maxnetterberg";
+        # Directory where configuration will be stored
+        configDir = "/Users/${users.maxnetterberg.name}/Config";
+        # Directory where git repositories will be stored
+        workspaceDir = "/Users/${users.maxnetterberg.name}/Workspace";
+        clipboard = {
+          copy = "pbcopy";
+          paste = "pbpaste";
+        };
       };
     };
 

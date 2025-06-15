@@ -24,7 +24,6 @@
   };
   # Ensure common packages are installed
   home.packages = with pkgs; [
-    bat
     biome
     black
     bottom

@@ -1,18 +1,19 @@
 # Variables (override these as needed)
 HOSTNAME ?= macbook-pro
-FLAKE ?= .#$(HOSTNAME)
+FLAKE ?= .\#$(HOSTNAME)
 EXPERIMENTAL ?= --extra-experimental-features "nix-command flakes"
 
-.PHONY: help install-nix install-nix-darwin flake-update flake-check bootstrap-mac
+.PHONY: help install-nix install-nix-darwin flake-update flake-check bootstrap-mac darwin-rebuild
 
 help:
 	@echo "Available targets:"
+	@echo "  bootstrap-mac        - Install Nix and nix-darwin sequentially"
+	@echo "  darwin-rebuild       - Rebuild the nix-darwin configuration"
+	@echo "  flake-check          - Check the flake for issues"
+	@echo "  flake-update         - Update flake inputs"
 	@echo "  install-nix          - Install the Nix package manager"
 	@echo "  install-nix-darwin   - Install nix-darwin using flake $(FLAKE)"
 	@echo "  uninstall-nix        - Uninstall the Nix package manager"
-	@echo "  flake-update         - Update flake inputs"
-	@echo "  flake-check          - Check the flake for issues"
-	@echo "  bootstrap-mac        - Install Nix and nix-darwin sequentially"
 
 install-nix:
 	@echo "Installing Nix..."
@@ -33,6 +34,11 @@ flake-update:
 	@echo "Updating flake inputs..."
 	@nix flake update
 	@echo "Flake update complete."
+
+darwin-rebuild:
+	@echo "Rebuilding darwin configuration..."
+	@sudo darwin-rebuild switch --flake $(FLAKE)
+	@echo "Darwin rebuild complete."
 
 flake-check:
 	@echo "Checking flake..."

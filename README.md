@@ -11,5 +11,5 @@ select `no` when it propmts you for a determinite install, we want to manage our
 ## Update configuration after install
 
 ```sh
-darwin_rebuild
+make darwin-rebuild
 ```

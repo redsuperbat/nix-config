@@ -38,6 +38,7 @@
         configDir = "/Users/${users.maxnetterberg.name}/Config";
         # Directory where git repositories will be stored
         workspaceDir = "/Users/${users.maxnetterberg.name}/Workspace";
+        syntaxTheme = "Visual Studio Dark+";
         clipboard = {
           copy = "pbcopy";
           paste = "pbpaste";

@@ -1,8 +1,8 @@
-{...}: {
+{userConfig, ...}: {
   programs.bat = {
     enable = true;
     config = {
-      theme = "Visual Studio Dark+";
+      theme = userConfig.syntaxTheme;
       style = "numbers";
       color = "always";
     };

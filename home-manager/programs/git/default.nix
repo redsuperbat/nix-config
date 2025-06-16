@@ -4,6 +4,12 @@
     enable = true;
     userName = userConfig.fullName;
     userEmail = userConfig.email;
+    delta = {
+      enable = true;
+      settings = {
+        syntax-theme = userConfig.syntaxTheme;
+      };
+    };
     signing = {
       format = "ssh";
       signByDefault = true;

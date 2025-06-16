@@ -2,6 +2,7 @@
   pkgs,
   config,
   self,
+  rustproof,
   ...
 }: {
   # Neovim text editor configuration
@@ -15,22 +16,21 @@
     extraPackages = with pkgs; [
       actionlint # Github action linter
       alejandra # nix formatter
+      checkmake # Makefile linter
       dockerfile-language-server-nodejs
       golangci-lint
       gopls
       gotools
       hadolint # Dockerfile linter
-      isort
       intelephense # php language server
       lua-language-server
       nil # nix language server
       nodePackages.prettier
-      pyright
       ruby-lsp
-      ruff
-      rust-analyzer
+      ruff # Python linter
+      rustproof # Spell checker
       shellcheck
-      shfmt
+      shfmt # shell formatter
       sqlfluff
       stylua
       tailwindcss-language-server

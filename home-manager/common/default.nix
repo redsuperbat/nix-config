@@ -1,7 +1,6 @@
 {
   userConfig,
   pkgs,
-  rustproof,
   ...
 }: {
   imports =
@@ -28,33 +27,29 @@
     black
     bottom
     cargo-nextest
+    colima # Docker container runtime for macos
     curl
     deno
     dig
+    docker
     eza
     fd
     ffmpeg
     fzf
     gh
+    google-cloud-sdk
     jq
     kubectl
     lazydocker
     marksman
-    ncspot # Spotify for the terminal
-    pylint
-    ripgrep
-    shfmt
     moreutils # sponge etc
+    ncspot # Spotify for the terminal
+    ripgrep
+    rustup
+    terraform
     tmux-sessionizer
     uv # Python package manager
     watch
-    terraform
-    google-cloud-sdk
-    docker
-    checkmake # Makefile linter
-    colima # Docker container runtime for macos
-    rustup
-    rustproof
 
     # Desktop applications
     slack

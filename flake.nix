@@ -55,7 +55,7 @@
         specialArgs = {
           pkgs = import nixpkgs {
             system = system;
-            # Allow payed packages to be installed, without a MIT license etc
+            # Allow paid packages to be installed, without a MIT license etc
             config.allowUnfree = true;
           };
           userConfig = users.${username};

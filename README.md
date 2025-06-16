@@ -6,7 +6,7 @@
 make bootstrap-mac
 ```
 
-select `no` when it propmts you for a determinite install, we want to manage our nix installation ourselves.
+select `no` when it prompts you for a determinate install, we want to manage our nix installation ourselves.
 
 ## Update configuration after install
 

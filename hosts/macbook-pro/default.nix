@@ -9,11 +9,15 @@
     settings = {
       experimental-features = "nix-command flakes";
       download-buffer-size = 524288000;
-      auto-optimise-store = true;
     };
+    optimise.automatic = true;
     gc = {
       automatic = true;
-      frequency = "weekly";
+      interval = {
+        Weekday = 5;
+        Hour = 3;
+        Minute = 15;
+      }; # Thu 03:15
       options = "--delete-older-than 30d";
     };
   };

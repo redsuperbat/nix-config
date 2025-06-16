@@ -6,8 +6,10 @@
     userEmail = userConfig.email;
     delta = {
       enable = true;
-      settings = {
-        syntax-theme = userConfig.syntaxTheme;
+      options = {
+        color-only = true;
+        dark = true;
+        syntax-theme = "kanagawa";
       };
     };
     signing = {

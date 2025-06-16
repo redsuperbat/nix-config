@@ -5,6 +5,7 @@
 
     settings = {
       promptToReturnFromSubprocess = false;
+      git.paging.pager = "delta --paging=never";
     };
   };
 }

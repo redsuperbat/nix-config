@@ -15,12 +15,16 @@ help:
 	@echo "  install-nix-darwin   - Install nix-darwin using flake $(FLAKE)"
 	@echo "  uninstall-nix        - Uninstall the Nix package manager"
 
+# Generate a ssh key if it does not exist
+~/.ssh/id_ed25519:
+	ssh-keygen -t ed25519 -f "$@"
+
 install-nix:
 	@echo "Installing Nix..."
 	@sudo curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 	@echo "Nix installation complete."
 
-install-nix-darwin:
+install-nix-darwin: ~/.ssh/id_ed25519
 	@echo "Installing nix-darwin..."
 	@sudo nix run nix-darwin $(EXPERIMENTAL) -- switch --flake $(FLAKE)
 	@echo "nix-darwin installation complete."

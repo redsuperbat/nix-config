@@ -51,6 +51,7 @@
     terraform
     google-cloud-sdk
     docker
+    checkmake # Makefile linter
     colima # Docker container runtime for macos
     rustup
     rustproof

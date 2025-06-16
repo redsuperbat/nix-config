@@ -5,10 +5,17 @@
 }: {
   # Nix settings
   nix = {
-    settings.experimental-features = "nix-command flakes";
-    settings.download-buffer-size = 524288000;
-    optimise.automatic = true;
     package = pkgs.nix;
+    settings = {
+      experimental-features = "nix-command flakes";
+      download-buffer-size = 524288000;
+      auto-optimise-store = true;
+    };
+    gc = {
+      automatic = true;
+      frequency = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 
   # User configuration

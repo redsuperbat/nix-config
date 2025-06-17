@@ -30,14 +30,34 @@
     home = homeDir;
   };
 
+  # https://github.com/LnL7/nix-darwin/pull/787
   # Add ability to use TouchID for sudo
   security.pam.services.sudo_local.touchIdAuth = true;
+  environment.etc."pam.d/sudo_local".text = ''
+    # Managed by Nix Darwin
+    auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
+  '';
 
   # System settings
   system = {
     primaryUser = userConfig.name;
 
+    activationScripts.postActivation.text = ''
+      # Following line should allow us to avoid a logout/login cycle when changing settings
+      sudo -u ${userConfig.name} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    '';
+
     defaults = {
+      CustomUserPreferences = {
+        "com.apple.symbolichotkeys" = {
+          AppleSymbolicHotKeys = {
+            # Disable 'Cmd + Space' for Spotlight Search
+            "64" = {enabled = false;};
+            # Disable 'Cmd + Alt + Space' for Finder search window
+            "65" = {enabled = false;};
+          };
+        };
+      };
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";
         ApplePressAndHoldEnabled = false;
@@ -86,6 +106,10 @@
         location = "${homeDir}/Downloads/tmp";
         type = "png";
         disable-shadow = true;
+      };
+      menuExtraClock = {
+        ShowSeconds = true;
+        Show24Hour = true;
       };
     };
     keyboard = {

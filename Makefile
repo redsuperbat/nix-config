@@ -2,6 +2,7 @@
 HOSTNAME ?= macbook-pro
 FLAKE ?= .\#$(HOSTNAME)
 EXPERIMENTAL ?= --extra-experimental-features "nix-command flakes"
+SSH_KEY ?= ~/.ssh/id_ed25519
 
 .PHONY: help install-nix install-nix-darwin flake-update flake-check bootstrap-mac darwin-rebuild
 
@@ -15,16 +16,16 @@ help:
 	@echo "  install-nix-darwin   - Install nix-darwin using flake $(FLAKE)"
 	@echo "  uninstall-nix        - Uninstall the Nix package manager"
 
-# Generate a ssh key if it does not exist
-~/.ssh/id_ed25519:
-	ssh-keygen -t ed25519 -f "$@"
+
+$(SSH_KEY):
+	@ssh-keygen -t ed25519 -f "$@"
 
 install-nix:
 	@echo "Installing Nix..."
 	@sudo curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 	@echo "Nix installation complete."
 
-install-nix-darwin: ~/.ssh/id_ed25519
+install-nix-darwin: $(SSH_KEY)
 	@echo "Installing nix-darwin..."
 	@sudo nix run nix-darwin $(EXPERIMENTAL) -- switch --flake $(FLAKE)
 	@echo "nix-darwin installation complete."

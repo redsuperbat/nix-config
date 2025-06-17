@@ -55,7 +55,7 @@
             return
         end
         # cat only if piped to another command
-        if test -t (tty)
+        if test -t 1
             bat "$file"
         else
             cat "$file"

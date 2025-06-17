@@ -49,7 +49,12 @@
       cl = "clear; tmux clear-history";
       fish_greeting = ""; # Do not print fish greeting
       kill_port = "kill -9 $(lsof -ti:$argv[1])";
-      fzf_file = ''cat (fzf --walker-root ${workspaceDir} --preview "bat {}")'';
+      fzf_file = ''
+        set file (fzf --walker-root /Users/maxnetterberg/Workspace --preview "bat {}")
+        if test -f "$file"
+            bat "$file"
+        end
+      '';
       github_tms = ''
         if not gh auth status &>/dev/null
             echo "Not logged in, authenticate with github first"

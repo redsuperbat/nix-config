@@ -38,10 +38,10 @@
       set -g allow-passthrough on                                                        # To render images in tmux panes
 
       bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded!"  # Source config with <prefix>+r
-      bind s popup -h 85% -w 85% -E "exec $SHELL -c 'tms switch'"                        # Switch between sessions
-      bind w popup -h 85% -w 85% -E "exec $SHELL -c 'tms windows'"                       # Switch between windows
-      bind F popup -E "exec $SHELL -c tms"                                               # Run tms to add new session
-      bind G popup -E "exec $SHELL -c github_tms"                                        # Run function similar to tms but for github
+      bind s popup -h 85% -w 85% -E "tms switch"                                         # Switch between sessions
+      bind w popup -h 85% -w 85% -E "tms windows"                                        # Switch between windows
+      bind F popup -E "tms"                                                              # Run tms to add new session
+      bind G popup -E "github_tms"                                                       # Run function similar to tms but for github
       bind K run-shell "tms kill"                                                        # Kill current
       bind C-k respawn-pane -k                                                           # Restart current pane
       bind W command-prompt -p "Rename active session to: " "run-shell 'tms rename %1'". # Rename sessions

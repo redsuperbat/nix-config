@@ -51,8 +51,14 @@
       kill_port = "kill -9 $(lsof -ti:$argv[1])";
       fzf_file = ''
         set file (fzf --walker-root /Users/maxnetterberg/Workspace --preview "bat {}")
-        if test -f "$file"
+        if not test -f "$file"
+            return
+        end
+        # cat only if piped to another command
+        if test -t (tty)
             bat "$file"
+        else
+            cat "$file"
         end
       '';
       github_tms = ''

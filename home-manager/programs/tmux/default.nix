@@ -58,7 +58,8 @@
       set -g renumber-windows on # renumber all windows when any window is closed
       set -g status-position top # macOS / darwin style
 
-      set -g @thm_bg "\#1f1f28"
+      set -g @thm_bg "#1f1f28"
+      set -g popup-style "bg=#1f1f28"
 
       # Status left look and feel
       set -g status-left-length 100

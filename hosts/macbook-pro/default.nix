@@ -2,6 +2,7 @@
   pkgs,
   userConfig,
   homeDir,
+  ...
 }: {
   # Nix settings
   nix = {

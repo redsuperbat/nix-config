@@ -1,7 +1,7 @@
 {
   pkgs,
   userConfig,
-  ...
+  homeDir,
 }: {
   # Nix settings
   nix = {
@@ -25,8 +25,8 @@
   # User configuration
   users.users.${userConfig.name} = {
     description = userConfig.fullName;
-    name = "${userConfig.name}";
-    home = "/Users/${userConfig.name}";
+    name = userConfig.name;
+    home = homeDir;
   };
 
   # Add ability to use TouchID for sudo
@@ -82,7 +82,7 @@
         wvous-tr-corner = 1;
       };
       screencapture = {
-        location = "/Users/${userConfig.name}/Downloads/tmp";
+        location = "${homeDir}/Downloads/tmp";
         type = "png";
         disable-shadow = true;
       };

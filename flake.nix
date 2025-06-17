@@ -34,14 +34,6 @@
         email = "max.netterberg@gmail.com";
         fullName = "Max Netterberg";
         name = "maxnetterberg";
-        # Directory where configuration will be stored
-        configDir = "/Users/${users.maxnetterberg.name}/Config";
-        # Directory where git repositories will be stored
-        workspaceDir = "/Users/${users.maxnetterberg.name}/Workspace";
-        clipboard = {
-          copy = "pbcopy";
-          paste = "pbpaste";
-        };
       };
     };
 
@@ -49,7 +41,12 @@
       system,
       username,
       hostname,
-    }:
+    }: let
+      userConfig = users.${username};
+      homeDir = "/Users/${userConfig.name}";
+      configDir = "${homeDir}/Config"; # Directory where configuration will be stored
+      workspaceDir = "${homeDir}/Workspace"; # Directory where git repositories will be stored
+    in
       darwin.lib.darwinSystem {
         system = system;
         specialArgs = {
@@ -58,7 +55,7 @@
             # Allow paid packages to be installed, without a MIT license etc
             config.allowUnfree = true;
           };
-          userConfig = users.${username};
+          inherit userConfig homeDir;
         };
         modules = [
           ./hosts/${hostname}
@@ -82,11 +79,10 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
-            home-manager.users.${username} = "${self}/home-manager/common";
+            home-manager.users.${username} = ./home-manager/common;
             home-manager.extraSpecialArgs = {
-              userConfig = users.${username};
-              self = self;
               rustproof = rustproof.packages.${system}.default;
+              inherit userConfig configDir workspaceDir self homeDir;
             };
           }
         ];

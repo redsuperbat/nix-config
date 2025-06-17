@@ -48,6 +48,7 @@
     rustup
     terraform
     tmux-sessionizer
+    tokei
     uv # Python package manager
     watch
 

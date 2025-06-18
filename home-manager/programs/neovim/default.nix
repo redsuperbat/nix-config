@@ -45,6 +45,9 @@
     ];
   };
 
+  # Set default manpage viewer to neovim
+  home.sessionVariables.MANPAGER = "nvim +Man!";
+
   # source lua config from this repo
   xdg.configFile = {
     "nvim" = {

@@ -3,6 +3,7 @@
   config,
   self,
   rustproof,
+  configDir,
   ...
 }: {
   # Neovim text editor configuration
@@ -47,7 +48,7 @@
   # source lua config from this repo
   xdg.configFile = {
     "nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${self}/home-manager/programs/neovim/nvim";
+      source = config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/neovim/nvim";
       recursive = true;
     };
   };

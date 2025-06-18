@@ -82,7 +82,7 @@
             home-manager.users.${username} = ./home-manager/common;
             home-manager.extraSpecialArgs = {
               rustproof = rustproof.packages.${system}.default;
-              inherit userConfig configDir workspaceDir self homeDir;
+              inherit userConfig configDir workspaceDir self homeDir hostname;
             };
           }
         ];

@@ -1,5 +1,6 @@
 {
   userConfig,
+  configDir,
   pkgs,
   ...
 }: {
@@ -20,6 +21,7 @@
   home.sessionVariables = {
     # Set default manpage viewer to neovim
     MANPAGER = "nvim +Man!";
+    NH_FLAKE = "${configDir}/nix-config";
   };
   # Ensure common packages are installed
   home.packages = with pkgs; [

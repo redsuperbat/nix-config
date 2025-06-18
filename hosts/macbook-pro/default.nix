@@ -12,15 +12,6 @@
       download-buffer-size = 524288000;
     };
     optimise.automatic = true;
-    gc = {
-      automatic = true;
-      interval = {
-        Weekday = 5;
-        Hour = 3;
-        Minute = 15;
-      }; # Thu 03:15
-      options = "--delete-older-than 30d";
-    };
   };
 
   # User configuration

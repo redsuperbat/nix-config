@@ -42,6 +42,7 @@
       vscode-langservers-extracted
       vue-language-server
       yaml-language-server
+      tree-sitter
     ];
   };
 

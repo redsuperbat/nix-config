@@ -19,6 +19,7 @@ return {
     formatters_by_ft = {
       lua = { "stylua" },
       nix = { "alejandra" },
+      tex = { "tex-fmt" },
       go = { "gofmt" },
       python = { "isort", "black" },
       toml = { "taplo" },

@@ -39,7 +39,6 @@
     lazydocker
     marksman
     moreutils # sponge etc
-    ncspot # Spotify for the terminal
     ripgrep
     rustup
     terraform

@@ -44,6 +44,7 @@
       yaml-language-server
       tree-sitter
       tex-fmt # Latex formatter
+      texlab # Latex lsp
     ];
   };
 

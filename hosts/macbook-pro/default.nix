@@ -46,6 +46,8 @@
             "64" = {enabled = false;};
             # Disable 'Cmd + Alt + Space' for Finder search window
             "65" = {enabled = false;};
+            # Disable 'Control + Space' for changing locale
+            "60" = {enabled = false;};
           };
         };
       };

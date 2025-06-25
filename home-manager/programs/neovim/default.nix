@@ -45,6 +45,7 @@
       tree-sitter
       tex-fmt # Latex formatter
       texlab # Latex lsp
+      texlivePackages.latexmk # For building latex documents
     ];
   };
 

@@ -1,4 +1,11 @@
-{workspaceDir, ...}: {
+{
+  workspaceDir,
+  pkgs,
+  ...
+}: {
+  # Set shell to fish
+  home.sessionVariables.SHELL = "${pkgs.fish}";
+
   programs.fish = {
     enable = true;
     shellInit = ''

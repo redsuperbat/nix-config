@@ -42,12 +42,14 @@
       CustomUserPreferences = {
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {
-            # Disable 'Cmd + Space' for Spotlight Search
+            # Disable '󰘳  + Space' for Spotlight Search
             "64" = {enabled = false;};
-            # Disable 'Cmd + Alt + Space' for Finder search window
+            # Disable '󰘳  + Alt + Space' for Finder search window
             "65" = {enabled = false;};
             # Disable 'Control + Space' for changing locale
             "60" = {enabled = false;};
+            # Disable '󰘳  + m' for minimizing windows
+            "233" = {enabled = false;};
             # Rebind "move focus to next window" to 󰘳  + §
             "27" = {
               enabled = true;

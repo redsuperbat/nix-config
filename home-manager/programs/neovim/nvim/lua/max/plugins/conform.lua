@@ -21,6 +21,7 @@ return {
       nix = { "alejandra" },
       tex = { "tex-fmt" },
       go = { "gofmt" },
+      php = { lsp_format = "prefer" },
       python = { "isort", "black" },
       toml = { "taplo" },
       css = { lsp_format = "prefer" },

@@ -48,6 +48,18 @@
             "65" = {enabled = false;};
             # Disable 'Control + Space' for changing locale
             "60" = {enabled = false;};
+            # Rebind "move focus to next window" to 󰘳  + §
+            "27" = {
+              enabled = true;
+              value = {
+                type = "standard";
+                parameters = [
+                  65535
+                  10
+                  1048576
+                ];
+              };
+            };
           };
         };
       };

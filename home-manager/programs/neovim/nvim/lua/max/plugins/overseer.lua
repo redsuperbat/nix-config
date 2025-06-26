@@ -82,12 +82,8 @@ end
 
 local function codex()
   local overseer = require("overseer")
-  local name = "codex"
-  local desc = "Launches codex"
-  local api_key = require("max.utils.fs").read_file("~/.secrets/openai-api-key")
-  if not api_key then
-    return
-  end
+  local name = "claude"
+  local desc = "Launches claude"
 
   vim.keymap.set("n", "<leader>cc", function()
     overseer.run_template({ name = name }, float.enter)
@@ -101,7 +97,6 @@ local function codex()
       return {
         cmd = name,
         cwd = vim.fn.getcwd(),
-        env = { OPENAI_API_KEY = api_key },
         components = { "float.close_on_exit", "agent.on_input_requested" },
       }
     end,

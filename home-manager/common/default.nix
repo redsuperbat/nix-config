@@ -46,6 +46,8 @@
     tokei
     uv # Python package manager
     watch
+    claude-code # Vibin
+    nur.repos.ryan4yin.gemini-cli
 
     # Desktop applications
     slack

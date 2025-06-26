@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +33,7 @@
     nixpkgs,
     nix-homebrew,
     rustproof,
+    nur,
   }: let
     users = {
       maxnetterberg = {
@@ -54,6 +60,7 @@
             system = system;
             # Allow paid packages to be installed, without a MIT license etc
             config.allowUnfree = true;
+            overlays = [nur.overlays.default];
           };
           inherit userConfig homeDir;
         };

@@ -100,7 +100,11 @@ local function gemini()
       return {
         cmd = name,
         cwd = vim.fn.getcwd(),
-        components = { "float.close_on_exit", "agent.on_input_requested" },
+        components = {
+          "float.close_on_exit",
+          "agent.on_input_requested",
+          { "on_complete_dispose", timeout = 1 },
+        },
         env = { GITHUB_PAT = github_pat },
       }
     end,

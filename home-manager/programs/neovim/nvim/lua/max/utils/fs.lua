@@ -35,6 +35,17 @@ function M.find_file(filename, bufnr)
   return nil
 end
 
+--- @param path string: Path to file
+--- @return string | nil: File contents
+function M.read_file(path)
+  path = vim.fn.expand(path)
+  local ok, data = pcall(vim.fn.readfile, path)
+  if not ok then
+    return nil
+  end
+  return table.concat(data, "\n")
+end
+
 --- This function searches for a file by its name starting from the directory of the given buffer
 --- and returns the directory path in which the file is located if it is found. If not, it returns nil.
 --- @param filename string: The name of the file to search for.

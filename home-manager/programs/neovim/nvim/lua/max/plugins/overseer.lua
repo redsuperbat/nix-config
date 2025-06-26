@@ -1,4 +1,5 @@
 local float = require("max.nuggets.overseer_float")
+local fs = require("max.utils.fs")
 
 ---@param name string
 local function open_task_if_exists(name)
@@ -85,6 +86,8 @@ local function gemini()
   local name = "gemini"
   local desc = "Launches gemini"
 
+  local github_pat = fs.read_file("~/.secrets/mcp_github_pat")
+
   vim.keymap.set("n", "<leader>cc", function()
     overseer.run_template({ name = name }, float.enter)
   end, { desc = desc })
@@ -98,6 +101,7 @@ local function gemini()
         cmd = name,
         cwd = vim.fn.getcwd(),
         components = { "float.close_on_exit", "agent.on_input_requested" },
+        env = { GITHUB_PAT = github_pat },
       }
     end,
     desc = desc,

@@ -80,7 +80,32 @@ local function lazygit()
   overseer.register_template(template)
 end
 
-local function codex()
+local function gemini()
+  local overseer = require("overseer")
+  local name = "gemini"
+  local desc = "Launches gemini"
+
+  vim.keymap.set("n", "<leader>cc", function()
+    overseer.run_template({ name = name }, float.enter)
+  end, { desc = desc })
+
+  ---@type overseer.TemplateDefinition
+  local template = {
+    name = name,
+    builder = function()
+      ---@type overseer.TaskDefinition
+      return {
+        cmd = name,
+        cwd = vim.fn.getcwd(),
+        components = { "float.close_on_exit", "agent.on_input_requested" },
+      }
+    end,
+    desc = desc,
+  }
+  overseer.register_template(template)
+end
+
+local function claude()
   local overseer = require("overseer")
   local name = "claude"
   local desc = "Launches claude"
@@ -118,6 +143,7 @@ return {
     })
     lazygit()
     lazygit_reflog()
-    codex()
+    --claude()
+    gemini()
   end,
 }

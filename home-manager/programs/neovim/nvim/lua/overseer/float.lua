@@ -1,22 +1,29 @@
 local M = {}
+---@class FloatOpts
+---@field on_close? fun()
+---@field with_esc? boolean
 
 ---@module "overseer"
 ---@param task overseer.Task
----@param with_esc? boolean
-function M.enter(task, with_esc)
-  if with_esc == nil then
-    with_esc = true
-  end
+---@param opts FloatOpts?
+function M.enter(task, opts)
+  local with_esc = opts and opts.with_esc
+  local on_close = opts and opts.on_close
 
   require("overseer").run_action(task, "open float")
-  vim.cmd("startinsert!")
-  if not with_esc then
+  vim.schedule(function()
+    vim.cmd("startinsert!")
+  end)
+  if with_esc == false then
     return
   end
   vim.keymap.set("t", "<esc><esc>", function()
     vim.cmd.close()
+    if on_close then
+      on_close()
+    end
   end, {
-    buffer = true,
+    buffer = task:get_bufnr(),
   })
 end
 

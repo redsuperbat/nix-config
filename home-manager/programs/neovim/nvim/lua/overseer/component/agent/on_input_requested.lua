@@ -1,3 +1,4 @@
+local active_agents = require("overseer.active_agents")
 ---@module "overseer"
 
 ---@param task overseer.Task
@@ -40,6 +41,7 @@ return {
               timeout = 15000,
               title = "AI Requesting input",
             })
+            active_agents.add_agent(task)
           end)
         )
       end,

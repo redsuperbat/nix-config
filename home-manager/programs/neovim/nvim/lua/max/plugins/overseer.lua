@@ -1,4 +1,5 @@
 local float = require("overseer.float")
+local active_agents = require("overseer.active_agents")
 ---@module "lazy"
 ---@module "overseer"
 ---@module "snacks"
@@ -64,6 +65,10 @@ return {
     end, {
       desc = "Open AI Agents",
     })
+
+    vim.keymap.set("n", "<leader>cp", function()
+      active_agents.pop_enter()
+    end)
 
     vim.keymap.set("n", "<leader>cc", function()
       overseer.run_template({ name = "codex" })

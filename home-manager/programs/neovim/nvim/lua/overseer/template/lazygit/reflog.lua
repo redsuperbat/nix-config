@@ -26,7 +26,7 @@ return {
       cmd = "lazygit",
       args = { "-f", file },
       cwd = vim.fn.getcwd(),
-      components = { "unique", "float.close_on_exit" },
+      components = { "unique", "float.close_on_exit", "default" },
     }
   end,
   desc = desc,

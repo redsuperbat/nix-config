@@ -44,7 +44,7 @@ return {
         return
       end
 
-      Snacks.picker.pick({
+      require("snacks").picker.pick({
         source = "ai_agents",
         items = items,
         format = "text",
@@ -68,7 +68,9 @@ return {
 
     vim.keymap.set("n", "<leader>cp", function()
       active_agents.pop_enter()
-    end)
+    end, {
+      desc = "Jump to the latest agent waiting for input",
+    })
 
     vim.keymap.set("n", "<leader>cc", function()
       overseer.run_template({ name = "codex" })

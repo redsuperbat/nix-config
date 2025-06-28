@@ -46,8 +46,10 @@
     tokei
     uv # Python package manager
     watch
-    claude-code # Vibin
-    nur.repos.ryan4yin.gemini-cli
+
+    # cli AI agents
+    claude-code
+    gemini-cli
     codex
 
     # Desktop applications

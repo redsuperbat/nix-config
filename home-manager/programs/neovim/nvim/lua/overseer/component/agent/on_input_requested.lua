@@ -34,9 +34,10 @@ return {
             if is_current_buffer(task) then
               return
             end
-            ---@type AgentParams
+            ---@type AgentParams | nil
             local meta = task.metadata
-            require("snacks").notifier.notify("AI Task: " .. meta.initial_prompt, "info", {
+            local task_name = meta and meta.initial_prompt or task.name
+            require("snacks").notifier.notify("AI Task: " .. task_name, "info", {
               icon = "󰧑",
               timeout = 15000,
               title = "AI Requesting input",

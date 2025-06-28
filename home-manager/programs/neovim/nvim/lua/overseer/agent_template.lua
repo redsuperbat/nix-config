@@ -3,11 +3,14 @@ local M = {}
 
 ---@class AgentParams
 ---@field initial_prompt string
+---@field is_agent true
 
 ---@class DefinitionOpts
 ---@field name string
 ---@field cmd fun(params: AgentParams):string
 ---@field env table<string,string|nil>?
+---@field components string[]?
+---@field params table<string,any>?
 ---@field desc string
 
 ---@param opts DefinitionOpts
@@ -16,21 +19,28 @@ function M.definition(opts)
   ---@type overseer.TemplateDefinition
   return {
     name = opts.name,
+    ---@param params AgentParams
     builder = function(params)
+      local metadata = { is_agent = true }
+      for k, v in pairs(params) do
+        metadata[k] = v
+      end
       ---@type overseer.TaskDefinition
       return {
         cmd = opts.cmd(params),
         cwd = vim.fn.getcwd(),
-        metadata = params,
+        metadata = metadata,
         env = opts.env,
         components = {
           "float.close_on_exit",
           "agent.on_input_requested",
           { "on_complete_dispose", timeout = 1 },
+          unpack(opts.components or {}),
+          "default",
         },
       }
     end,
-    params = { initial_prompt = { type = "string" } },
+    params = opts.params or { initial_prompt = { type = "string" } },
     desc = opts.desc,
   }
 end

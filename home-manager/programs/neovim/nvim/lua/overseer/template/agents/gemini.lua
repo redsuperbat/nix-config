@@ -8,5 +8,7 @@ return agent_template.definition({
   end,
   name = name,
   desc = "Launches gemini",
+  params = {},
+  components = { "float.open_on_start" },
   env = { GITHUB_PAT = fs.read_file("~/.secrets/mcp_github_pat") },
 })

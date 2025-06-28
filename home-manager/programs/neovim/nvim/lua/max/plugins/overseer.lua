@@ -1,157 +1,72 @@
-local float = require("max.nuggets.overseer_float")
-local fs = require("max.utils.fs")
-
----@param name string
-local function open_task_if_exists(name)
-  local overseer = require("overseer")
-
-  ---@type overseer.Task|nil
-  local task = overseer.list_tasks({ name = name })[1]
-
-  if not task then
-    return overseer.run_template({ name = name }, float.enter)
-  end
-
-  if not task:is_running() then
-    return overseer.run_template({ name = name }, float.enter)
-  end
-
-  float.enter(task)
-end
-
-local function lazygit_reflog()
-  local overseer = require("overseer")
-  local name = "lazygit_reflog"
-  local desc = "Git reflog for current buffer"
-
-  --- @param filepath string
-  local function encode_fish_filepath(filepath)
-    local encoded = filepath:gsub("([()%s!#$&'*;<=>?`{|}])", "\\%1")
-    return encoded
-  end
-
-  vim.keymap.set("n", "<leader>gr", function()
-    overseer.run_template({ name = name }, function(task)
-      float.enter(task, false)
-    end)
-  end, { desc = desc })
-
-  ---@type overseer.TemplateDefinition
-  local template = {
-    name = name,
-    builder = function()
-      local file = vim.trim(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
-      file = encode_fish_filepath(file)
-      ---@type overseer.TaskDefinition
-      return {
-        cmd = "lazygit",
-        args = { "-f", file },
-        cwd = vim.fn.getcwd(),
-        components = { "unique", "float.close_on_exit" },
-      }
-    end,
-    desc = desc,
-  }
-
-  overseer.register_template(template)
-end
-
-local function lazygit()
-  local overseer = require("overseer")
-  local name = "lazygit"
-  local desc = "Launches lazygit"
-  vim.keymap.set("n", "<leader>gg", function()
-    open_task_if_exists(name)
-  end, { desc = desc })
-
-  ---@type overseer.TemplateDefinition
-  local template = {
-    name = name,
-    builder = function()
-      ---@type overseer.TaskDefinition
-      return {
-        cmd = name,
-        cwd = vim.fn.getcwd(),
-        components = { "unique", "float.close_on_exit" },
-      }
-    end,
-    desc = desc,
-  }
-
-  overseer.register_template(template)
-end
-
-local function gemini()
-  local overseer = require("overseer")
-  local name = "gemini"
-  local desc = "Launches gemini"
-
-  local github_pat = fs.read_file("~/.secrets/mcp_github_pat")
-
-  vim.keymap.set("n", "<leader>cc", function()
-    overseer.run_template({ name = name }, float.enter)
-  end, { desc = desc })
-
-  ---@type overseer.TemplateDefinition
-  local template = {
-    name = name,
-    builder = function()
-      ---@type overseer.TaskDefinition
-      return {
-        cmd = name,
-        cwd = vim.fn.getcwd(),
-        components = {
-          "float.close_on_exit",
-          "agent.on_input_requested",
-          { "on_complete_dispose", timeout = 1 },
-        },
-        env = { GITHUB_PAT = github_pat },
-      }
-    end,
-    desc = desc,
-  }
-  overseer.register_template(template)
-end
-
-local function claude()
-  local overseer = require("overseer")
-  local name = "claude"
-  local desc = "Launches claude"
-
-  vim.keymap.set("n", "<leader>cc", function()
-    overseer.run_template({ name = name }, float.enter)
-  end, { desc = desc })
-
-  ---@type overseer.TemplateDefinition
-  local template = {
-    name = name,
-    builder = function()
-      ---@type overseer.TaskDefinition
-      return {
-        cmd = name,
-        cwd = vim.fn.getcwd(),
-        components = { "float.close_on_exit", "agent.on_input_requested" },
-      }
-    end,
-    desc = desc,
-  }
-  overseer.register_template(template)
-end
-
+local float = require("overseer.float")
 ---@module "lazy"
+---@module "overseer"
+---@module "snacks"
+
 ---@type LazySpec
 return {
   "stevearc/overseer.nvim",
   event = "VeryLazy",
   config = function()
     local overseer = require("overseer")
-    overseer.setup({ task_win = { padding = 3 } })
-    vim.keymap.set("n", "<leader>oo", overseer.open, {
-      desc = "Open overseer",
+    overseer.setup({
+      task_win = { padding = 3 },
+      templates = {
+        "agents.codex",
+        "agents.gemini",
+        "agents.claude",
+      },
     })
-    lazygit()
-    lazygit_reflog()
-    --claude()
-    gemini()
+
+    overseer.register_template(require("overseer.template.lazygit.default"))
+    overseer.register_template(require("overseer.template.lazygit.reflog"))
+
+    vim.keymap.set("n", "<leader>co", function()
+      ---@type overseer.Task[]
+      local tasks = overseer.list_tasks()
+
+      local items = {} ---@type snacks.picker.finder.Item[]
+      for _, task in ipairs(tasks) do
+        local text = task.name
+        ---@type snacks.picker.finder.Item
+        local item = {
+          data = { task = task },
+          text = text,
+        }
+        if task.metadata.initial_prompt ~= nil then
+          table.insert(items, item)
+        end
+      end
+
+      if #tasks == 0 then
+        vim.print("No tasks running")
+        return
+      end
+
+      Snacks.picker.pick({
+        source = "ai_agents",
+        items = items,
+        format = "text",
+        layout = {
+          preset = "vscode",
+          layout = { width = 0.4, border = "rounded" },
+        },
+        confirm = function(picker, item)
+          picker:close()
+          ---@type overseer.Task|nil
+          local task = item.data.task
+          if not task then
+            return
+          end
+          float.enter(task)
+        end,
+      })
+    end, {
+      desc = "Open AI Agents",
+    })
+
+    vim.keymap.set("n", "<leader>cc", function()
+      overseer.run_template({ name = "codex" })
+    end, { desc = "Open a new agent with an initial prompt" })
   end,
 }

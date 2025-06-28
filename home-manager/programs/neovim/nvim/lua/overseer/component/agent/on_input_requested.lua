@@ -1,30 +1,45 @@
-local float = require("max.nuggets.overseer_float")
+---@module "overseer"
+
+---@param task overseer.Task
+local function is_current_buffer(task)
+  local bufnr = task:get_bufnr()
+  return bufnr == vim.api.nvim_get_current_buf()
+end
 
 ---@module "overseer"
 ---@type overseer.ComponentDefinition
 return {
   name = "on_input_requested",
   editable = false,
-  desc = "Focus the job if input is requested",
+  desc = "Send notification if input is requested from agent",
   constructor = function()
-    local timer = vim.loop.new_timer()
+    local timer = vim.uv.new_timer()
+    if not timer then
+      return {}
+    end
+    ---@type overseer.ComponentSkeleton
     return {
       ---@param task overseer.Task
       on_output_lines = function(_, task)
         timer:stop()
+        if is_current_buffer(task) then
+          return
+        end
         timer:start(
           5000,
           0,
           vim.schedule_wrap(function()
             timer:stop()
-            local bufnr = task:get_bufnr()
-            if not bufnr then
+            if is_current_buffer(task) then
               return
             end
-            if bufnr == vim.api.nvim_get_current_buf() then
-              return
-            end
-            float.enter(task)
+            ---@type AgentParams
+            local meta = task.metadata
+            require("snacks").notifier.notify("AI Task: " .. meta.initial_prompt, "info", {
+              icon = "󰧑",
+              timeout = 15000,
+              title = "AI Requesting input",
+            })
           end)
         )
       end,

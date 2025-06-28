@@ -48,6 +48,7 @@
     watch
     claude-code # Vibin
     nur.repos.ryan4yin.gemini-cli
+    codex
 
     # Desktop applications
     slack

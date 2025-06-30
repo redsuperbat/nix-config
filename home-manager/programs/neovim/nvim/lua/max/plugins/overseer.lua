@@ -19,7 +19,7 @@ return {
   config = function()
     local overseer = require("overseer")
     overseer.setup({
-      task_win = { padding = 3 },
+      task_win = { padding = 3, border = "none" },
       templates = vim.tbl_map(function(a)
         return "agents." .. a
       end, cli_agents),

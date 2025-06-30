@@ -1,3 +1,6 @@
+local theme = require("max.utils.theme")
+local active_agents = require("overseer.active_agents")
+
 ---@module "lazy"
 ---@type LazySpec
 return {
@@ -7,7 +10,7 @@ return {
     event = "VeryLazy",
     config = function()
       local auto = require("lualine.themes.auto")
-      auto.normal.c.bg = "#1f1f28"
+      auto.normal.c.bg = theme.bg
       require("lualine").setup({
         options = {
           theme = auto,
@@ -25,6 +28,13 @@ return {
               maxcount = 999,
               timeout = 500,
             },
+            function()
+              local agents = #active_agents.agents
+              if agents == 0 then
+                return ""
+              end
+              return "󱚤 " .. agents
+            end,
             {
               "filename",
               path = 1,

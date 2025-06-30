@@ -36,7 +36,6 @@ return {
             end
             require("snacks").notifier.notify("AI Task: " .. task.name, "info", {
               icon = "󰧑",
-              timeout = 15000,
               title = "AI Requesting input",
             })
             active_agents.add_agent(task)

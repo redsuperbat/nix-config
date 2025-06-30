@@ -6,9 +6,7 @@ local name = "codex"
 
 return agent_template.definition({
   name = name,
-  cmd = function(params)
-    return string.format('%s "%s"', name, params.initial_prompt)
-  end,
+  cmd = name,
   desc = "Launches codex",
   env = { OPENAI_API_KEY = fs.read_file("~/.secrets/openai-api-key") },
 })

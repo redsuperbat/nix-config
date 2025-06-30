@@ -3,8 +3,6 @@ local name = "claude"
 
 return agent_template.definition({
   name = name,
-  cmd = function()
-    return name
-  end,
+  cmd = name,
   desc = "Launches claude",
 })

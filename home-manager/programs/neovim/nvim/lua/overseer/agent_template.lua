@@ -7,10 +7,9 @@ local M = {}
 
 ---@class DefinitionOpts
 ---@field name string
----@field cmd fun(params: AgentParams):string
+---@field cmd string
 ---@field env table<string,string|nil>?
 ---@field components string[]?
----@field params table<string,any>?
 ---@field desc string
 
 ---@param opts DefinitionOpts
@@ -40,7 +39,6 @@ function M.definition(opts)
         },
       }
     end,
-    params = opts.params or { initial_prompt = { type = "string" } },
     desc = opts.desc,
   }
 end

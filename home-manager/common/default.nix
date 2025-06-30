@@ -46,7 +46,6 @@
     tokei
     uv # Python package manager
     watch
-    k9s
 
     # cli AI agents
     claude-code

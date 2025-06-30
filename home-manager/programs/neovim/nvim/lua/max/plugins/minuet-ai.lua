@@ -1,3 +1,4 @@
+local fs = require("max.utils.fs")
 local file_path = vim.fn.expand("~/.secrets/openai-api-key")
 
 ---@module "lazy"
@@ -5,7 +6,7 @@ local file_path = vim.fn.expand("~/.secrets/openai-api-key")
 return {
   "milanglacier/minuet-ai.nvim",
   enabled = function()
-    return vim.fn.filereadable(file_path) == 1
+    return fs.exists(file_path)
   end,
   event = "VeryLazy",
   config = function()

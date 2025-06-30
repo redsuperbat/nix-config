@@ -1,8 +1,5 @@
 local float = require("overseer.float")
 local active_agents = require("overseer.active_agents")
----@module "lazy"
----@module "overseer"
----@module "snacks"
 
 local cli_agents = {
   "codex",
@@ -12,6 +9,9 @@ local cli_agents = {
 
 local agent = cli_agents[1]
 
+---@module "lazy"
+---@module "overseer"
+---@module "snacks"
 ---@type LazySpec
 return {
   "stevearc/overseer.nvim",
@@ -35,29 +35,25 @@ return {
       local items = {} ---@type snacks.picker.finder.Item[]
       for _, task in ipairs(tasks) do
         local text = task.name
+        local buf_nr = task:get_bufnr()
+
         ---@type snacks.picker.finder.Item
         local item = {
           data = { task = task },
           text = text,
         }
+        if buf_nr then
+          item.file = vim.api.nvim_buf_get_name(buf_nr)
+        end
         if task.metadata.is_agent ~= nil then
           table.insert(items, item)
         end
-      end
-
-      if #tasks == 0 then
-        vim.print("No tasks running")
-        return
       end
 
       require("snacks").picker.pick({
         source = "ai_agents",
         items = items,
         format = "text",
-        layout = {
-          preset = "vscode",
-          layout = { width = 0.4, border = "rounded" },
-        },
         confirm = function(picker, item)
           picker:close()
           ---@type overseer.Task|nil
@@ -104,10 +100,7 @@ return {
           agent = item.data.agent
         end,
         format = "text",
-        layout = {
-          preset = "vscode",
-          layout = { width = 0.4, border = "rounded" },
-        },
+        layout = { preset = "vscode", layout = { width = 0.4, height = 0.1 } },
       })
     end, { desc = "Choose supported agent CLI" })
 

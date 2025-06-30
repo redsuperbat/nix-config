@@ -25,7 +25,6 @@ function M.pop_enter()
   end
   local agent = M.agents[1]
   float.enter(agent, {
-    with_esc = true,
     on_close = function()
       M.remove_agent(agent.id)
     end,

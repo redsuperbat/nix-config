@@ -10,8 +10,10 @@ return {
   event = "VeryLazy",
   config = function()
     require("minuet").setup({
+      throttle = 200,
       provider = "openai",
       virtualtext = {
+        show_on_completion_menu = true,
         auto_trigger_ft = { "*" },
         keymap = {
           accept = "<Tab>",

@@ -34,9 +34,9 @@ return {
             if is_current_buffer(task) then
               return
             end
-            require("snacks").notifier.notify("AI Task: " .. task.name, "info", {
-              icon = "󰧑",
-              title = "AI Requesting input",
+            require("snacks").notifier.notify(task.name .. " is stale", "info", {
+              icon = "󱚤 ",
+              title = "Agent requests input",
             })
             active_agents.add_agent(task)
           end)

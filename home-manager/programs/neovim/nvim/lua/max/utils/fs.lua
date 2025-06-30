@@ -46,6 +46,18 @@ function M.read_file(path)
   return table.concat(data, "\n")
 end
 
+---@param path string: Path to file
+---@param content string: File content
+function M.write_file(path, content)
+  path = vim.fn.expand(path)
+  local file = io.open(path, "w")
+  if not file then
+    return
+  end
+  file:write(content)
+  file:close()
+end
+
 --- This function searches for a file by its name starting from the directory of the given buffer
 --- and returns the directory path in which the file is located if it is found. If not, it returns nil.
 --- @param filename string: The name of the file to search for.

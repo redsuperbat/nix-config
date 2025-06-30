@@ -15,7 +15,7 @@ return {
       { desc = "Toggle render markdown" },
     },
   },
-  ft = { "md", "markdown", "codecompanion" },
+  ft = { "md", "markdown", "codecompanion", "Avante" },
   ---@module "render-markdown"
   ---@type render.md.UserConfig
   opts = {},

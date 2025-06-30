@@ -1,3 +1,4 @@
+local fs = require("max.utils.fs")
 local float = require("overseer.float")
 local active_agents = require("overseer.active_agents")
 
@@ -7,7 +8,9 @@ local cli_agents = {
   "claude",
 }
 
-local agent = cli_agents[1]
+local agent_path = vim.fn.stdpath("cache") .. "/rsb_ai_agents"
+local maybe_agent = fs.read_file(agent_path)
+local agent = maybe_agent or cli_agents[1]
 
 ---@module "lazy"
 ---@module "overseer"
@@ -98,6 +101,7 @@ return {
         confirm = function(picker, item)
           picker:close()
           agent = item.data.agent
+          fs.write_file(agent_path, agent)
         end,
         format = "text",
         layout = { preset = "vscode", layout = { width = 0.4, height = 0.1 } },

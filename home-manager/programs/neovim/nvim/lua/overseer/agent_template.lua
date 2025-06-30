@@ -26,7 +26,7 @@ function M.definition(opts)
       end
       ---@type overseer.TaskDefinition
       return {
-        cmd = opts.cmd(params),
+        cmd = opts.cmd,
         cwd = vim.fn.getcwd(),
         metadata = metadata,
         env = opts.env,

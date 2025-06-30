@@ -72,13 +72,13 @@ return {
       desc = "Open AI Agents",
     })
 
-    vim.keymap.set("n", "<leader>cp", function()
+    vim.keymap.set("n", "<leader>cn", function()
       active_agents.pop_enter()
     end, {
       desc = "Jump to the latest agent waiting for input",
     })
 
-    vim.keymap.set("n", "<leader>cf", function()
+    vim.keymap.set("n", "<leader>cp", function()
       require("snacks").picker.pick({
         source = "ai_agents",
         title = "Current agent cli: " .. agent,

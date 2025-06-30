@@ -32,6 +32,7 @@ function M.definition(opts)
         env = opts.env,
         components = {
           "float.close_on_exit",
+          "float.open_on_start",
           "agent.on_input_requested",
           { "on_complete_dispose", timeout = 1 },
           unpack(opts.components or {}),

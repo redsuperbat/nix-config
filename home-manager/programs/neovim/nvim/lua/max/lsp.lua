@@ -13,6 +13,9 @@ vim.lsp.enable(language_servers_to_enable)
 
 vim.api.nvim_create_user_command("LspLog", function()
   vim.cmd(string.format("view %s", vim.lsp.get_log_path()))
+  local buf = vim.api.nvim_get_current_buf()
+  vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+  vim.api.nvim_set_option_value("readonly", true, { buf = buf })
 end, {
   desc = "Open lsp logs",
 })

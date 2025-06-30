@@ -3,7 +3,22 @@
 return {
   { "nvim-lua/plenary.nvim", lazy = true },
   { "nvim-treesitter/nvim-treesitter", lazy = true },
-  { "echasnovski/mini.diff", lazy = true, opts = {}, version = "*" },
+  {
+    "echasnovski/mini.diff",
+    lazy = true,
+    opts = {
+      mappings = {
+        apply = "",
+        reset = "",
+        textobject = "",
+        goto_first = "",
+        goto_prev = "",
+        goto_next = "",
+        goto_last = "",
+      },
+    },
+    version = "*",
+  },
   {
     "olimorris/codecompanion.nvim",
     event = "VeryLazy",

@@ -11,20 +11,9 @@ keymap("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 -- Clear search with <esc>
 keymap({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
--- Clear search, diff update and redraw
--- taken from runtime/lua/_editor.lua
-keymap(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff Update" }
-)
-
 -- Go to end of line and go to start of line
-keymap("n", "gl", "g_", { desc = "Go to end of line" })
-keymap("v", "gl", "g_", { desc = "Go to end of line" })
-keymap("n", "gh", "^", { desc = "Go to start of line" })
-keymap("v", "gh", "^", { desc = "Go to start of line" })
+keymap({ "n", "v" }, "gl", "g_", { desc = "Go to end of line" })
+keymap({ "n", "v" }, "gh", "^", { desc = "Go to start of line" })
 
 -- move line up(n)
 -- option + j

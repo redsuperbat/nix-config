@@ -46,6 +46,7 @@
     tokei
     uv # Python package manager
     watch
+    tdf # terminal pdf viewer
 
     # cli AI agents
     claude-code

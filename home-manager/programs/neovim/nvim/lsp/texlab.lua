@@ -169,8 +169,8 @@ return {
     texlab = {
       rootDirectory = nil,
       build = {
-        executable = "latexmk",
-        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+        executable = "tectonic",
+        args = { "%f" },
         onSave = false,
         forwardSearchAfter = false,
       },

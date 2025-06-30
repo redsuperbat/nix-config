@@ -1,7 +1,7 @@
 local fs = require("max.utils.fs")
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-if not fs.path_exists(lazy_path) then
+if not fs.exists(lazy_path) then
   vim.fn.system({
     "git",
     "clone",

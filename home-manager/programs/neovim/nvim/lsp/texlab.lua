@@ -171,7 +171,7 @@ return {
       build = {
         executable = "tectonic",
         args = { "%f" },
-        onSave = false,
+        onSave = true,
         forwardSearchAfter = false,
       },
       forwardSearch = {

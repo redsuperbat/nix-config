@@ -2,9 +2,12 @@
   userConfig,
   pkgs,
   ...
-}: {
-  imports =
-    builtins.map (name: ../programs/${name}) (builtins.attrNames (builtins.readDir ../programs));
+}: let
+  programs = builtins.map (name: ../programs/${name}) (builtins.attrNames (builtins.readDir ../programs));
+  scripts = [../scripts];
+in {
+  # Import all programs
+  imports = programs ++ scripts;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
@@ -35,6 +38,7 @@
     gh
     google-cloud-sdk
     jq
+    yq
     kubectl
     lazydocker
     marksman

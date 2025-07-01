@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  self,
   rustproof,
   configDir,
   ...

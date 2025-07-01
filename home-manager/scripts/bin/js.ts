@@ -1,17 +1,18 @@
 #!/usr/bin/env deno -A
+import process from "node:process";
 import { createRequire } from "node:module";
 import { runInNewContext } from "node:vm";
 
 function readStdin() {
 	if (process.stdin.isTTY) return "";
-	return new Promise((resolve, reject) => {
+	return new Promise<string>((resolve, reject) => {
 		let input = "";
 		process.stdin.setEncoding("utf8");
-		process.stdin.on("data", (chunk) => {
+		process.stdin.on("data", (chunk: string) => {
 			input += chunk;
 		});
 		process.stdin.on("end", () => resolve(input));
-		process.stdin.on("error", (err) => reject(err));
+		process.stdin.on("error", (err: Error) => reject(err));
 	});
 }
 

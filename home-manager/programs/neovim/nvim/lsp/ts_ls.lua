@@ -1,3 +1,4 @@
+local shebang = require("max.utils.shebang")
 ---@type vim.lsp.Config
 return {
   cmd = { "typescript-language-server", "--stdio" },
@@ -10,6 +11,9 @@ return {
     "typescript.tsx",
   },
   root_dir = function(buf, cb)
+    if shebang.is_deno(buf) then
+      return
+    end
     local deno_json_found = vim.fs.root(buf, {
       "deno.json",
     })

@@ -1,6 +1,7 @@
 #!/usr/bin/env deno -A
 import process from "node:process";
 import { createRequire } from "node:module";
+import util from "node:util";
 import { runInNewContext } from "node:vm";
 
 function readStdin() {
@@ -16,15 +17,14 @@ function readStdin() {
 	});
 }
 
-async function main() {
-	const stdin = await readStdin();
-	const data = eval(stdin);
-	const program = process.argv[2];
-	const result = runInNewContext(program, {
-		data,
-		require: createRequire(import.meta.url),
-	});
-	console.dir(result, { depth: null, maxArrayLength: null });
-}
+const stdin = await readStdin();
+const data = eval(stdin);
+const program = process.argv[2];
+const result = runInNewContext(program, {
+	data,
+	require: createRequire(import.meta.url),
+});
 
-main();
+process.stdout.write(
+	util.inspect(result, { depth: null, maxArrayLength: null }),
+);

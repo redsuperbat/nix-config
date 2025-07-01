@@ -23,7 +23,7 @@ async function main() {
 		data,
 		require: createRequire(import.meta.url),
 	});
-	console.log(result);
+	console.dir(result, { depth: null, maxArrayLength: null });
 }
 
 main();

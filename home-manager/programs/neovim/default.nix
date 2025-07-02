@@ -26,7 +26,6 @@
       lua-language-server
       nil # nix language server
       nodePackages.prettier
-      ruby-lsp
       ruff # Python linter & formatter
       ty # Python LSP
       rustproof # Spell checker

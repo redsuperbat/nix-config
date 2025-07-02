@@ -6,7 +6,7 @@ import { runInNewContext } from "node:vm";
 
 async function getStdin(): Promise<string> {
 	if (Deno.stdin.isTerminal()) return "";
-	return await new Response(Deno.stdin.readable).text();
+	return `(${await new Response(Deno.stdin.readable).text()})`;
 }
 const result = runInNewContext(process.argv[2], {
 	it: eval(await getStdin()),

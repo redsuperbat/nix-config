@@ -9,6 +9,7 @@ return {
     "javascript",
     "toml",
     "vue",
+    "tex",
     "markdown",
     "nix",
     "json",

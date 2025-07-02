@@ -326,3 +326,4 @@ winsize
 wooorm
 writeln
 zustand
+Kubernetes

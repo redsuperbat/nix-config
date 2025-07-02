@@ -8,6 +8,10 @@
          "selectedAuthType": "oauth-personal",
          "usageStatisticsEnabled": false,
          "mcpServers": {
+           "context7": {
+             "command": "npx",
+             "args": ["-y", "@upstash/context7-mcp"]
+           },
            "github": {
              "command": "docker",
              "args": [

@@ -12,10 +12,10 @@ end
 vim.lsp.enable(language_servers_to_enable)
 
 vim.api.nvim_create_user_command("LspLog", function()
-  vim.cmd(string.format("view %s", vim.lsp.get_log_path()))
+  vim.cmd(string.format("tab split %s", vim.lsp.get_log_path()))
   local buf = vim.api.nvim_get_current_buf()
   vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
-  vim.api.nvim_set_option_value("filetype", "lsp-log", { buf = buf })
+  vim.api.nvim_set_option_value("filetype", "lsplog", { buf = buf })
 end, {
   desc = "Open lsp logs",
 })

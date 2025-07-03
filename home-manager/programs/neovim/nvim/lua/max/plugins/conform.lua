@@ -22,7 +22,7 @@ return {
       tex = { "tex-fmt" },
       go = { "gofmt" },
       php = { lsp_format = "prefer" },
-      python = { "ruff" },
+      python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
       toml = { "taplo" },
       vue = { lsp_format = "prefer" },
       css = { lsp_format = "prefer" },

@@ -8,7 +8,7 @@ return {
   ---@type snacks.Config
   opts = {
     picker = {
-      sources = { files = { hidden = true } },
+      sources = { files = { hidden = true }, grep = { hidden = true } },
       formatters = { file = { truncate = 80 } },
       layout = { layout = { backdrop = false } },
     },

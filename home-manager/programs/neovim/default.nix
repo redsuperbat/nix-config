@@ -26,8 +26,8 @@
       lua-language-server
       nil # nix language server
       nodePackages.prettier
+      postgres-lsp
       ruff # Python linter & formatter
-      ty # Python LSP
       rustproof # Spell checker
       shellcheck
       shfmt # shell formatter
@@ -35,16 +35,17 @@
       stylua
       tailwindcss-language-server
       taplo # Toml toolkit
+      tectonic # Latex compiler
       terraform-ls
+      tex-fmt # Latex formatter
+      texlab # Latex lsp
       tflint # Terraform linter
+      tree-sitter
+      ty # Python LSP
       typescript-language-server
       vscode-langservers-extracted
       vue-language-server
       yaml-language-server
-      tree-sitter
-      tex-fmt # Latex formatter
-      texlab # Latex lsp
-      tectonic # Latex compiler
     ];
   };
 

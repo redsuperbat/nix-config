@@ -6,6 +6,7 @@ local cli_agents = {
   "codex",
   "gemini",
   "claude",
+  "opencode",
 }
 
 local agent_path = vim.fn.stdpath("cache") .. "/rsb_ai_agents"
@@ -104,7 +105,7 @@ return {
           fs.write_file(agent_path, agent)
         end,
         format = "text",
-        layout = { preset = "vscode", layout = { width = 0.4, height = 0.1 } },
+        layout = { preset = "vscode", layout = { width = 0.4, height = 0.2 } },
       })
     end, { desc = "Choose supported agent CLI" })
 

@@ -76,6 +76,9 @@
             };
             homebrew = {
               enable = true;
+              brews = [
+                "sst/tap/opencode"
+              ];
               casks = [
                 "ghostty"
                 "linear-linear"

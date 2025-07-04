@@ -21,7 +21,7 @@ return {
     ---@type overseer.ComponentSkeleton
     return {
       ---@param task overseer.Task
-      on_output_lines = function(_, task)
+      on_output = function(_, task)
         timer:stop()
         if is_current_buffer(task) then
           return

@@ -60,12 +60,26 @@
       cl = "clear; tmux clear-history";
       fish_greeting = ""; # Do not print fish greeting
       kill_port = "kill -9 $(lsof -ti:$argv[1])";
-      git_bootstrap =
+      git_bootstrap = "_clone__tmux $argv[1] (basename $argv[1] .git)";
+      _clone__tmux =
         # fish
         ''
           set repository_url $argv[1]
-          set repository_name (basename $repository_url .git)
+          set repository_name $argv[2]
           set repository_path "${workspaceDir}/$repository_name"
+
+          if tmux has-session -t $repository_name &>/dev/null
+              echo "Session exists switching to it"
+              tmux switch-client -t $repository_name
+              return
+          end
+
+          if test -d $repository_path
+              echo "Repository exists on machine creating new session"
+              tmux new-session -ds $repository_name -c $repository_path
+              tmux switch-client -t $repository_name
+              return
+          end
 
           echo "Bootstrapping $repository_name"
           git clone $repository_url $repository_path
@@ -95,34 +109,16 @@
           end
 
           set org $argv[1]
-          set repos (gh repo list --json sshUrl,name -L 1000 $org)
-          set selected_item (echo $repos | jq -r ".[].name" | cat -n | fzf | string trim)
+          set repositories (gh repo list --json sshUrl,name -L 1000 $org)
+          set selected_item (echo $repositories | jq -r ".[].name" | cat -n | fzf | string trim)
           if test -z "$selected_item"
               return
           end
           set selected_item_index (echo $selected_item | awk '{print $1}')
           set index (math "$selected_item_index - 1")
-          set repo_url (echo $repos | jq -r ".[$index].sshUrl")
-          set repo_name (echo $repos | jq -r ".[$index].name")
-          set repo_path "${workspaceDir}/$repo_name"
-
-          if tmux has-session -t $repo_name &>/dev/null
-              echo "Session exists switching to it"
-              tmux switch-client -t $repo_name
-              return
-          end
-
-          if test -d $repo_path
-              echo "Repo exists on machine creating new session"
-              tmux new-session -ds $repo_name -c $repo_path
-              tmux switch-client -t $repo_name
-              return
-          end
-
-          echo "Bootstrapping $repo_name"
-          git clone $repo_url $repo_path
-          tmux new-session -ds $repo_name -c $repo_path
-          tmux switch-client -t $repo_name
+          set repository_url (echo $repositories | jq -r ".[$index].sshUrl")
+          set repository_name (echo $repositories | jq -r ".[$index].name")
+          _clone__tmux $repository_url $repository_name
         '';
       fish_prompt =
         # fish
@@ -236,6 +232,8 @@
       ggl = "git pull";
       ggp = "git push";
       gap = "git add :/ -Ap";
+
+      nds = "nh darwin switch";
 
       kc = "kubectl";
       lg = "lazygit";

@@ -56,6 +56,7 @@ in {
     claude-code
     gemini-cli
     codex
+    opencode
 
     # Desktop applications
     slack

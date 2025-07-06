@@ -14,6 +14,13 @@
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
       {
+        plugin = fingers;
+        extraConfig = ''
+          set -g @fingers-key f
+          set -g @fingers-pattern-0 '[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' # Pattern for emails
+        '';
+      }
+      {
         plugin = resurrect;
         extraConfig = "set -g @resurrect-capture-pane-contents 'on'"; # allow tmux-resurrect to capture pane contents
       }

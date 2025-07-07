@@ -6,7 +6,9 @@ import { runInNewContext } from "node:vm";
 
 async function getStdin(): Promise<string> {
   if (Deno.stdin.isTerminal()) return "";
-  return `(${await new Response(Deno.stdin.readable).text()})`;
+  const stdin = await new Response(Deno.stdin.readable).text();
+  if (stdin.trim().length === 0) return "";
+  return `(${stdin})`;
 }
 const result = runInNewContext(process.argv[2], {
   // biome-ignore lint/security/noGlobalEval: This script is only ran by trusted users

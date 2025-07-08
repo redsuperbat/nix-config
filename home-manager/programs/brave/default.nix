@@ -5,6 +5,7 @@
       {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
       {id = "gppongmhjkpfnbhagpmjfkannfbllamg";} # Wappalyzer
       {id = "fmkadmapgofadopljbjfkapdkoienihi";} # React developer tools
+      {id = "khncfooichmfjbepaaaebmommgaepoid";} # Unhook youtube shorts
     ];
   };
 }

@@ -1,4 +1,4 @@
-local shebang = require("max.utils.shebang")
+-- local shebang = require("max.utils.shebang")
 ---@type vim.lsp.Config
 return {
   cmd = { "typescript-language-server", "--stdio" },
@@ -10,25 +10,25 @@ return {
     "typescriptreact",
     "typescript.tsx",
   },
-  root_dir = function(buf, cb)
-    if shebang.is_deno(buf) then
-      return
-    end
-    local deno_json_found = vim.fs.root(buf, {
-      "deno.json",
-    })
-    if deno_json_found ~= nil then
-      return
-    end
-    local found = vim.fs.root(buf, {
-      "package.json",
-      "tsconfig.json",
-      ".git",
-    })
-    if found == nil then
-      return
-    end
-    cb(found)
+  root_dir = function()
+    --   if shebang.is_deno(buf) then
+    --     return
+    --   end
+    --   local deno_json_found = vim.fs.root(buf, {
+    --     "deno.json",
+    --   })
+    --   if deno_json_found ~= nil then
+    --     return
+    --   end
+    --   local found = vim.fs.root(buf, {
+    --     "package.json",
+    --     "tsconfig.json",
+    --     ".git",
+    --   })
+    --   if found == nil then
+    --     return
+    --   end
+    --   cb(found)
   end,
   handlers = {
     -- handle rename request for certain code actions like extracting functions / types

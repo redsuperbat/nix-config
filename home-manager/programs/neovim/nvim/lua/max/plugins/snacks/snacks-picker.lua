@@ -1,5 +1,3 @@
-local layout_big = { layout = { width = 0.95, height = 0.95 } }
-
 ---@module "lazy"
 ---@type LazySpec
 return {
@@ -8,9 +6,15 @@ return {
   ---@type snacks.Config
   opts = {
     picker = {
-      sources = { files = { hidden = true }, grep = { hidden = true } },
+      sources = {
+        files = { hidden = true },
+        grep = { hidden = true },
+      },
       formatters = { file = { truncate = 80 } },
-      layout = { layout = { backdrop = false } },
+      layout = {
+        preset = "default",
+        layout = { backdrop = false, width = 0.95, height = 0.95 },
+      },
     },
   },
   init = function()
@@ -40,7 +44,7 @@ return {
     {
       "<leader>sG",
       function()
-        require("snacks").picker.grep({ cwd = require("max.utils.fs").root(), layout = layout_big })
+        require("snacks").picker.grep({ cwd = require("max.utils.fs").root() })
       end,
       desc = "Grep",
     },
@@ -54,10 +58,7 @@ return {
     {
       "<leader><space>",
       function()
-        require("snacks").picker.files({
-          cwd = require("max.utils.fs").root(),
-          layout = layout_big,
-        })
+        require("snacks").picker.files({ cwd = require("max.utils.fs").root() })
       end,
       desc = "Find Files",
     },
@@ -71,9 +72,7 @@ return {
     {
       "<leader>ff",
       function()
-        require("snacks").picker.files({
-          layout = { layout = { width = 0.95, height = 0.95 } },
-        })
+        require("snacks").picker.files()
       end,
       desc = "Find Files",
     },
@@ -87,10 +86,7 @@ return {
     {
       "<leader>fr",
       function()
-        require("snacks").picker.recent({
-          filter = { cwd = true },
-          layout = layout_big,
-        })
+        require("snacks").picker.recent({ filter = { cwd = true } })
       end,
       desc = "Recent",
     },
@@ -131,9 +127,7 @@ return {
     {
       "<leader>sg",
       function()
-        require("snacks").picker.grep({
-          layout = layout_big,
-        })
+        require("snacks").picker.grep({})
       end,
       desc = "Grep",
     },
@@ -141,10 +135,7 @@ return {
       "<leader>sv",
       function()
         local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."))
-        require("snacks").picker.grep({
-          search = vim.fn.join(lines, " "),
-          layout = layout_big,
-        })
+        require("snacks").picker.grep({ search = vim.fn.join(lines, " ") })
       end,
       desc = "Search text marked by visual",
       mode = "v",
@@ -163,7 +154,6 @@ return {
       function()
         require("snacks").picker.grep({
           search = vim.fn.expand("<cword>"),
-          layout = layout_big,
         })
       end,
       desc = "Search word under cursor",

@@ -1,4 +1,3 @@
-vim.g.lazygit_config = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
@@ -8,10 +7,9 @@ if not vim.env.SSH_TTY then
   vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
 end
 
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.o.foldtext = "v:lua.vim.treesitter.foldtext()"
-vim.o.winborder = "rounded" -- Rounded floating window border
-
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+vim.opt.winborder = "rounded" -- Rounded floating window border
 vim.opt.autowrite = true -- Enable auto write
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.conceallevel = 0 -- Conceal nothing
@@ -49,8 +47,8 @@ vim.opt.splitright = true -- Put new windows right of current
 vim.opt.tabstop = 2 -- Number of spaces tabs count for
 vim.opt.termguicolors = true -- True color support
 vim.opt.timeoutlen = 200 -- Lower than default (1000) to quickly trigger which-key
-vim.opt.undofile = true
-vim.opt.undolevels = 10000
+vim.opt.undofile = true -- Saves undo changes between neovim sessions
+vim.opt.undolevels = 10000 -- Number of changes which can be undone saved in memory
 vim.opt.updatetime = 200 -- Save swap file and trigger CursorHold
 vim.opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 vim.opt.wildmode = "longest:full,full" -- Command-line completion mode

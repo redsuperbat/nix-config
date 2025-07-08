@@ -42,7 +42,8 @@
       tflint # Terraform linter
       tree-sitter
       ty # Python LSP
-      typescript-language-server
+      typescript-language-server # Official ts version
+      typescript-go # Go implementation of typescript
       vscode-langservers-extracted
       vue-language-server
       yaml-language-server

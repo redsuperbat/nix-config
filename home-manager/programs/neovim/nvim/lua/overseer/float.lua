@@ -14,7 +14,7 @@ function M.enter(task, opts)
   end)
   vim.keymap.set("t", "<esc><esc>", function()
     vim.cmd.close()
-    if on_close ~= nil then
+    if type(on_close) == "function" then
       on_close()
     end
   end, {

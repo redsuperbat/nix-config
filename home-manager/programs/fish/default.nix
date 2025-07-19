@@ -217,7 +217,11 @@
     binds = {
       "ctrl-y" = {
         mode = "insert";
-        command = "accept-autosuggestion execute";
+        command = [
+          "accept-autosuggestion"
+          "execute"
+        ];
+        operate = "preset";
       };
     };
 

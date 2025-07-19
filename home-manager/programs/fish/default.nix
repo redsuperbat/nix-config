@@ -61,6 +61,29 @@
       fish_greeting = ""; # Do not print fish greeting
       kill_port = "kill -9 $(lsof -ti:$argv[1])";
       git_bootstrap = "_clone__tmux $argv[1] (basename $argv[1] .git)";
+      new_project =
+        # fish
+        ''
+          set project_name $argv[1]
+          set project_path "${workspaceDir}/$project_name"
+
+          if tmux has-session -t $project_name &>/dev/null
+              tmux switch-client -t $project_name
+              return
+          end
+
+          if test -d $project_path
+              echo "Project exists, creating new session"
+              tmux new-session -ds $project_name -c $project_path
+              tmux switch-client -t $project_path
+              return
+          end
+
+          echo "Bootstrapping $project_name"
+          mkdir -p $project_path
+          tmux new-session -ds $project_name -c $project_path
+          tmux switch-client -t $project_path
+        '';
       _clone__tmux =
         # fish
         ''

@@ -51,6 +51,7 @@ in {
     uv # Python package manager
     watch
     tdf # terminal pdf viewer
+    ollama
 
     # cli AI agents
     claude-code

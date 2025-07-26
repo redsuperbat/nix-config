@@ -30,7 +30,7 @@ return {
     },
   },
   deactivate = function()
-    vim.cmd([[Neotree close]])
+    vim.cmd("Neotree close")
   end,
   config = function()
     require("neo-tree").setup({
@@ -82,11 +82,10 @@ return {
           ["Y"] = function(state)
             local path = state.tree:get_node().path
             vim.fn.setreg("+", path, "c")
-            vim.print("copied path " .. path)
+            vim.print("copied!")
           end,
           ["O"] = function(state)
             local path = state.tree:get_node().path
-            vim.print("opening path " .. path)
             os.execute("open -R " .. path)
           end,
         },

@@ -14,6 +14,9 @@
     withRuby = true;
 
     extraPackages = with pkgs; [
+      imagemagick # For viewing images
+      ghostscript # For rendering pdf:s
+      mermaid-cli # For rendering mermaid diagrams
       actionlint # Github action linter
       alejandra # nix formatter
       checkmake # Makefile linter

@@ -47,6 +47,15 @@ return {
             vim.keymap.set("i", "<esc>", vim.cmd.stopinsert, { noremap = true, buffer = args.bufnr })
           end,
         },
+        -- Start insert when neo-tree popup buffer enter
+        -- this is needed only for when deleting multiple
+        -- files in visual mode
+        {
+          event = "neo_tree_popup_buffer_enter",
+          handler = function()
+            vim.cmd("startinsert")
+          end,
+        },
         { event = "file_moved", handler = on_move },
         { event = "file_renamed", handler = on_move },
       },

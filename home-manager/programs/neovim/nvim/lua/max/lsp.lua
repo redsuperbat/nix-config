@@ -1,3 +1,4 @@
+local term = require("max.utils.terminal")
 --- This code enables all language servers
 --- with configuration in the lsp directory
 local lsp_dir = vim.fs.joinpath(vim.fn.stdpath("config"), "lsp")
@@ -14,13 +15,6 @@ vim.lsp.enable(language_servers_to_enable)
 vim.api.nvim_create_user_command("LspClearLog", function()
   vim.cmd(string.format("!echo -n > %s", vim.lsp.get_log_path()))
 end, { desc = "Clear lsp logs" })
-
-vim.api.nvim_create_user_command("LspLog", function()
-  vim.cmd(string.format("tab split %s", vim.lsp.get_log_path()))
-  local buf = vim.api.nvim_get_current_buf()
-  vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
-  vim.api.nvim_set_option_value("filetype", "lsplog", { buf = buf })
-end, { desc = "Open lsp logs" })
 
 vim.api.nvim_create_user_command("LspInfo", ":checkhealth vim.lsp", {
   desc = "Language server info",

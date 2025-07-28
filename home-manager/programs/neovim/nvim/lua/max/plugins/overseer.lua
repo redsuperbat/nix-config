@@ -31,6 +31,7 @@ return {
 
     overseer.register_template(require("overseer.template.lazygit.default"))
     overseer.register_template(require("overseer.template.lazygit.reflog"))
+    overseer.register_template(require("overseer.template.lnav.default"))
 
     vim.keymap.set("n", "<leader>co", function()
       ---@type overseer.Task[]

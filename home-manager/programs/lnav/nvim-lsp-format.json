@@ -1,0 +1,29 @@
+{
+  "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+  "nvim_lsp": {
+    "title": "Nvim Lsp Log Format",
+    "description": "Log format used by nvim lsp client",
+    "file-pattern": ".*lsp\\.log",
+    "regex": {
+      "basic": {
+        "pattern": "^\\[(?<level>\\w+)\\]\\[(?<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2})\\]\\s(?<source>.+?:\\d+)(?:\\s+.+?)?(?:\\s+.+?)?\\s+(?<body>.+)$"
+      }
+    },
+    "level": {
+      "error": "ERROR",
+      "warning": "WARN",
+      "info": "START"
+    },
+    "value": {
+      "source": {
+        "kind": "string",
+        "identifier": true
+      }
+    },
+    "sample": [
+      {
+        "line": "[ERROR][2023-11-06 17:35:57] .../vim/lsp/rpc.lua:734    \"rpc\"   \"/nix/store/m496nzhqma57j1968fbn4hm6g8q9kzga-smithy_ls-0.0.28/bin/smithy_ls\"    \"stderr\"        \"Nov 06, 2023 5:35:57 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify\nWARNING: Unsupported notification method: metals/didFocusTextDocument\n\""
+      }
+    ]
+  }
+}

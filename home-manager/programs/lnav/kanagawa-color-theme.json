@@ -1,0 +1,334 @@
+{
+  "$schema": "https://lnav.org/schemas/config-v1.schema.json",
+  "ui": {
+    "theme-defs": {
+      "kanagawa": {
+        "vars": {
+          "sumiInk0": "#16161D",
+          "sumiInk1": "#181820",
+          "sumiInk2": "#1F1F28",
+          "sumiInk3": "#2A2A37",
+          "sumiInk4": "#363646",
+          "fujiWhite": "#DCD7BA",
+          "oldWhite": "#C8C093",
+          "waveBlue1": "#223249",
+          "waveBlue2": "#2D4F67",
+          "winterGreen": "#2B3328",
+          "winterYellow": "#49443C",
+          "winterRed": "#43242B",
+          "winterBlue": "#252535",
+          "autumnGreen": "#76946A",
+          "autumnRed": "#C34043",
+          "autumnYellow": "#DCA561",
+          "samuraiRed": "#E82424",
+          "roninYellow": "#FF9E3B",
+          "waveAqua1": "#6A9589",
+          "dragonBlue": "#658594",
+          "oniViolet": "#957FB8",
+          "crystalBlue": "#7E9CD8",
+          "springBlue": "#7FB4CA",
+          "springGreen": "#98BB6C",
+          "boatYellow": "#938056"
+        },
+        "styles": {
+          "identifier": {
+            "color": "$crystalBlue"
+          },
+          "text": {
+            "color": "$fujiWhite",
+            "background-color": "$sumiInk2"
+          },
+          "selected-text": {
+            "background-color": "$waveBlue1"
+          },
+          "alt-text": {
+            "background-color": "$sumiInk3"
+          },
+          "ok": {
+            "color": "$springGreen",
+            "bold": true
+          },
+          "info": {
+            "color": "$crystalBlue",
+            "bold": true
+          },
+          "error": {
+            "color": "$samuraiRed",
+            "bold": true
+          },
+          "warning": {
+            "color": "$roninYellow",
+            "bold": true
+          },
+          "hidden": {
+            "color": "$roninYellow",
+            "bold": true
+          },
+          "cursor-line": {
+            "color": "$oldWhite",
+            "background-color": "$waveBlue2",
+            "bold": true
+          },
+          "disabled-cursor-line": {
+            "color": "$fujiWhite",
+            "background-color": "$sumiInk3"
+          },
+          "adjusted-time": {
+            "color": "$crystalBlue"
+          },
+          "skewed-time": {
+            "color": "$roninYellow"
+          },
+          "offset-time": {
+            "color": "$waveAqua1"
+          },
+          "file-offset": {
+            "color": "$boatYellow"
+          },
+          "invalid-msg": {
+            "color": "$roninYellow"
+          },
+          "focused": {
+            "color": "$sumiInk0",
+            "background-color": "$fujiWhite"
+          },
+          "disabled-focused": {
+            "color": "$fujiWhite",
+            "background-color": "$sumiInk3"
+          },
+          "popup": {
+            "color": "$sumiInk0",
+            "background-color": "$crystalBlue"
+          },
+          "scrollbar": {
+            "color": "$sumiInk0",
+            "background-color": "$oldWhite"
+          },
+          "h1": {
+            "color": "$oniViolet",
+            "bold": true
+          },
+          "h2": {
+            "color": "$oniViolet",
+            "underline": true
+          },
+          "h3": {
+            "color": "$oniViolet"
+          },
+          "h4": {
+            "underline": true
+          },
+          "h5": {
+            "underline": true
+          },
+          "h6": {
+            "underline": true
+          },
+          "hr": {
+            "color": "$sumiInk4"
+          },
+          "hyperlink": {
+            "underline": true
+          },
+          "list-glyph": {
+            "color": "$waveAqua1"
+          },
+          "breadcrumb": {
+            "color": "$boatYellow",
+            "bold": true
+          },
+          "table-border": {
+            "color": "$sumiInk4"
+          },
+          "table-header": {
+            "bold": true
+          },
+          "quote-border": {
+            "color": "$autumnYellow",
+            "background-color": "$winterYellow"
+          },
+          "quoted-text": {
+            "color": "$autumnYellow",
+            "background-color": "$winterYellow"
+          },
+          "footnote-border": {
+            "color": "$crystalBlue",
+            "background-color": "$winterBlue"
+          },
+          "footnote-text": {
+            "color": "$waveAqua1",
+            "background-color": "$winterBlue"
+          },
+          "snippet-border": {
+            "color": "$waveAqua1"
+          },
+          "indent-guide": {
+            "color": "$sumiInk4"
+          }
+        },
+        "syntax-styles": {
+          "inline-code": {
+            "color": "$springGreen",
+            "background-color": "$sumiInk1"
+          },
+          "quoted-code": {
+            "color": "$autumnYellow",
+            "background-color": "$sumiInk1"
+          },
+          "code-border": {
+            "color": "$sumiInk3",
+            "background-color": "$sumiInk1"
+          },
+          "keyword": {
+            "color": "$samuraiRed",
+            "bold": true
+          },
+          "string": {
+            "color": "$autumnYellow",
+            "bold": true
+          },
+          "comment": {
+            "color": "$dragonBlue"
+          },
+          "doc-directive": {
+            "color": "$roninYellow"
+          },
+          "variable": {
+            "color": "$boatYellow"
+          },
+          "symbol": {
+            "color": "$waveAqua1"
+          },
+          "re-special": {
+            "color": "$waveAqua1"
+          },
+          "re-repeat": {
+            "color": "$roninYellow"
+          },
+          "diff-delete": {
+            "color": "$samuraiRed"
+          },
+          "diff-add": {
+            "color": "$springGreen"
+          },
+          "diff-section": {
+            "color": "$oniViolet"
+          },
+          "spectrogram-low": {
+            "background-color": "$springGreen"
+          },
+          "spectrogram-medium": {
+            "background-color": "$autumnYellow"
+          },
+          "spectrogram-high": {
+            "background-color": "$samuraiRed"
+          },
+          "file": {
+            "color": "$crystalBlue"
+          },
+          "null": {
+            "color": "$oldWhite"
+          },
+          "ascii-control": {
+            "color": "$springGreen"
+          },
+          "non-ascii": {
+            "color": "$roninYellow"
+          },
+          "number": {
+            "bold": true
+          },
+          "function": {
+            "color": "$springGreen"
+          },
+          "separators-references-accessors": {
+            "color": "$roninYellow"
+          },
+          "type": {
+            "color": "$waveAqua1"
+          }
+        },
+        "status-styles": {
+          "disabled-title": {
+            "color": "$crystalBlue",
+            "background-color": "$sumiInk3",
+            "bold": true
+          },
+          "title": {
+            "color": "$fujiWhite",
+            "background-color": "$crystalBlue",
+            "bold": true
+          },
+          "subtitle": {
+            "color": "$oldWhite",
+            "background-color": "$waveBlue1",
+            "bold": true
+          },
+          "info": {
+            "color": "$oldWhite",
+            "background-color": "$sumiInk3"
+          },
+          "title-hotkey": {
+            "color": "$sumiInk0",
+            "background-color": "$crystalBlue",
+            "underline": true
+          },
+          "hotkey": {
+            "color": "$fujiWhite",
+            "underline": true
+          },
+          "text": {
+            "color": "$fujiWhite",
+            "background-color": "$sumiInk2"
+          },
+          "warn": {
+            "color": "$roninYellow",
+            "background-color": "$sumiInk2"
+          },
+          "alert": {
+            "color": "$samuraiRed",
+            "background-color": "$sumiInk2"
+          },
+          "active": {
+            "color": "$springGreen",
+            "background-color": "$sumiInk2"
+          },
+          "inactive": {
+            "color": "$sumiInk4",
+            "background-color": "$sumiInk3"
+          },
+          "inactive-alert": {
+            "color": "$samuraiRed",
+            "background-color": "$sumiInk3"
+          },
+          "suggestion": {
+            "color": "$boatYellow"
+          }
+        },
+        "log-level-styles": {
+          "warning": {
+            "color": "$roninYellow"
+          },
+          "error": {
+            "color": "$samuraiRed"
+          },
+          "critical": {
+            "color": "$samuraiRed"
+          },
+          "fatal": {
+            "color": "$samuraiRed"
+          },
+          "info": {
+            "color": "$crystalBlue"
+          },
+          "debug": {
+            "color": "$waveAqua1"
+          },
+          "trace": {
+            "color": "$sumiInk4"
+          }
+        }
+      }
+    }
+  }
+}

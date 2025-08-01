@@ -52,6 +52,7 @@ in {
     watch
     tdf # terminal pdf viewer
     ollama
+    flutter
 
     # cli AI agents
     claude-code

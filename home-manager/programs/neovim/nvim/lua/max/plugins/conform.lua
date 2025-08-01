@@ -24,7 +24,7 @@ return {
       php = { lsp_format = "prefer" },
       python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
       toml = { "taplo" },
-      vue = { lsp_format = "prefer" },
+      vue = { "prettier" },
       css = { lsp_format = "prefer" },
       markdown = { "prettier", lsp_format = "fallback" },
       rust = { lsp_format = "prefer" },

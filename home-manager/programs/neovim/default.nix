@@ -7,7 +7,8 @@
   ...
 }: {
   programs.neovim = {
-    # Pin package since the hover functionality is buggy in 0.11.3
+    # It's pinned to version 0.11.2
+    # Neovim is pinned since the hover functionality is buggy in 0.11.3
     package = pkgs-pinned.neovim-unwrapped;
     enable = true;
     defaultEditor = true;
@@ -50,6 +51,11 @@
       typescript-language-server # Official ts version
       typescript-go # Go implementation of typescript
       vscode-langservers-extracted
+      ruby-lsp
+
+      # TODO: reconfigure lsp for vue
+      # The package is pinned to version 0.2.8 since
+      # 0.3.0 is causing all types of issues
       pkgs-pinned.vue-language-server
       yaml-language-server
     ];

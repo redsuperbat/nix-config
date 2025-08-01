@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   # Set default manpage viewer to neovim
-  home.sessionVariables.CHROME_EXECUTABLE = "${pkgs.brave}";
+  home.sessionVariables.CHROME_EXECUTABLE = "${pkgs.brave}/bin/brave";
   programs.brave = {
     enable = true;
     extensions = [

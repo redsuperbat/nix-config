@@ -60,6 +60,10 @@ in {
     codex
     opencode
 
+    # mac specfic apps
+    xcodes
+    cocoapods
+
     # Desktop applications
     slack
     bitwarden-desktop

@@ -6,8 +6,9 @@
   pkgs-pinned,
   ...
 }: {
-  # Neovim text editor configuration
   programs.neovim = {
+    # Pin package since the hover functionality is buggy in 0.11.3
+    package = pkgs-pinned.neovim-unwrapped;
     enable = true;
     defaultEditor = true;
     withNodeJs = true;

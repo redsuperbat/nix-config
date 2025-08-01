@@ -3,6 +3,7 @@
   config,
   rustproof,
   configDir,
+  pkgs-pinned,
   ...
 }: {
   # Neovim text editor configuration
@@ -48,7 +49,7 @@
       typescript-language-server # Official ts version
       typescript-go # Go implementation of typescript
       vscode-langservers-extracted
-      vue-language-server
+      pkgs-pinned.vue-language-server
       yaml-language-server
     ];
   };

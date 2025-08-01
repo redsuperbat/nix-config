@@ -5,9 +5,11 @@
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
-    rustproof = {
-      url = "github:redsuperbat/rustproof";
-      inputs.nixpkgs.follows = "nixpkgs";
+    rustproof.url = "github:redsuperbat/rustproof";
+
+    # Pinned version for vue language server 2.2.8
+    nixpkgs-pinned = {
+      url = "github:NixOS/nixpkgs/a421ac6595024edcfbb1ef950a3712b89161c359";
     };
 
     home-manager = {
@@ -28,6 +30,7 @@
     nixpkgs,
     nix-homebrew,
     rustproof,
+    nixpkgs-pinned,
   }: let
     users = {
       maxnetterberg = {
@@ -46,15 +49,16 @@
       homeDir = "/Users/${userConfig.name}";
       configDir = "${homeDir}/Config"; # Directory where configuration will be stored
       workspaceDir = "${homeDir}/Workspace"; # Directory where git repositories will be stored
+      nixpkgsOpts = {
+        # Allow paid packages to be installed, without a MIT license etc
+        config.allowUnfree = true;
+        system = system;
+      };
     in
       darwin.lib.darwinSystem {
         system = system;
         specialArgs = {
-          pkgs = import nixpkgs {
-            system = system;
-            # Allow paid packages to be installed, without a MIT license etc
-            config.allowUnfree = true;
-          };
+          pkgs = import nixpkgs nixpkgsOpts;
           inherit userConfig homeDir;
         };
         modules = [
@@ -82,6 +86,7 @@
             home-manager.backupFileExtension = "bak";
             home-manager.users.${username} = ./home-manager/common;
             home-manager.extraSpecialArgs = {
+              pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
               rustproof = rustproof.packages.${system}.default;
               inherit userConfig configDir workspaceDir self homeDir hostname;
             };

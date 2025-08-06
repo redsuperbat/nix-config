@@ -52,6 +52,7 @@
       typescript-go # Go implementation of typescript
       vscode-langservers-extracted
       ruby-lsp
+      tinymist # typst language server
 
       # TODO: reconfigure lsp for vue
       # The package is pinned to version 0.2.8 since
@@ -64,7 +65,7 @@
   # Set default manpage viewer to neovim
   home.sessionVariables.MANPAGER = "nvim +Man!";
 
-  # source lua config from this repo
+  # source lua config
   xdg.configFile = {
     "nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/neovim/nvim";

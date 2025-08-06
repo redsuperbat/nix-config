@@ -45,11 +45,11 @@ end
 function M.root()
   return vim.fs.root(0, {
     "package.json",
-    "lazyvim.json",
     ".gitignore",
     "tsconfig.json",
     "deno.json",
     "Cargo.toml",
+    "lib.typ", -- Typst libraries
   })
 end
 

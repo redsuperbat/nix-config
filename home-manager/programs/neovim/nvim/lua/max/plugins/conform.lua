@@ -26,6 +26,7 @@ return {
       toml = { "taplo" },
       vue = { "prettier" },
       dart = { lsp_format = "prefer" },
+      typst = { "typstyle" },
       css = { lsp_format = "prefer" },
       markdown = { "prettier", lsp_format = "fallback" },
       rust = { lsp_format = "prefer" },

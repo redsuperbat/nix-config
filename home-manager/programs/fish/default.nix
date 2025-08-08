@@ -251,6 +251,7 @@
     shellAliases = {
       htop = "btm";
       pdf = "tdf";
+      cd = "z";
 
       # git
       gaa = "git add --all";

@@ -74,7 +74,11 @@ return {
     })
 
     vim.keymap.set("n", "<leader>cn", function()
-      active_agents.pop_enter()
+      local active_agent = active_agents.pop()
+      if not active_agent then
+        return
+      end
+      float.enter(active_agent)
     end, {
       desc = "Jump to the latest agent waiting for input",
     })

@@ -1,5 +1,4 @@
 ---@module "overseer"
-local float = require("overseer.float")
 ---@class ActiveAgents
 ---@field agents table<number, overseer.Task>
 local M = { agents = {} }
@@ -19,16 +18,15 @@ function M.remove_agent(task_id)
   )
 end
 
-function M.pop_enter()
+--- @return overseer.Task | nil
+function M.pop()
   if #M.agents == 0 then
-    return require("snacks").notifier.notify("No active agents")
+    require("snacks").notifier.notify("No active agents")
+    return
   end
   local agent = M.agents[1]
-  float.enter(agent, {
-    on_close = function()
-      M.remove_agent(agent.id)
-    end,
-  })
+  M.remove_agent(agent.id)
+  return agent
 end
 
 return M

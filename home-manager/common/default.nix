@@ -1,6 +1,7 @@
 {
   userConfig,
   pkgs,
+  pkgs-pinned,
   ...
 }: let
   programs = builtins.map (name: ../programs/${name}) (builtins.attrNames (builtins.readDir ../programs));
@@ -51,7 +52,8 @@ in {
     uv # Python package manager
     watch
     tdf # terminal pdf viewer
-    ollama
+
+    pkgs-pinned.ollama # Pinned because earlier versions are marked as broken
     flutter
 
     # cli AI agents

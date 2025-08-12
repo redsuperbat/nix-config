@@ -18,9 +18,6 @@ require("lazy").setup({
     backdrop = 100,
     border = "rounded",
     size = { width = 0.85, height = 0.85 },
-    custom_keys = {
-      ["K"] = false,
-    },
   },
   rocks = {
     enabled = false,

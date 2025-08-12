@@ -1,4 +1,3 @@
-local term = require("max.utils.terminal")
 --- This code enables all language servers
 --- with configuration in the lsp directory
 local lsp_dir = vim.fs.joinpath(vim.fn.stdpath("config"), "lsp")

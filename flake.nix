@@ -75,6 +75,7 @@
               enable = true;
               casks = [
                 "ghostty"
+                "signal"
                 "linear-linear"
               ];
             };

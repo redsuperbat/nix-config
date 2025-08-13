@@ -329,3 +329,4 @@ zustand
 Kubernetes
 rerender
 tinymist
+curr

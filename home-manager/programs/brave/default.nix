@@ -8,6 +8,7 @@
       {id = "gppongmhjkpfnbhagpmjfkannfbllamg";} # Wappalyzer
       {id = "fmkadmapgofadopljbjfkapdkoienihi";} # React developer tools
       {id = "khncfooichmfjbepaaaebmommgaepoid";} # Unhook youtube shorts
+      {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # Vimium
     ];
   };
 }

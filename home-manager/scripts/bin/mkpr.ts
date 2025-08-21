@@ -1,9 +1,9 @@
-#!/opt/homebrew/bin/deno -A
+#!/usr/bin/env deno -A
 import { $, argv, echo, question, spinner } from "npm:zx";
 
 $.verbose = false;
 
-const draft = argv.d ?? argv.draft ?? "";
+const draft = !!(argv.d ?? argv.draft ?? false);
 
 if (draft) {
   echo`Creating a draft PR`;
@@ -17,10 +17,9 @@ await spinner(async () => {
 });
 
 // Handles this type of branch name:
-// maxnetterberg/team-1337-refactor-all-the-code
+// nor-1580-automatic-refresh-of-page-when-a-new-version-is-available
 function parseBranchNameToPrTitle(branchName: string): string {
-  const [, rest] = branchName.split("/");
-  const [team, ticketNr, ...descParts] = rest.split("-");
+  const [team, ticketNr, ...descParts] = branchName.split("-");
   const description = descParts
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
@@ -36,7 +35,10 @@ ${description}
 `;
 await spinner(async () => {
   echo`Making pr...`;
-  const pr =
-    await $`gh pr create --title ${title} --body ${body} ${draft ? "-d" : ""}`;
+  const args = ["--title", title, "--body", body];
+  if (draft) {
+    args.push("-d");
+  }
+  const pr = await $`gh pr create ${args}`;
   echo(pr);
 });

@@ -44,7 +44,6 @@
     extraConfig = ''
       set -g allow-passthrough on                                                        # To render images in tmux panes
 
-      bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded!"  # Source config with <prefix>+r
       bind s popup -h 85% -w 85% -E "tms switch"                                         # Switch between sessions
       bind w popup -h 85% -w 85% -E "tms windows"                                        # Switch between windows
       bind F popup -E "tms"                                                              # Run tms to add new session

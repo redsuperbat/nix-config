@@ -54,6 +54,7 @@
       ruby-lsp
       tinymist # typst language server
       typstyle # typst formatter
+      oxlint
 
       # TODO: reconfigure lsp for vue
       # The package is pinned to version 0.2.8 since

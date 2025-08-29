@@ -70,7 +70,7 @@
         ApplePressAndHoldEnabled = false;
         AppleShowAllExtensions = true;
         KeyRepeat = 1; # Time ms between key-repeats when holding key down
-        InitialKeyRepeat = 10; # Time ms before key repeat starts
+        InitialKeyRepeat = 30; # Time ms before key repeat starts
         NSAutomaticCapitalizationEnabled = false;
         NSAutomaticDashSubstitutionEnabled = false;
         NSAutomaticQuoteSubstitutionEnabled = false;

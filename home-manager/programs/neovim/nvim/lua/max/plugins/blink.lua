@@ -49,6 +49,8 @@ return {
         keymap = {
           preset = "default",
           ["<CR>"] = { "select_and_accept", "fallback" },
+          ["<C-j>"] = { "select_next" },
+          ["<C-k>"] = { "select_prev" },
         },
         cmdline = {
           enabled = false,

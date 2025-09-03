@@ -1,7 +1,7 @@
 local shebang = require("max.utils.shebang")
 ---@type vim.lsp.Config
 return {
-  cmd = { "tsgo", "--lsp", "--stdio" },
+  cmd = { "typescript-language-server", "--stdio" },
   filetypes = {
     "javascript",
     "javascriptreact",
@@ -20,18 +20,46 @@ return {
     if deno_json_found ~= nil then
       return
     end
-    -- The project root is where the LSP can be started from
-    -- As stated in the documentation above, this LSP supports monorepos and simple projects.
-    -- We select then from the project root, which is identified by the presence of a package
-    -- manager lock file.
-    local root_markers = { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
-    -- Give the root markers equal priority by wrapping them in a table
-    root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers } or root_markers
-    local project_root = vim.fs.root(buf, root_markers)
-    if not project_root then
+    local found = vim.fs.root(buf, {
+      "package.json",
+      "tsconfig.json",
+      ".git",
+    })
+    if found == nil then
       return
     end
-
-    cb(project_root)
+    cb(found)
   end,
+  handlers = {
+    -- handle rename request for certain code actions like extracting functions / types
+    ["_typescript.rename"] = function(_, result, ctx)
+      local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
+      vim.lsp.util.show_document({
+        uri = result.textDocument.uri,
+        range = {
+          start = result.position,
+          ["end"] = result.position,
+        },
+      }, client.offset_encoding)
+      vim.lsp.buf.rename()
+      return vim.NIL
+    end,
+  },
+  on_attach = function(client)
+    -- ts_ls provides `source.*` code actions that apply to the whole file. These only appear in
+    -- `vim.lsp.buf.code_action()` if specified in `context.only`.
+    vim.api.nvim_buf_create_user_command(0, "LspTypescriptSourceAction", function()
+      local source_actions = vim.tbl_filter(function(action)
+        return vim.startswith(action, "source.")
+      end, client.server_capabilities.codeActionProvider.codeActionKinds)
+
+      vim.lsp.buf.code_action({
+        ---@diagnostic disable-next-line: missing-fields
+        context = {
+          only = source_actions,
+        },
+      })
+    end, {})
+  end,
+  init_options = { hostInfo = "neovim" },
 }

@@ -15,18 +15,14 @@ keymap({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hl
 keymap({ "n", "v" }, "gl", "g_", { desc = "Go to end of line" })
 keymap({ "n", "v" }, "gh", "^", { desc = "Go to start of line" })
 
--- move line up(n)
--- option + j
-keymap("n", "√", ":m .+1<CR>==")
--- move line down(n)
--- option + k
-keymap("n", "ª", ":m .-2<CR>==")
--- move selection up(v)
--- option + j
-keymap("v", "√", ":m '>+1<CR>gv=gv")
--- move selection down(v)
--- option + k
-keymap("v", "ª", ":m '<-2<CR>gv=gv")
+-- Move line down (Normal mode): Alt + j
+keymap("n", "<A-j>", ":m .+1<CR>==")
+-- Move line up (Normal mode): Alt + k
+keymap("n", "<A-k>", ":m .-2<CR>==")
+-- Move selection down (Visual mode): Alt + j
+keymap("v", "<A-j>", ":m '>+1<CR>gv=gv")
+-- Move selection up (Visual mode): Alt + k
+keymap("v", "<A-k>", ":m '<-2<CR>gv=gv")
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 keymap("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })

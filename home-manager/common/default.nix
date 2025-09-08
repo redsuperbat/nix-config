@@ -52,6 +52,7 @@ in {
     uv # Python package manager
     watch
     tdf # terminal pdf viewer
+    sd
 
     pkgs-pinned.ollama # Pinned because earlier versions are marked as broken
     flutter

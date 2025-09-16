@@ -15,7 +15,7 @@ return {
     "vue",
   },
   root_dir = function(buf, cb)
-    local found = vim.fs.root(buf, { "biome.json" })
+    local found = vim.fs.root(buf, { "biome.json", "biome.jsonc" })
     if found == nil then
       return
     end

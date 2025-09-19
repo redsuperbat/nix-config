@@ -334,3 +334,6 @@ Mutex
 trpc
 normain
 fastify
+BETTERSTACK
+otel
+logtape

@@ -18,7 +18,7 @@ return {
           url = "https://biomejs.dev/schemas/latest/schema.json",
         },
         {
-          fileMatch = { "tsconfig.json" },
+          fileMatch = { "*tsconfig*.json" },
           url = "https://json.schemastore.org/tsconfig.json",
         },
         {

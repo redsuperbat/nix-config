@@ -45,7 +45,6 @@ in {
     marksman
     moreutils # sponge etc
     ripgrep
-    rustup
     terraform
     tmux-sessionizer
     tokei

@@ -35,7 +35,7 @@ return {
       javascript = { "biome", "prettier", stop_after_first = true },
       typescript = { "biome-check" },
       typescriptreact = { "biome-check" },
-      json = { "biome", "prettier", lsp_format = "fallback", stop_after_first = true },
+      json = { "biome-check", lsp_format = "fallback" },
       fish = { "fish_indent" },
       terraform = { "terraform_fmt" },
       dockerfile = { lsp_format = "prefer" },

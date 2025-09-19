@@ -337,3 +337,4 @@ fastify
 BETTERSTACK
 otel
 logtape
+jsonb

@@ -31,13 +31,15 @@ return {
           },
         },
         adapters = {
-          openai = function()
-            return require("codecompanion.adapters").extend("openai", {
-              env = {
-                api_key = "cmd:cat ~/.secrets/openai-api-key",
-              },
-            })
-          end,
+          http = {
+            openai = function()
+              return require("codecompanion.adapters").extend("openai", {
+                env = {
+                  api_key = "cmd:cat ~/.secrets/openai-api-key",
+                },
+              })
+            end,
+          },
         },
         strategies = {
           chat = {

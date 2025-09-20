@@ -339,3 +339,5 @@ otel
 logtape
 jsonb
 Keybind
+Resizable
+Keybinds

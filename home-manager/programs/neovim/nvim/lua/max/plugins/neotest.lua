@@ -14,12 +14,14 @@ return {
     "nvim-neotest/neotest-jest",
     "rouge8/neotest-rust",
     "MarkEmmons/neotest-deno",
+    "marilari88/neotest-vitest",
   },
   event = "VeryLazy",
   config = function()
     require("neotest").setup({
       adapters = {
         require("neotest-rspec"),
+        require("neotest-vitest"),
         require("neotest-jest"),
         require("neotest-deno"),
         require("neotest-rust")({

@@ -10,7 +10,7 @@ return {
         files = { hidden = true },
         grep = { hidden = true },
       },
-      formatters = { file = { truncate = 80 } },
+      formatters = { file = { truncate = 120 } },
       layout = {
         preset = "telescope",
         fullscreen = true,

@@ -12,8 +12,8 @@ return {
       },
       formatters = { file = { truncate = 80 } },
       layout = {
-        preset = "default",
-        layout = { backdrop = false, width = 0.95, height = 0.95 },
+        preset = "telescope",
+        fullscreen = true,
       },
     },
   },

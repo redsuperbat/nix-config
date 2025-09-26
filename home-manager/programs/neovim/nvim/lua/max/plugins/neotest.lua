@@ -1,7 +1,7 @@
----@module "lazy"
----@type LazySpec
 ---@diagnostic disable: missing-fields
 
+---@module "lazy"
+---@type LazySpec
 return {
   "nvim-neotest/neotest",
   dependencies = {

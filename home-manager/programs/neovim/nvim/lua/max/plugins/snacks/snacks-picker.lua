@@ -7,14 +7,27 @@ return {
   opts = {
     picker = {
       sources = {
-        files = { hidden = true },
-        grep = { hidden = true },
+        files = {
+          hidden = true,
+          layout = {
+            fullscreen = true,
+          },
+        },
+        recent = {
+          hidden = true,
+          layout = {
+            fullscreen = true,
+          },
+        },
+        grep = {
+          hidden = true,
+          layout = {
+            fullscreen = true,
+          },
+        },
       },
       formatters = { file = { truncate = 120 } },
-      layout = {
-        preset = "telescope",
-        fullscreen = true,
-      },
+      layout = { preset = "telescope" },
     },
   },
   init = function()

@@ -77,6 +77,7 @@
                 "ghostty"
                 "signal"
                 "linear-linear"
+                "pinta"
               ];
             };
           }

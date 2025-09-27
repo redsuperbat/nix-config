@@ -77,7 +77,7 @@
                 "ghostty"
                 "signal"
                 "linear-linear"
-                "pinta"
+                "pinta" # Photo editor
               ];
             };
           }

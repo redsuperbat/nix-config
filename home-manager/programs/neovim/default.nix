@@ -23,7 +23,7 @@
       actionlint # Github action linter
       alejandra # nix formatter
       checkmake # Makefile linter
-      dockerfile-language-server-nodejs
+      dockerfile-language-server
       golangci-lint
       gopls
       gotools

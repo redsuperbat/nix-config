@@ -7,9 +7,6 @@
   ...
 }: {
   programs.neovim = {
-    # It's pinned to version 0.11.2
-    # Neovim is pinned since the hover functionality is buggy in 0.11.3
-    package = pkgs-pinned.neovim-unwrapped;
     enable = true;
     defaultEditor = true;
     withNodeJs = true;

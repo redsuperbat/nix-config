@@ -53,7 +53,7 @@ in {
     tdf # terminal pdf viewer
     sd
 
-    ollama # Pinned because earlier versions are marked as broken
+    ollama
     flutter
 
     # cli AI agents

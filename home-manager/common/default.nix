@@ -53,7 +53,7 @@ in {
     tdf # terminal pdf viewer
     sd
 
-    pkgs-pinned.ollama # Pinned because earlier versions are marked as broken
+    ollama # Pinned because earlier versions are marked as broken
     flutter
 
     # cli AI agents

@@ -4,10 +4,6 @@ return {
   "NickvanDyke/opencode.nvim",
   event = "VeryLazy",
   config = function()
-    vim.g.opencode_opts = {
-      -- Your configuration, if any — see `lua/opencode/config.lua`
-    }
-
     -- Required for `opts.auto_reload`
     vim.opt.autoread = true
 

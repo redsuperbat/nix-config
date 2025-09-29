@@ -1,4 +1,3 @@
-local active_agents = require("overseer.active_agents")
 ---@module "overseer"
 ---@type overseer.ComponentDefinition
 return {
@@ -8,8 +7,7 @@ return {
   constructor = function()
     ---@type overseer.ComponentSkeleton
     return {
-      on_exit = function(_, task)
-        active_agents.remove_agent(task.id)
+      on_exit = function()
         vim.cmd.close()
       end,
     }

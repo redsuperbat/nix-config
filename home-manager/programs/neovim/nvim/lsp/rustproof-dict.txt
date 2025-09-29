@@ -341,3 +341,4 @@ jsonb
 Keybind
 Resizable
 Keybinds
+opencode

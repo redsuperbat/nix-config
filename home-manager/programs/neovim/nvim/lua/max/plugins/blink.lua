@@ -47,7 +47,7 @@ return {
           return not vim.tbl_contains(disabled_filetypes, vim.bo.filetype)
         end,
         keymap = {
-          preset = "default",
+          preset = "none",
           ["<CR>"] = { "select_and_accept", "fallback" },
           ["<C-j>"] = { "select_next" },
           ["<C-k>"] = { "select_prev" },
@@ -136,6 +136,11 @@ return {
         completion = {
           -- Ghost-text breaks sometimes
           ghost_text = { enabled = false },
+          accept = {
+            -- auto brackets are usually incorrect, and I have to
+            -- fix it
+            auto_brackets = { enabled = false },
+          },
           menu = {
             border = "rounded",
             draw = {

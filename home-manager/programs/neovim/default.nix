@@ -33,6 +33,7 @@
       ruff # Python linter & formatter
       rustproof # Spell checker
       shellcheck
+      copilot-language-server
       shfmt # shell formatter
       sqlfluff
       stylua

@@ -17,7 +17,7 @@ return {
         show_on_completion_menu = true,
         auto_trigger_ft = { "*" },
         keymap = {
-          accept = "<Tab>",
+          accept = "<C-y>",
           prev = "<C-p>",
           next = "<C-n>",
           dismiss = "<C-e>",
@@ -26,8 +26,7 @@ return {
       provider_options = {
         openai = {
           api_key = function()
-            local lines = vim.fn.readfile(file_path)
-            return vim.trim(table.concat(lines, "\n"))
+            return fs.read_file(file_path)
           end,
         },
       },

@@ -10,7 +10,7 @@ end
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 vim.opt.winborder = "rounded" -- Rounded floating window border
-vim.opt.autowrite = true -- Enable auto write
+vim.opt.autowrite = true -- Enable auto write when using commands like :next etc
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.conceallevel = 0 -- Conceal nothing
 vim.opt.confirm = true -- Confirm to save changes before exiting modified buffer

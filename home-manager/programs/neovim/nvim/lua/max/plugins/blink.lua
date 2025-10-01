@@ -48,6 +48,7 @@ return {
         end,
         keymap = {
           preset = "none",
+          ["<C-Space>"] = { "show" },
           ["<CR>"] = { "select_and_accept", "fallback" },
           ["<C-j>"] = { "select_next" },
           ["<C-k>"] = { "select_prev" },

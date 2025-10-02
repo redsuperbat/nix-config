@@ -37,19 +37,21 @@ ${description}
 `;
 }
 
-async function createDescription() {
+function createDescription() {
   if (!aiGenerate) {
     return createInputDescription();
   }
 
-  echo`Making pr description with claude`;
-  const description =
-    await $`claude -p "based on the differences between the current git branch and the main branch formulate a PR description in markdown pinpointing the changes made. Be precise and concise, no need to be more than 10 lines of text." --allowedTools "Bash(git*),Read,Grep"`;
+  return spinner(async () => {
+    echo`Making pr description with claude`;
+    const description =
+      await $`claude -p "based on the differences between the current git branch and the main branch formulate a PR description in markdown pinpointing the changes made. Be precise and concise, no need to be more than 10 lines of text." --allowedTools "Bash(git*),Read,Grep"`;
 
-  return description.stdout;
+    return description.stdout;
+  });
 }
 
-const body = await spinner(() => createDescription());
+const body = await createDescription();
 
 await spinner(async () => {
   echo`Making pr...`;

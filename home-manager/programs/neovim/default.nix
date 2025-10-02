@@ -53,6 +53,7 @@
       tinymist # typst language server
       typstyle # typst formatter
       oxlint # linter for js/ts files
+      fish-lsp
 
       # TODO: reconfigure lsp for vue
       # The package is pinned to version 0.2.8 since

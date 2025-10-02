@@ -57,7 +57,6 @@ end
 
 function create_description
     if $ai_generate
-        echo "Making pr description with claude"
         claude -p "based on the differences between the current git branch and the main branch formulate a PR description in markdown pinpointing the changes made. Be precise and concise, no need to be more than 10 lines of text." --allowedTools "Bash(git*),Read,Grep"
     else
         create_input_description
@@ -65,9 +64,14 @@ function create_description
 end
 
 # Create PR
-echo "Making pr... $($title)"
 
-set args --title $title --body (create_description)
+echo "Creating description..."
+
+set body (create_description)
+
+echo "Creating github pr..."
+
+set args --title "$title" --body "$body"
 
 if $draft
     set args $args -d

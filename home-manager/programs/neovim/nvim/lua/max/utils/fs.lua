@@ -43,14 +43,16 @@ end
 --- starting from the directory of the given buffer and returns the
 --- directory path in which a set of is located if it is found.
 function M.root()
-  return vim.fs.root(0, {
+  local root = vim.fs.root(0, {
+    "deno.jsonc",
+    "deno.json",
     "package.json",
     ".gitignore",
     "tsconfig.json",
-    "deno.json",
     "Cargo.toml",
     "lib.typ", -- Typst libraries
   })
+  return root
 end
 
 return M

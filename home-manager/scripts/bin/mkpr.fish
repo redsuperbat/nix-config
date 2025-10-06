@@ -67,7 +67,7 @@ end
 
 echo "Creating description..."
 
-set body (create_description)
+set body (create_description | string collect)
 
 echo "Creating github pr..."
 

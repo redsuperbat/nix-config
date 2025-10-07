@@ -2,14 +2,14 @@
 
 # Parse arguments
 set draft false
-set ai_generate false
+set manual_desc false
 
 for arg in $argv
     switch $arg
         case -d --draft
             set draft true
-        case -a --ai
-            set ai_generate true
+        case -m --manual-desc
+            set manual_desc true
     end
 end
 
@@ -56,10 +56,10 @@ function create_input_description
 end
 
 function create_description
-    if $ai_generate
-        claude -p "based on the differences between the current git branch and the main branch formulate a PR description in markdown pinpointing the changes made. Be precise and concise, no need to be more than 10 lines of text." --allowedTools "Bash(git*),Read,Grep"
-    else
+    if $manual_desc
         create_input_description
+    else
+        claude -p "based on the differences between the current git branch and the main branch formulate a PR description in markdown pinpointing the changes made. You can also read the git commit messages. Be precise and concise, no need to be more than 10 lines of text." --allowedTools "Bash(git*),Read,Grep"
     end
 end
 

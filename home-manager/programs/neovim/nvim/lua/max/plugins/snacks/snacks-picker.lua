@@ -1,3 +1,42 @@
+local tsc_picker = {
+  finder = function()
+    local cmd = { "npx", "tsc", "--noEmit", "--pretty", "false" }
+    local output = vim.fn.system(cmd)
+    local items = {}
+
+    -- Parse tsc output (format: file.ts(line,col): error TS1234: message)
+    for line in output:gmatch("[^\n]+") do
+      local file, lnum, col, code, msg = line:match("(.+)%((%d+),(%d+)%): error (TS%d+): (.+)")
+
+      if file then
+        table.insert(items, {
+          file = file,
+          pos = { tonumber(lnum), tonumber(col) - 1 },
+          text = file .. " " .. msg .. " " .. code,
+          item = {
+            message = msg,
+            code = code,
+            source = "TypeScript",
+            severity = vim.diagnostic.severity.ERROR,
+          },
+          severity = vim.diagnostic.severity.ERROR,
+        })
+      end
+    end
+    return items
+  end,
+
+  format = "diagnostic",
+  preview = "file",
+  actions = {
+    default = "edit",
+  },
+  layout = {
+    fullscreen = true,
+  },
+}
+
+---
 ---@module "lazy"
 ---@type LazySpec
 return {
@@ -205,6 +244,13 @@ return {
         require("snacks").picker.commands()
       end,
       desc = "Commands",
+    },
+    {
+      "<leader>sD",
+      function()
+        require("snacks").picker(tsc_picker)
+      end,
+      desc = "All tsc diagnostics",
     },
     {
       "<leader>sd",

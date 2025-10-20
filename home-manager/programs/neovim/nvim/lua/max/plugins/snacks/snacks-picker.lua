@@ -19,6 +19,11 @@ return {
             fullscreen = true,
           },
         },
+        git_status = {
+          layout = {
+            fullscreen = true,
+          },
+        },
         grep = {
           hidden = true,
           layout = {

@@ -3,7 +3,6 @@
 return {
   "folke/sidekick.nvim",
   opts = {
-    -- add any options here
     cli = {
       mux = { backend = "tmux", enabled = true },
     },
@@ -11,14 +10,14 @@ return {
   event = "VeryLazy",
   keys = {
     {
-      "<tab>",
+      "<C-f>",
       function()
         -- if there is a next edit, jump to it, otherwise apply it if any
         if not require("sidekick").nes_jump_or_apply() then
-          return "<Tab>" -- fallback to normal tab
+          return "<C-f>"
         end
       end,
-      expr = true,
+      expr = false,
       desc = "Goto/Apply Next Edit Suggestion",
     },
     {
@@ -27,12 +26,12 @@ return {
         require("sidekick.cli").focus()
       end,
       mode = { "n", "x", "i", "t" },
-      desc = "Sidekick Switch Focus",
+      desc = "Sidekick  Switch Focus",
     },
     {
       "<leader>ap",
       function()
-        require("sidekick.cli").select_prompt()
+        require("sidekick.cli").prompt()
       end,
       desc = "Sidekick Ask Prompt",
       mode = { "n", "v" },

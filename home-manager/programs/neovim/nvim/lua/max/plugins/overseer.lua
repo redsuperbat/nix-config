@@ -3,6 +3,7 @@
 return {
   "stevearc/overseer.nvim",
   event = "VeryLazy",
+  version = "v1.6.0",
   config = function()
     local overseer = require("overseer")
     overseer.setup({ task_win = { padding = 3, border = "none" } })

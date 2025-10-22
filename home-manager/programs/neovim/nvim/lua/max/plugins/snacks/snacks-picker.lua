@@ -69,6 +69,9 @@ return {
             fullscreen = true,
           },
         },
+        lsp_references = {
+          layout = { fullscreen = true },
+        },
       },
       formatters = { file = { truncate = 120 } },
       layout = { preset = "telescope" },

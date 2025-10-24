@@ -1,6 +1,6 @@
 local tsc_picker = {
   finder = function()
-    local cmd = { "npx", "tsc", "--noEmit", "--pretty", "false" }
+    local cmd = { "npx", "tsgo", "--noEmit", "--pretty", "false" }
     local output = vim.fn.system(cmd)
     local items = {}
 

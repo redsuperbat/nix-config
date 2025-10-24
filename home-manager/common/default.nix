@@ -67,7 +67,6 @@ in {
     cocoapods
 
     # Desktop applications
-    slack
     bitwarden-desktop
     raycast
   ];

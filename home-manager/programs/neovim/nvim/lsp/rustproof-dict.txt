@@ -344,3 +344,4 @@ Keybinds
 opencode
 superjson
 Deserialized
+comparator

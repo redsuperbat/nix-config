@@ -78,6 +78,7 @@
                 "signal"
                 "linear-linear"
                 "pinta" # Photo editor
+                "slack" # install from here to make slack not owned by root
               ];
             };
           }

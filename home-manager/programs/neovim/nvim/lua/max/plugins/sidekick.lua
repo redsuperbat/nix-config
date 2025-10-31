@@ -7,6 +7,7 @@ return {
       mux = { backend = "tmux", enabled = true },
     },
   },
+  enabled = false,
   event = "VeryLazy",
   keys = {
     {

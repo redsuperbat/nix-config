@@ -336,15 +336,7 @@ return {
     {
       "gd",
       function()
-        require("snacks").picker.lsp_definitions({
-          on_show = function(picker)
-            vim.schedule(function()
-              if picker:count() > 0 then
-                picker:action("confirm")
-              end
-            end)
-          end,
-        })
+        require("snacks").picker.lsp_definitions()
       end,
       desc = "Goto Definition",
     },

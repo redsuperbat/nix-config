@@ -36,6 +36,109 @@ local tsc_picker = {
   },
 }
 
+local biome_check_picker = {
+  finder = function()
+    local cmd = { "npx", "biome", "check", "--reporter=github" }
+    local output = vim.fn.system(cmd)
+    local items = {}
+
+    -- Parse biome github reporter output
+    -- Format: ::error title=lint/rule,file=path,line=N,endLine=N,col=N,endColumn=N::message
+    for line in output:gmatch("[^\n]+") do
+      local severity_str, title, file, lnum, col, msg =
+        line:match("::(%w+)%s+title=([^,]+),file=([^,]+),line=(%d+),[^,]+,col=(%d+),[^:]+::(.+)")
+
+      if file and lnum and col then
+        -- Map github reporter severity to vim diagnostic severity
+        local severity = vim.diagnostic.severity.ERROR
+        if severity_str == "warning" then
+          severity = vim.diagnostic.severity.WARN
+        elseif severity_str == "error" then
+          severity = vim.diagnostic.severity.ERROR
+        end
+
+        table.insert(items, {
+          file = file,
+          pos = { tonumber(lnum), tonumber(col) - 1 },
+          text = file .. " " .. msg .. " " .. (title or ""),
+          item = {
+            message = msg,
+            code = title or "",
+            source = "Biome",
+            severity = severity,
+          },
+          severity = severity,
+        })
+      end
+    end
+    return items
+  end,
+
+  format = "diagnostic",
+  preview = "file",
+  actions = {
+    default = "edit",
+  },
+  layout = {
+    fullscreen = true,
+  },
+}
+
+local eslint_picker = {
+  finder = function()
+    local cmd = { "npx", "eslint", ".", "--format=json" }
+    local output = vim.fn.system(cmd)
+    local items = {}
+
+    -- Parse eslint JSON output
+    local ok, json = pcall(vim.json.decode, output)
+    if ok and type(json) == "table" then
+      for _, file_result in ipairs(json) do
+        local file = file_result.filePath
+        if file_result.messages then
+          for _, message in ipairs(file_result.messages) do
+            local lnum = message.line or 1
+            local col = (message.column or 1) - 1
+            local msg = message.message or ""
+            local code = message.ruleId or ""
+
+            -- Map eslint severity to vim diagnostic severity
+            local severity = vim.diagnostic.severity.WARN
+            if message.severity == 2 then
+              severity = vim.diagnostic.severity.ERROR
+            elseif message.severity == 1 then
+              severity = vim.diagnostic.severity.WARN
+            end
+
+            table.insert(items, {
+              file = file,
+              pos = { lnum, col },
+              text = file .. " " .. msg .. " " .. code,
+              item = {
+                message = msg,
+                code = code,
+                source = "ESLint",
+                severity = severity,
+              },
+              severity = severity,
+            })
+          end
+        end
+      end
+    end
+    return items
+  end,
+
+  format = "diagnostic",
+  preview = "file",
+  actions = {
+    default = "edit",
+  },
+  layout = {
+    fullscreen = true,
+  },
+}
+
 ---
 ---@module "lazy"
 ---@type LazySpec
@@ -167,7 +270,7 @@ return {
     },
     -- Grep
     {
-      "<leader>sb",
+      "<leader>sL",
       function()
         require("snacks").picker.lines({
           matcher = {
@@ -261,6 +364,20 @@ return {
         require("snacks").picker.diagnostics()
       end,
       desc = "Diagnostics",
+    },
+    {
+      "<leader>sb",
+      function()
+        require("snacks").picker(biome_check_picker)
+      end,
+      desc = "Biome Check Issues",
+    },
+    {
+      "<leader>se",
+      function()
+        require("snacks").picker(eslint_picker)
+      end,
+      desc = "ESLint Issues",
     },
     {
       "<leader>sh",

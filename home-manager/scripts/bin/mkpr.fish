@@ -59,7 +59,7 @@ function create_description
     if $manual_desc
         create_input_description
     else
-        claude -p "based on the differences between the current git branch and the main branch formulate a PR description in markdown pinpointing the changes made. You can also read the git commit messages. Be precise and concise, no need to be more than 10 lines of text." --allowedTools "Bash(git*),Read,Grep"
+        claude -p "Based on the differences between the current git branch and the main branch formulate a PR description in markdown pinpointing the changes made. You can also read the git commit messages. Be precise and concise, no need to be more than 10 lines of text. It's IMPERATIVE that you output only the pr description and nothing else" --allowedTools "Bash(git*),Read,Grep"
     end
 end
 

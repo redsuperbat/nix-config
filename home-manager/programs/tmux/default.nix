@@ -42,20 +42,18 @@
     ];
 
     extraConfig = ''
-      set -g allow-passthrough on                                                        # To render images in tmux panes
+      set -g allow-passthrough on                                                                         # To render images in tmux panes
 
-      bind s popup -h 85% -w 85% -E "tms switch"                                         # Switch between sessions
-      bind w popup -h 85% -w 85% -E "tms windows"                                        # Switch between windows
-      bind F popup -E "tms"                                                              # Run tms to add new session
-      bind G popup -E "github_tms"                                                       # Run function similar to tms but for github
-      bind K run-shell "tms kill"                                                        # Kill current
-      bind C-k respawn-pane -k                                                           # Restart current pane
-      bind W command-prompt -p "Rename active session to: " "run-shell 'tms rename %1'". # Rename sessions
-      bind v copy-mode                                                                   # Enter copy mode
-      bind / copy-mode \; send C-r                                                       # Enter copy mode and start search
-      bind -T copy-mode-vi v send -X begin-selection                                     # Bind 'v' in copy mode to begin selection (like Vim)
-      bind -T copy-mode-vi y send -X copy-pipe-and-cancel "pbcopy"                       # bind y to copy into pbcopy
-      bind -T copy-mode-vi Escape send -X cancel                                         # Escape takes you out of copy mode
+      bind e run "tmux capture-pane -S 0 -p -J > /tmp/tmux-edit && tmux new-window 'nvim /tmp/tmux-edit'" # Open current visible history of pane in neovim
+      bind E run "tmux capture-pane -S - -p -J > /tmp/tmux-edit && tmux new-window 'nvim /tmp/tmux-edit'" # Open entire history of pane in neovim
+      bind s popup -h 85% -w 85% -E "tms switch"                                                          # Switch between sessions
+      bind w popup -h 85% -w 85% -E "tms windows"                                                         # Switch between windows
+      bind F popup -E "tms"                                                                               # Run tms to add new session
+      bind G popup -E "github_tms"                                                                        # Run function similar to tms but for github
+      bind K run-shell "tms kill"                                                                         # Kill current
+      bind C-k respawn-pane -k                                                                            # Restart current pane
+      bind W command-prompt -p "Rename active session to: " "run-shell 'tms rename %1'".                  # Rename sessions
+      bind / copy-mode \; send C-r                                                                        # Enter copy mode and start search
       bind -r j resize-pane -D 5
       bind -r k resize-pane -U 5
       bind -r l resize-pane -R 5

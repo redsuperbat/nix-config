@@ -3,7 +3,9 @@
     enable = true;
     settings = {
       promptToReturnFromSubprocess = false;
-      git.paging.pager = "delta --paging=never";
+      git.pagers = [
+        {pager = "delta --paging=never";}
+      ];
     };
   };
 }

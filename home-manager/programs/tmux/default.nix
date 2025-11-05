@@ -44,8 +44,8 @@
     extraConfig = ''
       set -g allow-passthrough on                                                                         # To render images in tmux panes
 
-      bind e run "tmux capture-pane -S 0 -p -J > /tmp/tmux-edit && tmux new-window 'nvim /tmp/tmux-edit'" # Open current visible history of pane in neovim
-      bind E run "tmux capture-pane -S - -p -J > /tmp/tmux-edit && tmux new-window 'nvim /tmp/tmux-edit'" # Open entire history of pane in neovim
+      bind v run "tmux capture-pane -S 0 -p -J > /tmp/tmux-edit && tmux new-window 'nvim /tmp/tmux-edit'" # Open current visible history of pane in neovim
+      bind V run "tmux capture-pane -S - -p -J > /tmp/tmux-edit && tmux new-window 'nvim /tmp/tmux-edit'" # Open entire history of pane in neovim
       bind s popup -h 85% -w 85% -E "tms switch"                                                          # Switch between sessions
       bind w popup -h 85% -w 85% -E "tms windows"                                                         # Switch between windows
       bind F popup -E "tms"                                                                               # Run tms to add new session

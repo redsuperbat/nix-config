@@ -52,6 +52,7 @@ in {
     watch
     tdf # terminal pdf viewer
     sd
+    presenterm # terminal based slideshow tool
 
     ollama
     flutter

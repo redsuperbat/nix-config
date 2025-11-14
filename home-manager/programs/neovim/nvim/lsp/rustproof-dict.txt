@@ -345,3 +345,5 @@ opencode
 superjson
 Deserialized
 comparator
+instrumentations
+firecrawl

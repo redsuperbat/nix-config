@@ -148,36 +148,31 @@ return {
   ---@type snacks.Config
   opts = {
     picker = {
-      sources = {
-        files = {
-          hidden = true,
-          layout = {
-            fullscreen = true,
+      layout = {
+        preset = "default",
+        fullscreen = true,
+        layout = {
+          box = "horizontal",
+          width = 0.9,
+          min_width = 120,
+          height = 0.9,
+          {
+            box = "vertical",
+            border = true,
+            title = "{title} {live} {flags}",
+            { win = "input", height = 1, border = "bottom" },
+            { win = "list", border = "none" },
           },
-        },
-        recent = {
-          hidden = true,
-          layout = {
-            fullscreen = true,
-          },
-        },
-        git_status = {
-          layout = {
-            fullscreen = true,
-          },
-        },
-        grep = {
-          hidden = true,
-          layout = {
-            fullscreen = true,
-          },
-        },
-        lsp_references = {
-          layout = { fullscreen = true },
+          { win = "preview", title = "{preview}", border = true, width = 0.4 }, -- Changed from 0.5 to 0.3
         },
       },
+
+      sources = {
+        files = { hidden = true },
+        recent = { hidden = true },
+        grep = { hidden = true },
+      },
       formatters = { file = { truncate = 120 } },
-      layout = { preset = "telescope" },
     },
   },
   init = function()

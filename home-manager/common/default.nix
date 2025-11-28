@@ -1,7 +1,6 @@
 {
   userConfig,
   pkgs,
-  pkgs-pinned,
   ...
 }: let
   programs = builtins.map (name: ../programs/${name}) (builtins.attrNames (builtins.readDir ../programs));

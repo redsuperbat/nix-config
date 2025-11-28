@@ -54,6 +54,9 @@ in {
     sd
     presenterm # terminal based slideshow tool
 
+    coreutils-prefixed
+    tree
+
     ollama
     flutter
 

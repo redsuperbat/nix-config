@@ -56,7 +56,8 @@ in {
     coreutils-prefixed
     tree
 
-    ollama
+    # SKIP for now, breaks the build
+    # ollama
     flutter
 
     # cli AI agents

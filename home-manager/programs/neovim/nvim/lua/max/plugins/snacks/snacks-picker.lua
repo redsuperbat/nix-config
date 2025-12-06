@@ -1,6 +1,6 @@
 local tsc_picker = {
   finder = function()
-    local cmd = { "npx", "tsgo", "--noEmit", "--pretty", "false" }
+    local cmd = { "tsgo", "--noEmit", "--pretty", "false" }
     local output = vim.fn.system(cmd)
     local items = {}
 
@@ -38,7 +38,7 @@ local tsc_picker = {
 
 local biome_check_picker = {
   finder = function()
-    local cmd = { "npx", "biome", "check", "--reporter=github" }
+    local cmd = { "biome", "check", "--reporter=github" }
     local output = vim.fn.system(cmd)
     local items = {}
 

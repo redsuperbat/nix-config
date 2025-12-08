@@ -101,9 +101,9 @@
       # Pane border look and feel
       setw -g pane-border-status top
       setw -g pane-border-format ""
-      setw -g pane-active-border-style "bg=#{@thm_bg},fg=#{@thm_overlay_0}"
+      setw -g pane-active-border-style "bg=#{@thm_bg},fg=#{@thm_blue}"
       setw -g pane-border-style "bg=#{@thm_bg},fg=#{@thm_surface_0}"
-      setw -g pane-border-lines single
+      setw -g pane-border-lines heavy
 
       # Window look and feel
       set -wg automatic-rename on

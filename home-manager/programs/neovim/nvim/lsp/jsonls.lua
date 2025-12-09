@@ -26,8 +26,8 @@ return {
           url = "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/package.json",
         },
         {
-          fileMatch = { "postgrestools.jsonc" },
-          url = "https://pgtools.dev/schemas/0.0.0/schema.json",
+          fileMatch = { "postgres-language-server.jsonc" },
+          url = "https://pg-language-server.com/latest/schema.json",
         },
       },
     },

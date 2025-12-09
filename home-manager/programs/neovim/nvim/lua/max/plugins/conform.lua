@@ -37,6 +37,7 @@ return {
         typescript = { "biome-check" },
         typescriptreact = { "biome-check-unsafe" },
         json = { "biome-check", lsp_format = "fallback" },
+        jsonc = { "biome-check", lsp_format = "fallback" },
         fish = { "fish_indent" },
         terraform = { "terraform_fmt" },
         dockerfile = { lsp_format = "prefer" },

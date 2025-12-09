@@ -10,7 +10,6 @@ return {
         null_ls.builtins.diagnostics.actionlint, -- Github actions
         null_ls.builtins.diagnostics.checkmake, -- Makefile linter
         null_ls.builtins.diagnostics.hadolint, -- Dockerfile
-        null_ls.builtins.diagnostics.sqlfluff.with({ extra_args = { "--dialect", "postgres" } }),
         null_ls.builtins.diagnostics.rubocop, -- Ruby linter
         null_ls.builtins.diagnostics.fish,
       },

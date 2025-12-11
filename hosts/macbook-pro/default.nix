@@ -21,13 +21,8 @@
     home = homeDir;
   };
 
-  # https://github.com/LnL7/nix-darwin/pull/787
   # Add ability to use TouchID for sudo
   security.pam.services.sudo_local.touchIdAuth = true;
-  environment.etc."pam.d/sudo_local".text = ''
-    # Managed by Nix Darwin
-    auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
-  '';
 
   # System settings
   system = {

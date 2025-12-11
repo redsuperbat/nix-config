@@ -109,7 +109,7 @@
         wvous-tr-corner = 1;
       };
       screencapture = {
-        location = "${homeDir}/Downloads/tmp";
+        location = "${homeDir}/Documents/screeenshots";
         type = "png";
         disable-shadow = true;
       };

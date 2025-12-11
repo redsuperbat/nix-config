@@ -40,6 +40,10 @@
 
     defaults = {
       CustomUserPreferences = {
+        # Disable slack auto updates
+        "com.tinyspeck.slackmacgap" = {
+          SlackNoAutoUpdates = true;
+        };
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {
             # Disable '󰘳  + Space' for Spotlight Search

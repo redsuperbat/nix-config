@@ -277,7 +277,7 @@ return {
       desc = "Grep",
     },
     {
-      "<leader>sv",
+      "<leader>sw",
       function()
         local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."))
         require("snacks").picker.grep({ search = vim.fn.join(lines, " ") })

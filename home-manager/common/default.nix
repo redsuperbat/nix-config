@@ -56,15 +56,12 @@ in {
     coreutils-prefixed
     tree
 
-    # SKIP for now, breaks the build
-    # ollama
+    ollama
     flutter
 
     # cli AI agents
     claude-code
-    gemini-cli
     codex
-    opencode
 
     # mac specfic apps
     xcodes

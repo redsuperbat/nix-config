@@ -1,7 +1,9 @@
 local tsc_picker = {
   finder = function()
     local cmd = { "tsgo", "--noEmit", "--pretty", "false" }
-    local output = vim.fn.system(cmd)
+    local cwd = require("max.utils.fs").root()
+    local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
+    local output = result.stdout or ""
     local items = {}
 
     -- Parse tsc output (format: file.ts(line,col): error TS1234: message)
@@ -9,8 +11,12 @@ local tsc_picker = {
       local file, lnum, col, code, msg = line:match("(.+)%((%d+),(%d+)%): error (TS%d+): (.+)")
 
       if file then
+        -- Normalize path relative to vim cwd
+        if not vim.startswith(file, "/") then
+          file = vim.fs.joinpath(cwd, file)
+        end
         table.insert(items, {
-          file = file,
+          file = vim.fs.normalize(file),
           pos = { tonumber(lnum), tonumber(col) - 1 },
           text = file .. " " .. msg .. " " .. code,
           item = {

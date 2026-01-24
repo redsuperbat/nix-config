@@ -4,5 +4,7 @@ return {
   "folke/snacks.nvim",
   ---@module "snacks"
   ---@type snacks.Config
-  opts = { image = {} },
+  opts = { image = {
+    enabled = false,
+  } },
 }

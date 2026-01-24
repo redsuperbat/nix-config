@@ -10,5 +10,7 @@
     theme = Kanagawa Wave
     keybind = alt+shift+e=toggle_fullscreen
     keybind = alt+shift+r=reload_config
+    keybind = cmd+d=ignore
+    keybind = cmd+shift+d=ignore
   '';
 }

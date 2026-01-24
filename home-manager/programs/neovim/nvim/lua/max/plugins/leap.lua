@@ -1,18 +1,18 @@
 ---@module "lazy"
 ---@type LazySpec
 return {
-  "ggandor/leap.nvim",
-  dependencies = { "tpope/vim-repeat" },
+  "folke/flash.nvim",
+  event = "VeryLazy",
+  ---@type Flash.Config
+  opts = {},
   keys = {
     {
       "m",
-      "<Plug>(leap-forward)",
-      desc = "Leap forwards",
-    },
-    {
-      "M",
-      "<Plug>(leap-backward)",
-      desc = "Leap backwards",
+      mode = { "n", "x", "o" },
+      function()
+        require("flash").jump()
+      end,
+      desc = "Flash",
     },
   },
 }

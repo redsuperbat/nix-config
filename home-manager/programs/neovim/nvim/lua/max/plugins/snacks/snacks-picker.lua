@@ -424,13 +424,6 @@ return {
       desc = "Quickfix List",
     },
     {
-      "<leader>uC",
-      function()
-        require("snacks").picker.colorschemes()
-      end,
-      desc = "Colorschemes",
-    },
-    {
       "<leader>pp",
       function()
         require("snacks").picker.projects()

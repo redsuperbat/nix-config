@@ -120,6 +120,8 @@
       set -g window-status-current-style "bg=#{@thm_peach},fg=#{@thm_bg},bold"
 
       run-shell ${pkgs.tmuxPlugins.battery}/share/tmux-plugins/battery/battery.tmux # run this at the end because nix
+      # Issue in tmux 3.6 https://github.com/Morantron/tmux-fingers/issues/143
+      run -b "TERM=$TERM #{@fingers-cli} load-config"
     '';
   };
 }

@@ -158,7 +158,14 @@ return {
         preset = "default",
         fullscreen = true,
       },
-
+      win = {
+        input = {
+          keys = {
+            ["<C-d>"] = { "preview_scroll_down", mode = { "i" } },
+            ["<C-u>"] = { "preview_scroll_up", mode = { "i" } },
+          },
+        },
+      },
       sources = {
         files = { hidden = true },
         recent = { hidden = true },

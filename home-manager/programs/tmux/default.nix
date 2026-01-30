@@ -97,9 +97,13 @@
       # Pane border look and feel
       setw -g pane-border-status top
       setw -g pane-border-format ""
-      setw -g pane-active-border-style "bg=#{@thm_bg},fg=#{@thm_blue}"
-      setw -g pane-border-style "bg=#{@thm_bg},fg=#{@thm_surface_0}"
-      setw -g pane-border-lines heavy
+      setw -g pane-active-border-style "fg=#{@thm_blue}"
+      setw -g pane-border-style "bg=#1a1a24,fg=#1a1a24"
+      setw -g pane-border-lines single
+
+      # Distinguish active pane - dim inactive panes
+      set -g window-style "bg=#1a1a24,fg=#727169"
+      set -g window-active-style "bg=#1f1f28,fg=#dcd7ba"
 
       # Window look and feel
       set -wg automatic-rename on

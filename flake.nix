@@ -3,10 +3,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    workmux.url = "github:raine/workmux";
 
     rustproof.url = "github:redsuperbat/rustproof";
 
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     # Pinned version for vue language server 2.2.8
     nixpkgs-pinned = {
       url = "github:NixOS/nixpkgs/a421ac6595024edcfbb1ef950a3712b89161c359";
@@ -31,6 +32,7 @@
     nix-homebrew,
     rustproof,
     nixpkgs-pinned,
+    workmux,
   }: let
     users = {
       maxnetterberg = {
@@ -90,8 +92,7 @@
             home-manager.users.${username} = ./home-manager/common;
             home-manager.extraSpecialArgs = {
               pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
-              rustproof = rustproof.packages.${system}.default;
-              inherit userConfig configDir workspaceDir self homeDir hostname;
+              inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux;
             };
           }
         ];

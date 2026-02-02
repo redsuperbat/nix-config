@@ -46,7 +46,7 @@ in {
     ripgrep
     terraform
     tmux-sessionizer
-    tokei
+    tokei # Count lines of code
     uv # Python package manager
     watch
     tdf # terminal pdf viewer

@@ -55,6 +55,7 @@ in {
 
     coreutils-prefixed
     tree
+    llm # cli tool for any language model
 
     ollama
     flutter

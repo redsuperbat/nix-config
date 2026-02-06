@@ -47,7 +47,6 @@
       bind o popup -h 85% -w 85% -E "tmux-file-picker"                                                                                 # Open file picker
       bind s popup -h 85% -w 85% -E "tms switch"                                                                         # Switch between sessions
       bind w popup -h 85% -w 85% -E "tms windows"                                                                        # Switch between windows
-      bind W popup -h 85% -w 85% -E "workmux add"                                                                        # Switch between windows
       bind F popup -E "tms"                                                                                              # Run tms to add new session
       bind G popup -E "github_tms"                                                                                       # Run function similar to tms but for github
       bind K run-shell "tms kill"                                                                                        # Kill current
@@ -98,8 +97,8 @@
       # Pane border look and feel
       setw -g pane-border-status top
       setw -g pane-border-format ""
-      setw -g pane-active-border-style "fg=#{@thm_blue}"
-      setw -g pane-border-style "bg=#1a1a24,fg=#1a1a24"
+      setw -g pane-active-border-style "bg=#{@thm_bg},fg=#{@thm_blue}"
+      setw -g pane-border-style "bg=#{@thm_bg},fg=#{@thm_surface_0}"
       setw -g pane-border-lines single
 
       # Distinguish active pane - dim inactive panes

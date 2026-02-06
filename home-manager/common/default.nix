@@ -56,6 +56,7 @@ in {
     coreutils-prefixed
     tree
     llm # cli tool for any language model
+    dive # cli tool for viewing docker images
 
     ollama
     flutter

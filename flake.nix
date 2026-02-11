@@ -8,7 +8,7 @@
     rustproof.url = "github:redsuperbat/rustproof";
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    # Pinned version for vue language server 2.2.8
+    # Pinned version for temp broken packages on unstable
     nixpkgs-pinned = {
       url = "github:NixOS/nixpkgs/a421ac6595024edcfbb1ef950a3712b89161c359";
     };

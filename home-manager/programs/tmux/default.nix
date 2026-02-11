@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  pkgs-pinned,
+  ...
+}: {
   # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;
@@ -14,7 +18,7 @@
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
       {
-        plugin = fingers;
+        plugin = pkgs-pinned.tmuxPlugins.fingers;
         extraConfig = ''
           set -g @fingers-key f
           set -g @fingers-pattern-0 '[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' # Pattern for emails

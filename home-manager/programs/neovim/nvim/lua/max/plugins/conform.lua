@@ -34,7 +34,7 @@ return {
         ruby = { "rubocop" },
         yaml = { "prettier", lsp_format = "fallback" },
         javascript = { "biome", "prettier", stop_after_first = true },
-        typescript = { "biome-check" },
+        typescript = { "biome-check-unsafe" },
         typescriptreact = { "biome-check-unsafe" },
         json = { "biome-check", lsp_format = "fallback" },
         jsonc = { "biome-check", lsp_format = "fallback" },

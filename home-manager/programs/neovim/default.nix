@@ -26,7 +26,8 @@
       gotools
       hadolint # Dockerfile linter
       intelephense # php language server
-      lua-language-server
+      # lua-language-server
+      emmylua-ls
       nil # nix language server
       nodePackages.prettier
       postgres-language-server

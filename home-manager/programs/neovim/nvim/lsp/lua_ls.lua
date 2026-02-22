@@ -1,8 +1,12 @@
 ---@type vim.lsp.Config
 return {
-  cmd = { "lua-language-server" },
+  cmd = { "emmylua_ls" },
   filetypes = { "lua" },
   root_markers = {
-    "stylua.toml",
+    ".luarc.json",
+    ".emmyrc.json",
+    ".luacheckrc",
+    ".git",
   },
+  workspace_required = false,
 }

@@ -10,6 +10,10 @@ return {
     json = {
       schemas = {
         {
+          fileMatch = { ".emmyrc.json" },
+          url = "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
+        },
+        {
           fileMatch = { "deno.json", "deno.jsonc" },
           url = "https://raw.githubusercontent.com/denoland/deno/refs/heads/main/cli/schemas/config-file.v1.json",
         },

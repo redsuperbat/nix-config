@@ -107,8 +107,7 @@
       setw -g pane-border-style "bg=#{@thm_bg},fg=#{@thm_surface_0}"
       setw -g pane-border-lines single
 
-      # Distinguish active pane - dim inactive panes
-      set -g window-style "bg=#1a1a24,fg=#727169"
+      set -g window-style "bg=#1f1f28,fg=#727169"
       set -g window-active-style "bg=#1f1f28,fg=#dcd7ba"
 
       # Window look and feel

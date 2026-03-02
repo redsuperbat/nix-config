@@ -48,7 +48,7 @@ in {
     tmux-sessionizer
     tokei # Count lines of code
     uv # Python package manager
-    watch
+    viddy
     tdf # terminal pdf viewer
     sd
     presenterm # terminal based slideshow tool

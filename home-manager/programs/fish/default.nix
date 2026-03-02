@@ -262,6 +262,7 @@
       ggp = "git push";
       gap = "git add :/ -Ap";
 
+      watch = "viddy --shell fish --shell-options -i --";
       nds = "nh darwin switch";
 
       kc = "kubectl";

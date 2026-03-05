@@ -1,5 +1,11 @@
 #!/usr/bin/env fish
 
+if set -q argv[1]
+    set SECRET_NAME $argv[1]
+else
+    set SECRET_NAME app-secrets
+end
+
 set PORT 8081
 set URL "http://localhost:$PORT"
 
@@ -21,7 +27,7 @@ kubectl run pgweb --restart=Never \
           "env": [{
             "name": "DATABASE_URL",
             "valueFrom": { "secretKeyRef": {
-                "name": "app-secrets",
+                "name": "'$SECRET_NAME'",
                 "key": "DATABASE_URL"
               }
             }

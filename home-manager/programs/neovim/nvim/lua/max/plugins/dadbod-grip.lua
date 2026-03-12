@@ -2,11 +2,19 @@
 ---@type LazySpec
 return {
   "joryeugene/dadbod-grip.nvim",
-  version = "*",
+  version = "v1.5.0",
   keys = {
     {
       "<leader>dd",
       function()
+        local ok = pcall(function()
+          vim.cmd("GripToggle")
+        end)
+
+        if ok then
+          return
+        end
+
         local db_url = vim.env.DATABASE_URL
 
         if db_url == nil then

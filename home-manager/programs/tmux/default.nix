@@ -50,7 +50,7 @@
       unbind C-o
       set -g allow-passthrough on                                                                                        # To render images in tmux panes
       bind-key C-a send-prefix
-      bind e run "tmux capture-pane -S - -p -J > /tmp/tmux-edit && tmux new-window 'nvim \"+normal! G\" /tmp/tmux-edit'" # Open entire history of pane in neovim, scrolled to bottom
+      bind e run "tmux capture-pane -e -S - -p -J > /tmp/tmux-edit && tmux new-window 'nvim \"+terminal cat /tmp/tmux-edit\" \"+normal! G\"'" # Open entire history of pane in neovim with colors, scrolled to bottom
       bind o popup -h 85% -w 85% -E "tmux-file-picker"                                                                   # Open file picker
       bind s popup -h 85% -w 85% -E "tms switch"                                                                         # Switch between sessions
       bind w popup -h 85% -w 85% -E "tms windows"                                                                        # Switch between windows

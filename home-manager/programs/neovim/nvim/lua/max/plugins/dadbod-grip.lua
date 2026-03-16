@@ -2,7 +2,7 @@
 ---@type LazySpec
 return {
   "joryeugene/dadbod-grip.nvim",
-  version = "v1.5.0",
+  version = "v1.5.1",
   keys = {
     {
       "<leader>dd",
@@ -29,6 +29,7 @@ return {
   },
   config = function()
     require("dadbod-grip").setup({
+      picker = "snacks",
       keymaps = {
         ai = "<leader>da",
         table_picker = "<leader><space>",

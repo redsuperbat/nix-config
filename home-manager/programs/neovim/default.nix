@@ -42,6 +42,7 @@
       taplo # Toml toolkit
       tectonic # Latex compiler
       terraform-ls
+      tofu-ls # terraform lsp
       tex-fmt # Latex formatter
       texlab # Latex lsp
       tflint # Terraform linter

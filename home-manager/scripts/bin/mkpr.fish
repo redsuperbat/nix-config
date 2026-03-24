@@ -20,6 +20,15 @@ end
 # Get current branch name
 set branch_name (git branch --show-current | string trim)
 
+# Rebase on origin/main
+echo "Rebasing on origin/main..."
+git fetch origin main
+git rebase origin/main
+or begin
+    echo "Rebase failed. Resolve conflicts and try again."
+    exit 1
+end
+
 # Sync local changes to remote
 echo "Syncing local changes to remote"
 git push -u origin $branch_name

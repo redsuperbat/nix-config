@@ -54,7 +54,7 @@ function parse_branch_name_to_pr_title
     echo (string upper $team)-$ticket_nr: $description
 end
 
-set title (parse_branch_name_to_pr_title $branch_name)
+set fallback_title (parse_branch_name_to_pr_title $branch_name)
 
 # Create description
 function create_input_description
@@ -74,7 +74,14 @@ end
 
 # Create PR
 
-echo "Creating description..."
+echo "Creating title and description..."
+
+set title (claude -p "Based on the differences between the current git branch and origin/main, generate a concise PR title. You can also read the git commit messages. Output ONLY the title, nothing else." --allowedTools "Bash(git*),Read,Grep" | string trim)
+
+if test -z "$title"
+    echo "Claude failed to generate title, falling back to branch name"
+    set title $fallback_title
+end
 
 set body (create_description | string collect)
 

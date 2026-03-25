@@ -37,6 +37,7 @@ in {
     fzf
     gh
     google-cloud-sdk
+    gws
     jq
     yq
     kubectl

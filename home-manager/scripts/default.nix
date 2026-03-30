@@ -3,6 +3,7 @@
     (writeScriptBin "js" (builtins.readFile ./bin/js.ts))
     (writeScriptBin "mkpr" (builtins.readFile ./bin/mkpr.fish))
     (writeScriptBin "linear" (builtins.readFile ./bin/linear.fish))
+    (writeScriptBin "liag" (builtins.readFile ./bin/linear_agent.fish))
     (writeScriptBin "dbconnect" (builtins.readFile ./bin/dbconnect.fish))
   ];
 }

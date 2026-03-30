@@ -41,6 +41,7 @@ in {
     jq
     yq
     kubectl
+    kubelogin
     lazydocker
     marksman
     moreutils # sponge etc

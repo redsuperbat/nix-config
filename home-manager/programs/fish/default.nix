@@ -59,7 +59,13 @@
         '';
       cl = "clear; tmux clear-history";
       fish_greeting = ""; # Do not print fish greeting
-      kill_port = "kill -9 $(lsof -ti:$argv[1])";
+      kill_port =
+        # fish
+        ''
+          for port in $argv
+              kill -9 (lsof -ti:$port)
+          end
+        '';
       git_bootstrap = "_clone__tmux $argv[1] (basename $argv[1] .git)";
       new_project =
         # fish

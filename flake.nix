@@ -58,16 +58,19 @@
       nixpkgsOpts = {
         # Allow paid packages to be installed, without a MIT license etc
         config.allowUnfree = true;
-        hostPlatform.system = system;
+        system = system;
       };
     in
       darwin.lib.darwinSystem {
         system = system;
         specialArgs = {
-          pkgs = import nixpkgs nixpkgsOpts;
           inherit userConfig homeDir;
         };
         modules = [
+          {
+            nixpkgs.hostPlatform = system;
+            nixpkgs.config.allowUnfree = true;
+          }
           ./hosts/${hostname}
           nix-homebrew.darwinModules.nix-homebrew
           {

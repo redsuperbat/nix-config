@@ -8,6 +8,13 @@
 }: {
   programs.neovim = {
     enable = true;
+    # Disable bundled treesitter parsers to avoid conflicts with nvim-treesitter.
+    # Neovim 0.12 bundles parsers that can be outdated/incompatible with
+    # nvim-treesitter's queries, causing "Invalid field name" errors.
+    # Let nvim-treesitter manage all parsers via auto_install instead.
+    package = pkgs.neovim-unwrapped.overrideAttrs {
+      treesitter-parsers = {};
+    };
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;

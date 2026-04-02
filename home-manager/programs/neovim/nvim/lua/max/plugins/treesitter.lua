@@ -2,36 +2,36 @@
 ---@type LazySpec
 return {
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
   version = false,
   build = ":TSUpdate",
   event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
   cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
   keys = {
-    { "<c-space>", desc = "Increment Selection" },
-    { "<bs>", desc = "Decrement Selection", mode = "x" },
+    {
+      "<C-space>",
+      function()
+        local select = require("vim.treesitter._select")
+        if vim.fn.mode() == "n" then
+          vim.cmd("normal! v")
+        end
+        select.select_parent(vim.v.count1)
+      end,
+      desc = "Increment Selection",
+      mode = { "n", "x" },
+    },
+    {
+      "<bs>",
+      function()
+        require("vim.treesitter._select").select_child(vim.v.count1)
+      end,
+      desc = "Decrement Selection",
+      mode = "x",
+    },
   },
   config = function()
-    require("nvim-treesitter.configs").setup({
-      ignore_install = {},
-      modules = {},
-      sync_install = false,
+    require("nvim-treesitter").setup({
       auto_install = true,
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
-      textobjects = {
-        select = {
-          enable = false,
-        },
-      },
-      highlight = { enable = true },
-      indent = { enable = true },
       ensure_installed = {
         "bash",
         "diff",

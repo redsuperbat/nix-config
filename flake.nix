@@ -13,6 +13,9 @@
       url = "github:NixOS/nixpkgs/a421ac6595024edcfbb1ef950a3712b89161c359";
     };
 
+    # claude-code 2.1.88 was unpublished from npm, pin to nixpkgs with 2.1.86
+    nixpkgs-claude-code.url = "github:NixOS/nixpkgs/8110df5ad7abf5d4c0f6fb0f8f978390e77f9685";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +35,7 @@
     nix-homebrew,
     rustproof,
     nixpkgs-pinned,
+    nixpkgs-claude-code,
     workmux,
   }: let
     users = {
@@ -54,7 +58,7 @@
       nixpkgsOpts = {
         # Allow paid packages to be installed, without a MIT license etc
         config.allowUnfree = true;
-        system = system;
+        hostPlatform.system = system;
       };
     in
       darwin.lib.darwinSystem {
@@ -92,6 +96,7 @@
             home-manager.users.${username} = ./home-manager/common;
             home-manager.extraSpecialArgs = {
               pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
+              pkgs-claude-code = import nixpkgs-claude-code nixpkgsOpts;
               inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux;
             };
           }

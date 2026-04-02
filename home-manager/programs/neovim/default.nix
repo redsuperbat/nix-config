@@ -29,7 +29,6 @@
       # lua-language-server
       emmylua-ls
       nil # nix language server
-      nodePackages.prettier
       postgres-language-server
       ruff # Python linter & formatter
       rustproof # Spell checker

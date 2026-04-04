@@ -62,6 +62,7 @@ return {
   {
     "lewis6991/ts-install.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    lazy = false,
     config = function()
       local ensure_installed = {
         "bash",
@@ -75,6 +76,9 @@ return {
         "vim",
         "vimdoc",
         "typescript",
+        "nix",
+        "javascript",
+        "vue",
       }
       require("ts-install").setup({
         ensure_install = ensure_installed,

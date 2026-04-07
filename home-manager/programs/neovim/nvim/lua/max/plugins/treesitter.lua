@@ -3,7 +3,6 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = false,
     build = ":TSUpdate",
     branch = "main",
     keys = {
@@ -62,7 +61,7 @@ return {
   {
     "lewis6991/ts-install.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       local ensure_installed = {
         "bash",

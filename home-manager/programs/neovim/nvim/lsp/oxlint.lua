@@ -15,10 +15,8 @@ return {
   filetypes = {
     "javascript",
     "javascriptreact",
-    "javascript.jsx",
     "typescript",
     "typescriptreact",
-    "typescript.tsx",
   },
   workspace_required = true,
   root_dir = function(bufnr, on_dir)

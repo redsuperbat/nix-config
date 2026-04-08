@@ -10,11 +10,11 @@ local function open_task_if_exists()
   local task = overseer.list_tasks({ name = name })[1]
 
   if not task then
-    return overseer.run_template({ name = name }, float.enter)
+    return overseer.run_task({ name = name }, float.enter)
   end
 
   if not task:is_running() then
-    return overseer.run_template({ name = name }, float.enter)
+    return overseer.run_task({ name = name }, float.enter)
   end
 
   float.enter(task)

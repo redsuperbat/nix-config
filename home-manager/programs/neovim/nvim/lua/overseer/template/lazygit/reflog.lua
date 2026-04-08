@@ -10,7 +10,7 @@ local function encode_fish_filepath(filepath)
 end
 
 vim.keymap.set("n", "<leader>gr", function()
-  require("overseer").run_template({ name = name }, function(task)
+  require("overseer").run_task({ name = name }, function(task)
     float.enter(task, false)
   end)
 end, { desc = desc })

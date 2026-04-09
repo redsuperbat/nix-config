@@ -7,6 +7,9 @@ if not vim.env.SSH_TTY then
   vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
 end
 
+-- Enable the command line to use the new UI
+require("vim._core.ui2").enable({})
+
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 vim.opt.winborder = "rounded" -- Rounded floating window border

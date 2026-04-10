@@ -177,6 +177,19 @@ return {
     },
   },
   init = function()
+    -- Workaround for folke/snacks.nvim#2539: nvim_win_set_config rejects
+    -- non-integral height/width values that snacks computes from fractional
+    -- layout dimensions. Patch nvim_win_set_config to floor them.
+    local orig = vim.api.nvim_win_set_config
+    vim.api.nvim_win_set_config = function(win, config)
+      for _, key in ipairs({ "height", "width", "row", "col" }) do
+        if type(config[key]) == "number" then
+          config[key] = math.floor(config[key] + 0.5)
+        end
+      end
+      return orig(win, config)
+    end
+
     require("max.utils.theme").set_bg({
       "SnacksPickerFile",
       "SnacksPickerList",

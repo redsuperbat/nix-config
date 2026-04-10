@@ -11,7 +11,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("minuet").setup({
-      throttle = 200,
+      throttle = 50,
       provider = "claude",
       virtualtext = {
         show_on_completion_menu = true,

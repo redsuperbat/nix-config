@@ -1,5 +1,5 @@
 local fs = require("max.utils.fs")
-local file_path = vim.fn.expand("~/.secrets/openai-api-key")
+local file_path = vim.fn.expand("~/.secrets/anthropic-api-key")
 
 ---@module "lazy"
 ---@type LazySpec
@@ -12,7 +12,7 @@ return {
   config = function()
     require("minuet").setup({
       throttle = 200,
-      provider = "openai",
+      provider = "claude",
       virtualtext = {
         show_on_completion_menu = true,
         auto_trigger_ft = { "*" },
@@ -24,7 +24,10 @@ return {
         },
       },
       provider_options = {
-        openai = {
+        claude = {
+          model = "claude-sonnet-4-6",
+          max_tokens = 512,
+          stream = true,
           api_key = function()
             return fs.read_file(file_path)
           end,

@@ -171,6 +171,7 @@ return {
         recent = { hidden = true },
         grep = { hidden = true },
         picker_actions = { layout = { preset = "select", fullscreen = false } },
+        select = { layout = { preset = "select", fullscreen = false } },
       },
       formatters = { file = { truncate = 120 } },
     },

@@ -224,11 +224,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1775590448,
-        "narHash": "sha256-hhHWjcYkqHM5IdYYzSnqCCpbWM3j9igh1xLoDuCCgjI=",
+        "lastModified": 1775719437,
+        "narHash": "sha256-UUbDxVDVK3k5KgBuvCo78Z3eQO/8c0JAkiYkpVfBJhY=",
         "owner": "raine",
         "repo": "workmux",
-        "rev": "94cd398496545bc0708dbaab2629498fc13bbd6a",
+        "rev": "cbbd3550098b64ce45af52536ac356b4908eff93",
         "type": "github"
       },
       "original": {

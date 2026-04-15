@@ -48,7 +48,7 @@
   "alwaysThinkingEnabled": true,
   "fileSuggestion": {
     "type": "command",
-    "command": "tmux-file-picker"
+    "command": "tmux display-popup -E \"tmux-file-picker\""
   },
   "statusLine": {
     "type": "command",

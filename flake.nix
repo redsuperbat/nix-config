@@ -32,6 +32,7 @@
     rustproof,
     nixpkgs-pinned,
     workmux,
+    ...
   }: let
     users = {
       maxnetterberg = {

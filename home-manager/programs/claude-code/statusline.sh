@@ -5,8 +5,6 @@ set MODEL (echo $input | jq -r '.model.display_name')
 set PCT (echo $input | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
 set COST (echo $input | jq -r '.cost.total_cost_usd // 0')
 set DURATION_MS (echo $input | jq -r '.cost.total_duration_ms // 0')
-set VIM_MODE (echo $input | jq -r '.vim.mode // empty')
-
 set DIM '\033[2m'
 set CYAN '\033[36m'
 set GREEN '\033[32m'
@@ -46,30 +44,17 @@ else
     set TIME "$SECS"s
 end
 
-# vim mode indicator
-set MODE ""
-if test -n "$VIM_MODE"
-    if test "$VIM_MODE" = NORMAL
-        set MODE "$BOLD""$CYAN"NOR"$RESET "
-    else
-        set MODE "$BOLD""$GREEN"INS"$RESET "
-    end
-end
-
 # git branch
 set BRANCH ""
 if git rev-parse --git-dir >/dev/null 2>&1
     set BRANCH (git branch --show-current 2>/dev/null)
 end
 
-# line 1: mode + model + branch
-set L1 "$MODE""$DIM""$MODEL""$RESET"
+# single line: model + branch + bar + cost + time
+set LINE "$DIM""$MODEL""$RESET"
 if test -n "$BRANCH"
-    set L1 "$L1 ""$DIM"on"$RESET $CYAN""$BRANCH""$RESET"
+    set LINE "$LINE ""$DIM"on"$RESET $CYAN""$BRANCH""$RESET"
 end
+set LINE "$LINE  $COLOR""$BAR""$RESET $DIM""$PCT""%""$RESET  $YELLOW""$COST_FMT""$RESET  $DIM""$TIME""$RESET"
 
-# line 2: context bar + cost + time
-set L2 "$COLOR""$BAR""$RESET $DIM""$PCT""%""$RESET  $YELLOW""$COST_FMT""$RESET  $DIM""$TIME""$RESET"
-
-echo -e $L1
-echo -e $L2
+echo -e $LINE

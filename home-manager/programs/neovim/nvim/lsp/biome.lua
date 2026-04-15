@@ -1,6 +1,11 @@
 ---@type vim.lsp.Config
 return {
-  cmd = { "biome", "lsp-proxy" },
+  cmd = function(dispatchers)
+    local root = vim.fs.root(0, { "biome.json", "biome.jsonc" }) or vim.fn.getcwd()
+    local local_biome = root .. "/node_modules/.bin/biome"
+    local bin = vim.uv.fs_stat(local_biome) and local_biome or "biome"
+    return vim.lsp.rpc.start({ bin, "lsp-proxy" }, dispatchers)
+  end,
   filetypes = {
     "css",
     "graphql",

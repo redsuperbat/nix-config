@@ -258,6 +258,8 @@
       htop = "btm";
       pdf = "tdf";
       cd = "z";
+      oc = "opencode";
+      cc = "claude";
 
       # git
       gaa = "git add --all";

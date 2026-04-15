@@ -109,22 +109,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-claude-code": {
-      "locked": {
-        "lastModified": 1774709303,
-        "narHash": "sha256-D3Q07BbIA2KnTcSXIqqu9P586uWxN74zNoCH3h2ESHg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8110df5ad7abf5d4c0f6fb0f8f978390e77f9685",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8110df5ad7abf5d4c0f6fb0f8f978390e77f9685",
-        "type": "github"
-      }
-    },
     "nixpkgs-pinned": {
       "locked": {
         "lastModified": 1752446735,
@@ -179,7 +163,6 @@
         "home-manager": "home-manager",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-claude-code": "nixpkgs-claude-code",
         "nixpkgs-pinned": "nixpkgs-pinned",
         "rustproof": "rustproof",
         "workmux": "workmux"

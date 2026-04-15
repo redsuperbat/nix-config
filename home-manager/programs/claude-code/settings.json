@@ -45,5 +45,14 @@
       }
     ]
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "fileSuggestion": {
+    "type": "command",
+    "command": "tmux-file-picker"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "refreshInterval": 10
+  }
 }

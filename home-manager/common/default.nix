@@ -1,7 +1,6 @@
 {
   userConfig,
   pkgs,
-  pkgs-claude-code,
   ...
 }: let
   programs = builtins.map (name: ../programs/${name}) (builtins.attrNames (builtins.readDir ../programs));
@@ -65,7 +64,7 @@ in {
     flutter
 
     # cli AI agents
-    pkgs-claude-code.claude-code
+    claude-code
     codex
 
     # mac specfic apps

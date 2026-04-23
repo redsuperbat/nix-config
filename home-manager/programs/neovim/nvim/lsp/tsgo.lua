@@ -84,12 +84,6 @@ return {
     if shebang.is_deno(bufnr) then
       return
     end
-    local deno_json_found = vim.fs.root(bufnr, {
-      "deno.json",
-    })
-    if deno_json_found ~= nil then
-      return
-    end
 
     -- The project root is where the LSP can be started from
     -- As stated in the documentation above, this LSP supports monorepos and simple projects.
@@ -113,25 +107,5 @@ return {
     -- project is standard TS, not deno
     -- We fallback to the current working directory if no project root is found
     on_dir(project_root or vim.fn.getcwd())
-
-    vim.keymap.set("n", "<leader>ai", function()
-      local clients = vim.lsp.get_clients({ bufnr = 0, name = "tsgo" })
-      if #clients == 0 then
-        print("tsgo not attached")
-        return
-      end
-
-      clients[1]:request("textDocument/diagnostic", {
-        textDocument = vim.lsp.util.make_text_document_params(0),
-      }, function(err, result)
-        if result and result.items then
-          for _, d in ipairs(result.items) do
-            print(d.message, "code:", d.code)
-          end
-        else
-          print(vim.inspect({ err = err, result = result }))
-        end
-      end, 0)
-    end, { desc = "Add all missing imports (via fixAll)" })
   end,
 }

@@ -38,7 +38,7 @@ echo $response | jq -r '
 \(.description // "No description provided.")
 
 ## Comments
-\(if .comments.nodes | length > 0 then ([.comments.nodes[] | "### \(.user.name // "Unknown") (\(.createdAt))\n\(.body)"] | join("\n\n")) else "No comments." end)
+\(if .comments.nodes | length > 0 then ([.comments.nodes | reverse | .[] | "### \(.user.name // "Unknown") (\(.createdAt))\n\(.body)"] | join("\n\n")) else "No comments." end)
 
 ## Suggested Branch Names
 ```

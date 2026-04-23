@@ -13,7 +13,7 @@ if not set -q LINEAR_API_KEY
     exit 1
 end
 
-set query '{"query": "query { issue(id: \"'$ticket_id'\") { id identifier title description state { name } priority priorityLabel assignee { name } project { name } labels { nodes { name } } createdAt updatedAt } }"}'
+set query '{"query": "query { issue(id: \"'$ticket_id'\") { id identifier title description state { name } priority priorityLabel assignee { name } project { name } labels { nodes { name } } comments { nodes { body user { name } createdAt } } createdAt updatedAt } }"}'
 
 set response (curl -s -X POST \
     -H "Content-Type: application/json" \
@@ -36,6 +36,9 @@ echo $response | jq -r '
 
 ## Description
 \(.description // "No description provided.")
+
+## Comments
+\(if .comments.nodes | length > 0 then ([.comments.nodes[] | "### \(.user.name // "Unknown") (\(.createdAt))\n\(.body)"] | join("\n\n")) else "No comments." end)
 
 ## Suggested Branch Names
 ```

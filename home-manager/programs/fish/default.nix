@@ -58,6 +58,11 @@
           end
         '';
       cl = "clear; tmux clear-history";
+      wm =
+        # fish
+        ''
+          workmux add -A -p "$argv[1]"
+        '';
       fish_greeting = ""; # Do not print fish greeting
       kill_port =
         # fish

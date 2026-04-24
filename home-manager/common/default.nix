@@ -1,13 +1,14 @@
 {
   userConfig,
   pkgs,
+  helium,
   ...
 }: let
   programs = builtins.map (name: ../programs/${name}) (builtins.attrNames (builtins.readDir ../programs));
   scripts = [../scripts];
 in {
   # Import all programs
-  imports = programs ++ scripts;
+  imports = programs ++ scripts ++ [helium.homeModules.helium];
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

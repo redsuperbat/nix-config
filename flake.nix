@@ -13,6 +13,8 @@
       url = "github:NixOS/nixpkgs/a421ac6595024edcfbb1ef950a3712b89161c359";
     };
 
+    helium.url = "gitlab:ntgn/helium-flake";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +34,7 @@
     rustproof,
     nixpkgs-pinned,
     workmux,
+    helium,
     ...
   }: let
     users = {
@@ -95,7 +98,7 @@
             home-manager.users.${username} = ./home-manager/common;
             home-manager.extraSpecialArgs = {
               pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
-              inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux;
+              inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux helium;
             };
           }
         ];

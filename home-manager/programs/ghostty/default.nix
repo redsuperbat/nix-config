@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   xdg.configFile."ghostty/config".text = ''
+    macos-option-as-alt = false
     macos-titlebar-style = hidden
     macos-non-native-fullscreen = true
     fullscreen = true
@@ -8,8 +9,6 @@
     font-family = JetBrains Mono
     font-family = Symbols Nerd Font Mono
     theme = Kanagawa Wave
-    keybind = alt+shift+e=toggle_fullscreen
-    keybind = alt+shift+r=reload_config
     keybind = cmd+d=ignore
     keybind = cmd+shift+d=ignore
   '';

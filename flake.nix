@@ -69,6 +69,11 @@
           {
             nixpkgs.hostPlatform = system;
             nixpkgs.config.allowUnfree = true;
+            nixpkgs.overlays = [
+              (final: prev: {
+                direnv = prev.direnv.overrideAttrs {doCheck = false;};
+              })
+            ];
           }
           ./hosts/${hostname}
           nix-homebrew.darwinModules.nix-homebrew

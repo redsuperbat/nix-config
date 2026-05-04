@@ -14,8 +14,12 @@
     # Let nvim-treesitter manage all parsers via auto_install instead.
     package = pkgs.neovim-unwrapped.overrideAttrs {
       treesitter-parsers = {};
+      doCheck = false;
     };
     defaultEditor = true;
+    # Prevent HM from generating init.lua, which conflicts with
+    # the mkOutOfStoreSymlink for the nvim config directory
+    sideloadInitLua = true;
     withNodeJs = true;
     withPython3 = true;
     withRuby = true;

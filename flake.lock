@@ -332,11 +332,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1777310753,
-        "narHash": "sha256-vCUCrYLEZz53t5tkqoCz4NhfMUbg6BXsXe4Xoj4O/gA=",
+        "lastModified": 1777793921,
+        "narHash": "sha256-2DsjErbeGFwd9uv2aGGviTS5jSMN4ttfZzb2GmHdgW8=",
         "owner": "raine",
         "repo": "workmux",
-        "rev": "41104f47d3f0c2c771a45d3d221a9d60301f6611",
+        "rev": "c6d17268ede0bad307ebdf7b5a73e1f6c580990b",
         "type": "github"
       },
       "original": {

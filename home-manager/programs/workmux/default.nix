@@ -10,7 +10,7 @@
       - direnv allow
     nerdfont: true
     merge_strategy: rebase
-    agent: claude --dangerously-skip-permissions
+    agent: claude --permission-mode auto
     panes:
       - command: <agent>
         focus: true

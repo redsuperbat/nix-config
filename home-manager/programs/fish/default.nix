@@ -13,6 +13,12 @@
       ''
         fish_vi_key_bindings
 
+        # Unbind alt-h (man page) so that quick <esc>h in vi mode
+        # doesn't accidentally trigger it
+        bind -e -M insert alt-h
+        bind -e alt-h
+        bind -e -M visual alt-h
+
         set -l foreground DCD7BA normal
         set -l selection 2D4F67 brcyan
         set -l comment 727169 brblack

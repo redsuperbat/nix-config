@@ -3,5 +3,10 @@
   "theme": "Default",
   "preferredEditor": "vim",
   "selectedAuthType": "oauth-personal",
-  "usageStatisticsEnabled": false
+  "usageStatisticsEnabled": false,
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  }
 }

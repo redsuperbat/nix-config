@@ -1,9 +1,17 @@
 {
-  "contextFileName": "AGENTS.md",
-  "theme": "Default",
-  "preferredEditor": "vim",
-  "selectedAuthType": "oauth-personal",
-  "usageStatisticsEnabled": false,
+  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
+  "context": {
+    "fileName": "AGENTS.md"
+  },
+  "general": {
+    "preferredEditor": "vim"
+  },
+  "ui": {
+    "theme": "Default"
+  },
+  "privacy": {
+    "usageStatisticsEnabled": false
+  },
   "security": {
     "auth": {
       "selectedType": "oauth-personal"

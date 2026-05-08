@@ -1,12 +1,10 @@
-{...}: {
-  programs.gemini-cli = {
-    enable = true;
-    settings = {
-      contextFileName = "AGENTS.md";
-      theme = "Default";
-      preferredEditor = "vim";
-      selectedAuthType = "oauth-personal";
-      usageStatisticsEnabled = false;
-    };
-  };
+{
+  config,
+  configDir,
+  ...
+}: {
+  programs.gemini-cli.enable = true;
+
+  home.file.".gemini/settings.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/gemini-cli/settings.json";
 }

@@ -7,6 +7,9 @@
   home.file.".claude/settings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/claude-code/settings.json";
 
+  home.file.".claude/skills".source =
+    config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/claude-code/skills";
+
   home.file.".claude/statusline.sh" = {
     source = ./statusline.sh;
     executable = true;

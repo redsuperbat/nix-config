@@ -7,7 +7,40 @@
     "preferredEditor": "vim"
   },
   "ui": {
-    "theme": "Default"
+    "theme": "Kanagawa Wave",
+    "customThemes": {
+      "Kanagawa Wave": {
+        "name": "Kanagawa Wave",
+        "type": "custom",
+        "background": {
+          "primary": "#1F1F28",
+          "diff": {
+            "added": "#2B3328",
+            "removed": "#43242B"
+          }
+        },
+        "text": {
+          "primary": "#DCD7BA",
+          "secondary": "#727169",
+          "link": "#7E9CD8",
+          "accent": "#957FB8"
+        },
+        "border": {
+          "default": "#2A2A37",
+          "focused": "#7E9CD8"
+        },
+        "status": {
+          "success": "#98BB6C",
+          "warning": "#FF9E3B",
+          "error": "#E82424"
+        },
+        "ui": {
+          "comment": "#727169",
+          "symbol": "#7AA89F",
+          "gradient": ["#957FB8", "#7E9CD8", "#7AA89F"]
+        }
+      }
+    }
   },
   "privacy": {
     "usageStatisticsEnabled": false

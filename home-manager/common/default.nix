@@ -10,9 +10,6 @@ in {
   # Import all programs
   imports = programs ++ scripts ++ [helium.homeModules.helium];
 
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
-
   # Home-Manager configuration for the user's home environment
   home = {
     username = "${userConfig.name}";
@@ -51,9 +48,9 @@ in {
     tmux-sessionizer
     tokei # Count lines of code
     uv # Python package manager
-    viddy
+    viddy # Better watch
     tdf # terminal pdf viewer
-    sd
+    sd # Better sed
     presenterm # terminal based slideshow tool
 
     coreutils-prefixed

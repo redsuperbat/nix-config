@@ -3,16 +3,16 @@
     "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1776478798,
-        "narHash": "sha256-ERStG27tf83VbCfYMxtDSs+sa8FUMJ/3jSu/QfX9rKE=",
+        "lastModified": 1778146321,
+        "narHash": "sha256-HeBwuJmuBioZHyZqDOcf7W/xsMFupSD583v6I5Cl7a8=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "3aae056b8d072624255bc8fd27febb7f327b2265",
+        "rev": "af835384ac574f76025adb38b292b04cecee1f1f",
         "type": "github"
       },
       "original": {
         "owner": "Homebrew",
-        "ref": "5.1.7",
+        "ref": "5.1.10",
         "repo": "brew",
         "type": "github"
       }
@@ -116,7 +116,9 @@
     "helium": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1776160196,
@@ -157,11 +159,11 @@
         "brew-src": "brew-src"
       },
       "locked": {
-        "lastModified": 1777250621,
-        "narHash": "sha256-WynkkG0hdZ5niYPJUbVg7oMfu8MVwGGzKZ6lKmfa+O8=",
+        "lastModified": 1778332591,
+        "narHash": "sha256-ctJ3ADtugrnbMfMBobA645gCqXVIyHnsCNMkVaIuSiM=",
         "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "aeb2069920742d0d6570089e8b3b8620050bacf2",
+        "rev": "7d0038b5bb60568ec41f5f4ef5067cd221ca7c0d",
         "type": "github"
       },
       "original": {
@@ -172,15 +174,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1775710090,
-        "narHash": "sha256-ar3rofg+awPB8QXDaFJhJ2jJhu+KqN/PRCXeyuXR76E=",
-        "owner": "NixOS",
+        "lastModified": 1777268161,
+        "narHash": "sha256-bxrdOn8SCOv8tN4JbTF/TXq7kjo9ag4M+C8yzzIRYbE=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "4c1018dae018162ec878d42fec712642d214fdfa",
+        "rev": "1c3fe55ad329cbcb28471bb30f05c9827f724c76",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -217,54 +219,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1777268161,
-        "narHash": "sha256-bxrdOn8SCOv8tN4JbTF/TXq7kjo9ag4M+C8yzzIRYbE=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "1c3fe55ad329cbcb28471bb30f05c9827f724c76",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1749794982,
-        "narHash": "sha256-Kh9K4taXbVuaLC0IL+9HcfvxsSUx8dPB5s5weJcc9pc=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "ee930f9755f58096ac6e8ca94a1887e0534e2d81",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_4": {
-      "locked": {
-        "lastModified": 1768305791,
-        "narHash": "sha256-AIdl6WAn9aymeaH/NvBj0H9qM+XuAuYbGMZaP0zcXAQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "1412caf7bf9e660f2f962917c14b1ea1c3bc695e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "claude-code": "claude-code",
@@ -272,7 +226,7 @@
         "helium": "helium",
         "home-manager": "home-manager",
         "nix-homebrew": "nix-homebrew",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-pinned": "nixpkgs-pinned",
         "rustproof": "rustproof",
         "workmux": "workmux"
@@ -281,7 +235,9 @@
     "rustproof": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1767010759,
@@ -329,7 +285,9 @@
     },
     "workmux": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1777793921,

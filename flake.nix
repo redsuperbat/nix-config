@@ -3,17 +3,30 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    workmux.url = "github:raine/workmux";
+    workmux = {
+      url = "github:raine/workmux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    rustproof.url = "github:redsuperbat/rustproof";
+    rustproof = {
+      url = "github:redsuperbat/rustproof";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Pinned version for temp broken packages on unstable
     nixpkgs-pinned = {
       url = "github:NixOS/nixpkgs/a421ac6595024edcfbb1ef950a3712b89161c359";
     };
 
-    helium.url = "gitlab:ntgn/helium-flake";
+    helium = {
+      url = "gitlab:ntgn/helium-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Pinned to v2.1.87 (last released version before #42670 alt-screen scrollback regression;
     # 2.1.88 was skipped by Anthropic, regression landed in 2.1.89).

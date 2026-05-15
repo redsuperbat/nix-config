@@ -28,6 +28,7 @@ return {
         vue = { "prettier" },
         dart = { lsp_format = "prefer" },
         typst = { "typstyle" },
+        prisma = { lsp_format = "prefer" },
         css = { lsp_format = "prefer" },
         markdown = { "prettier", lsp_format = "fallback" },
         rust = { lsp_format = "prefer" },

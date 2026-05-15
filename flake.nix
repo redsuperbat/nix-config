@@ -28,11 +28,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Pinned to v2.1.87 (last released version before #42670 alt-screen scrollback regression;
-    # 2.1.88 was skipped by Anthropic, regression landed in 2.1.89).
-    # Bump when upstream ships a fix for #42670 / #55826.
     claude-code = {
-      url = "github:sadjow/claude-code-nix?ref=v2.1.87";
+      url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

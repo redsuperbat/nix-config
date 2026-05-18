@@ -7,6 +7,9 @@
   home.file.".claude/settings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/claude-code/settings.json";
 
+  home.file.".claude/keybindings.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/claude-code/keybindings.json";
+
   home.file.".claude/skills".source =
     config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/claude-code/skills";
 

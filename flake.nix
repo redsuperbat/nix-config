@@ -13,10 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew = {
-      url = "github:zhaofengli/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     # Pinned version for temp broken packages on unstable
     nixpkgs-pinned = {

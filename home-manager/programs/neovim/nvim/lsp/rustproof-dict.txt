@@ -363,3 +363,4 @@ microsoft
 impactful
 Uint
 concat
+vectorize

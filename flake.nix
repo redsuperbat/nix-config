@@ -60,6 +60,11 @@
         fullName = "Max Netterberg";
         name = "maxnetterberg";
       };
+      maxn = {
+        email = "max.netterberg@gmail.com";
+        fullName = "Max Netterberg";
+        name = "maxn";
+      };
     };
 
     # Overlays shared across both nix-darwin and NixOS
@@ -180,7 +185,7 @@
     nixosConfigurations = {
       nixos-desktop = mkNixosConfiguration {
         system = "x86_64-linux";
-        username = "maxnetterberg";
+        username = "maxn";
         hostname = "nixos-desktop";
       };
     };

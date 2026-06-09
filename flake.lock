@@ -239,11 +239,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767010759,
-        "narHash": "sha256-LEIeqDFp6UQv+O19zOxIaHOX5XQnMy6N8kTlB7oPeNc=",
+        "lastModified": 1781037900,
+        "narHash": "sha256-0SGYDdF4ZT31pLhqYwAMZUnp+vYfw2ekDth4ePjSQxE=",
         "owner": "redsuperbat",
         "repo": "rustproof",
-        "rev": "ae91b3babaa0e45ed0a18acd853f1c39b3de142c",
+        "rev": "ec45adc6f14a8e5c9bc67d41487f149ac003f80b",
         "type": "github"
       },
       "original": {

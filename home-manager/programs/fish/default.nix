@@ -283,6 +283,7 @@
 
       watch = "viddy --shell fish --shell-options -i --";
       nds = "nh darwin switch";
+      nos = "nh os switch";
 
       kc = "kubectl";
       lg = "lazygit";

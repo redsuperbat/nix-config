@@ -43,6 +43,7 @@
 
   outputs = {
     self,
+    nixpkgs,
     darwin,
     home-manager,
     nix-homebrew,
@@ -61,13 +62,23 @@
       };
     };
 
-    mkDarwinConfiguration = {
+    # Overlays shared across both nix-darwin and NixOS
+    overlays = [
+      (final: prev: {
+        direnv = prev.direnv.overrideAttrs {doCheck = false;};
+      })
+      claude-code.overlays.default
+    ];
+
+    # Wiring for the home-manager module that is identical on both platforms.
+    # `homeDir` differs (/Users on darwin, /home on linux) so it is passed in.
+    mkHomeManager = {
       system,
       username,
+      homeDir,
       hostname,
     }: let
       userConfig = users.${username};
-      homeDir = "/Users/${userConfig.name}";
       configDir = "${homeDir}/Config"; # Directory where configuration will be stored
       workspaceDir = "${homeDir}/Workspace"; # Directory where git repositories will be stored
       nixpkgsOpts = {
@@ -75,6 +86,27 @@
         config.allowUnfree = true;
         system = system;
       };
+    in {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.backupFileExtension = "bak";
+      home-manager.users.${username} = ./home-manager/common;
+      home-manager.extraSpecialArgs = {
+        pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
+        # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
+        # `imports` without triggering infinite recursion.
+        isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
+        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux helium;
+      };
+    };
+
+    mkDarwinConfiguration = {
+      system,
+      username,
+      hostname,
+    }: let
+      userConfig = users.${username};
+      homeDir = "/Users/${userConfig.name}";
     in
       darwin.lib.darwinSystem {
         system = system;
@@ -85,12 +117,7 @@
           {
             nixpkgs.hostPlatform = system;
             nixpkgs.config.allowUnfree = true;
-            nixpkgs.overlays = [
-              (final: prev: {
-                direnv = prev.direnv.overrideAttrs {doCheck = false;};
-              })
-              claude-code.overlays.default
-            ];
+            nixpkgs.overlays = overlays;
           }
           ./hosts/${hostname}
           nix-homebrew.darwinModules.nix-homebrew
@@ -113,16 +140,32 @@
             };
           }
           home-manager.darwinModules.home-manager
+          (mkHomeManager {inherit system username homeDir hostname;})
+        ];
+      };
+
+    mkNixosConfiguration = {
+      system,
+      username,
+      hostname,
+    }: let
+      userConfig = users.${username};
+      homeDir = "/home/${userConfig.name}";
+    in
+      nixpkgs.lib.nixosSystem {
+        system = system;
+        specialArgs = {
+          inherit userConfig homeDir;
+        };
+        modules = [
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "bak";
-            home-manager.users.${username} = ./home-manager/common;
-            home-manager.extraSpecialArgs = {
-              pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
-              inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux helium;
-            };
+            nixpkgs.hostPlatform = system;
+            nixpkgs.config.allowUnfree = true;
+            nixpkgs.overlays = overlays;
           }
+          ./hosts/${hostname}
+          home-manager.nixosModules.home-manager
+          (mkHomeManager {inherit system username homeDir hostname;})
         ];
       };
   in {
@@ -131,6 +174,14 @@
         system = "aarch64-darwin";
         username = "maxnetterberg";
         hostname = "macbook-pro";
+      };
+    };
+
+    nixosConfigurations = {
+      nixos-desktop = mkNixosConfiguration {
+        system = "x86_64-linux";
+        username = "maxnetterberg";
+        hostname = "nixos-desktop";
       };
     };
   };

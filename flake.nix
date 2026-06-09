@@ -31,6 +31,12 @@
       url = "github:pimalaya/himalaya-tui";
     };
 
+    # Email CLI (v2, 2.0.0-alpha). Same config format as himalaya-tui; pins
+    # its own nixpkgs for the same reason, so no follows override here.
+    himalaya = {
+      url = "github:pimalaya/himalaya";
+    };
+
     claude-code = {
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +64,7 @@
     workmux,
     helium,
     himalaya-tui,
+    himalaya,
     claude-code,
     ...
   }: let
@@ -108,7 +115,7 @@
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
-        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux helium himalaya-tui;
+        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux helium himalaya-tui himalaya;
       };
     };
 

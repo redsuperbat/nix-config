@@ -54,6 +54,7 @@
       '';
 
     functions = {
+      email = "himalaya-tui";
       # Clear all logs in all windows
       clw =
         # fish

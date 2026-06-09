@@ -1,9 +1,6 @@
 # ================================================================================
 # himalaya-tui configuration
 #
-# This file is symlinked out-of-store from the nix-config repo, so edits here
-# take effect immediately — no rebuild needed.
-#
 # Color values accept: named ANSI ("blue"), hex RGB ("#7e9cd8"),
 # 256-color index ("33") or "reset". `mod` is a list of:
 #   bold, dim, italic, underlined, slow-blink, rapid-blink, reversed,
@@ -96,18 +93,15 @@ fg = "#DCD7BA"
 # Account
 # --------------------------------------------------------------------------------
 #
-# Fill in a real account below, or delete the example block and run
-# `himalaya-tui` once with no account to launch the auto-discovery wizard.
+# Accounts and credentials are intentionally NOT defined here — this file is
+# symlinked from the nix-config repo and committed to git.
 #
-# [accounts.personal]
-# default = true
-# from = "you@example.com"
-# from-name = "Your Name"
+# Per-machine account config lives in (and is deep-merged on top of this file):
 #
-# imap.server = "imaps://imap.example.com:993"
-# imap.sasl.plain.username = "you@example.com"
-# imap.sasl.plain.password.command = "pass show email/example"
+#   ~/.config/himalaya/account.toml
 #
-# smtp.server = "smtps://smtp.example.com:465"
-# smtp.sasl.plain.username = "you@example.com"
-# smtp.sasl.plain.password.command = "pass show email/example"
+# That path is outside the repo and is never committed. The HIMALAYA_CONFIG
+# environment variable (set by the himalaya home-manager module) points at
+# both files: "<this file>:<account.toml>".
+#
+# See account.toml.example in this directory for a Gmail template to copy.

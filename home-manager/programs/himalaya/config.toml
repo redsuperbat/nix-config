@@ -1,0 +1,113 @@
+# ================================================================================
+# himalaya-tui configuration
+#
+# This file is symlinked out-of-store from the nix-config repo, so edits here
+# take effect immediately — no rebuild needed.
+#
+# Color values accept: named ANSI ("blue"), hex RGB ("#7e9cd8"),
+# 256-color index ("33") or "reset". `mod` is a list of:
+#   bold, dim, italic, underlined, slow-blink, rapid-blink, reversed,
+#   hidden, crossed-out
+# ================================================================================
+
+# --------------------------------------------------------------------------------
+# Theme — Kanagawa (Wave)
+# https://github.com/rebelot/kanagawa.nvim
+# --------------------------------------------------------------------------------
+[theme]
+# Start from the built-in default (named ANSI) and override everything below
+# with the Kanagawa palette.
+preset = "default"
+
+# Palette reference (Kanagawa Wave):
+#   sumiInk0  #16161D   waveBlue1   #223249   springGreen #98BB6C
+#   sumiInk3  #1F1F28   waveBlue2   #2D4F67   carpYellow  #E6C384
+#   fujiWhite #DCD7BA   crystalBlue #7E9CD8   sakuraPink  #D27E99
+#   oldWhite  #C8C093   springBlue  #7FB4CA   autumnRed   #C34043
+#   fujiGray  #727169   waveAqua2   #7AA89F   oniViolet   #957FB8
+
+# Top header bar (account name).
+[theme.header]
+bg = "#2D4F67"
+fg = "#DCD7BA"
+mod = ["bold"]
+
+# Bottom status bar.
+[theme.status-bar]
+bg = "#16161D"
+fg = "#C8C093"
+
+# Border of the currently-focused panel.
+[theme.border-active]
+fg = "#7E9CD8"
+
+# Border of inactive panels.
+[theme.border-inactive]
+fg = "#727169"
+
+# Border of modal dialogs.
+[theme.dialog-border]
+fg = "#E6C384"
+
+# Selected row / dialog item ("cursor").
+[theme.cursor]
+bg = "#2D4F67"
+fg = "#DCD7BA"
+mod = ["bold"]
+
+# Marker on the currently-open mailbox.
+[theme.mailbox-current]
+fg = "#E6C384"
+mod = ["bold"]
+
+# Envelope table column header row.
+[theme.envelope-header]
+fg = "#7E9CD8"
+mod = ["bold"]
+
+# Read messages.
+[theme.envelope-seen]
+fg = "#727169"
+
+# Unread messages.
+[theme.envelope-unread]
+fg = "#DCD7BA"
+mod = ["bold"]
+
+# Message reader body text.
+[theme.message-body]
+fg = "#DCD7BA"
+
+# Composer body text.
+[theme.compose-text]
+fg = "#DCD7BA"
+
+# Composer cursor cell.
+[theme.compose-cursor]
+bg = "#7E9CD8"
+fg = "#16161D"
+
+# Composer visual-mode selection.
+[theme.compose-selection]
+bg = "#223249"
+fg = "#DCD7BA"
+
+# --------------------------------------------------------------------------------
+# Account
+# --------------------------------------------------------------------------------
+#
+# Fill in a real account below, or delete the example block and run
+# `himalaya-tui` once with no account to launch the auto-discovery wizard.
+#
+# [accounts.personal]
+# default = true
+# from = "you@example.com"
+# from-name = "Your Name"
+#
+# imap.server = "imaps://imap.example.com:993"
+# imap.sasl.plain.username = "you@example.com"
+# imap.sasl.plain.password.command = "pass show email/example"
+#
+# smtp.server = "smtps://smtp.example.com:465"
+# smtp.sasl.plain.username = "you@example.com"
+# smtp.sasl.plain.password.command = "pass show email/example"

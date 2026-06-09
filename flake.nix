@@ -25,6 +25,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Email TUI. Pins its own nixpkgs (until a crates.io fix is backported),
+    # so we intentionally do not override its nixpkgs input here.
+    himalaya-tui = {
+      url = "github:pimalaya/himalaya-tui";
+    };
+
     claude-code = {
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,6 +57,7 @@
     nixpkgs-pinned,
     workmux,
     helium,
+    himalaya-tui,
     claude-code,
     ...
   }: let
@@ -101,7 +108,7 @@
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
-        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux helium;
+        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux helium himalaya-tui;
       };
     };
 

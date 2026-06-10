@@ -33,7 +33,10 @@
         "$mod, Q, killactive,"
         "CONTROL, Return, exec, $menu toggle"
         "$mod, F, fullscreen,"
-        "$mod, V, togglefloating,"
+        "$mod SHIFT, V, togglefloating,"
+        # Ctrl+Shift+V pastes in terminals; GUI apps treat it as
+        # paste-without-formatting, which still pastes.
+        "$mod, V, sendshortcut, CTRL SHIFT, V, activewindow"
         "$mod, J, movefocus, l"
         "$mod, K, movefocus, r"
         ", Print, exec, ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy"

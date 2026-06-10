@@ -32,6 +32,7 @@
       alejandra # nix formatter
       checkmake # Makefile linter
       dockerfile-language-server
+      gcc # C compiler for nvim-treesitter runtime parser compilation
       golangci-lint
       gopls
       gotools

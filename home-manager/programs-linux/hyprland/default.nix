@@ -22,9 +22,11 @@
       # Mirrors the macOS skhd workflow (f6 browser / f7 terminal / f8 slack)
       bind = [
         "$mod, Return, exec, $term"
-        "F7, exec, $term"
-        "F6, exec, $browser"
-        "F8, exec, $slack"
+        # Leading comma = no modifier. Without it Hyprland reads the key as the
+        # modmask and the path as the dispatcher ("dispatcher does not exist").
+        ", F7, exec, $term"
+        ", F6, exec, $browser"
+        ", F8, exec, $slack"
         "$mod, Q, killactive,"
         "CONTROL, Return, exec, $menu"
         "$mod, F, fullscreen,"

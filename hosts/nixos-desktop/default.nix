@@ -105,6 +105,9 @@
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium (vim keybindings)
       "nngceckbapebfimnlniiiahkandclblb" # Bitwarden (password manager)
     ];
+    # Bitwarden handles passwords; turn off Chromium's built-in manager and
+    # its "save password?" prompts.
+    extraOpts.PasswordManagerEnabled = false;
   };
 
   # Steam + Proton. `steam` is unfree (allowUnfree is set in the flake).

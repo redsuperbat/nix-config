@@ -442,11 +442,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781037900,
-        "narHash": "sha256-0SGYDdF4ZT31pLhqYwAMZUnp+vYfw2ekDth4ePjSQxE=",
+        "lastModified": 1781089260,
+        "narHash": "sha256-EpMX+gvJbSyynIwhM/i2G3V72L6pTC7BzVfQMgNp/Xc=",
         "owner": "redsuperbat",
         "repo": "rustproof",
-        "rev": "ec45adc6f14a8e5c9bc67d41487f149ac003f80b",
+        "rev": "0c24b163b8f5ce67dda87657247a810881f05ab1",
         "type": "github"
       },
       "original": {

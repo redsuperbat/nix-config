@@ -39,6 +39,15 @@
         "$mod, V, sendshortcut, CTRL SHIFT, V, activewindow"
         "$mod, J, movefocus, l"
         "$mod, K, movefocus, r"
+
+        # Cycle through all windows on the workspace in layout order. (MRU
+        # order via the hist flag only ping-pongs the two newest windows.)
+        # The alterzorder bind (same combo = both run) raises the newly
+        # focused window so floating windows don't stay buried.
+        "$mod, Tab, cyclenext,"
+        "$mod, Tab, alterzorder, top"
+        "$mod SHIFT, Tab, cyclenext, prev"
+        "$mod SHIFT, Tab, alterzorder, top"
         ", Print, exec, ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy"
 
         # Workspaces
@@ -66,6 +75,13 @@
 
       decoration = {
         rounding = 6;
+      };
+
+      misc = {
+        # When focus moves to a window under a fullscreen one, hand the
+        # fullscreen state to it instead of exiting fullscreen (the default,
+        # 2, exits unless the dispatcher opts in like cyclenext's hist mode).
+        on_focus_under_fullscreen = 1;
       };
 
       input = {

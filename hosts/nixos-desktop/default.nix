@@ -119,6 +119,7 @@
       # policy is no longer honored) and the Web Store no longer hosts, so
       # force-installing it fails silently.
       "ddkjiahejlhfcafbddmgiahcphecmpfh"
+      "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium (vim keybindings)
     ];
   };
 

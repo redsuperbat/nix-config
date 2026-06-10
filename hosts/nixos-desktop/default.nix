@@ -114,13 +114,12 @@
   programs.chromium = {
     enable = true;
     extensions = [
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      # uBlock Origin Lite (MV3). The original uBlock Origin is MV2, which
+      # Chromium >= 139 refuses to run (the ExtensionManifestV2Availability
+      # policy is no longer honored) and the Web Store no longer hosts, so
+      # force-installing it fails silently.
+      "ddkjiahejlhfcafbddmgiahcphecmpfh"
     ];
-    # uBlock Origin is a Manifest V2 extension; allow MV2 so it can run on
-    # recent Chromium (which otherwise disables MV2).
-    extraOpts = {
-      ExtensionManifestV2Availability = 2;
-    };
   };
 
   # Steam + Proton. `steam` is unfree (allowUnfree is set in the flake).

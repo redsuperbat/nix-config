@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   # App launcher used by the keybinds below
   home.packages = with pkgs; [
-    fuzzel # wayland application launcher
+    vicinae # Raycast-like launcher (apps, clipboard, calc, emoji, extensions)
     grim # screenshot
     slurp # region select for screenshots
     wl-clipboard # clipboard
@@ -17,7 +17,10 @@
       "$term" = "${pkgs.ghostty}/bin/ghostty";
       "$browser" = "${pkgs.chromium}/bin/chromium";
       "$slack" = "${pkgs.slack}/bin/slack";
-      "$menu" = "${pkgs.fuzzel}/bin/fuzzel";
+      "$menu" = "${pkgs.vicinae}/bin/vicinae";
+
+      # Start the Vicinae daemon with the session (omit if you switch to uwsm).
+      "exec-once" = ["${pkgs.vicinae}/bin/vicinae server"];
 
       # Mirrors the macOS skhd workflow (f6 browser / f7 terminal / f8 slack)
       bind = [
@@ -28,7 +31,7 @@
         ", F6, exec, $browser"
         ", F8, exec, $slack"
         "$mod, Q, killactive,"
-        "CONTROL, Return, exec, $menu"
+        "CONTROL, Return, exec, $menu toggle"
         "$mod, F, fullscreen,"
         "$mod, V, togglefloating,"
         "$mod, J, movefocus, l"

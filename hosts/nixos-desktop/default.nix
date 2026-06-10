@@ -120,6 +120,7 @@
       # force-installing it fails silently.
       "ddkjiahejlhfcafbddmgiahcphecmpfh"
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium (vim keybindings)
+      "nngceckbapebfimnlniiiahkandclblb" # Bitwarden (password manager)
     ];
   };
 

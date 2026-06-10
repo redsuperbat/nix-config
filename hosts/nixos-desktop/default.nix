@@ -30,11 +30,26 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Latest kernel (carried over from the original /etc/nixos config).
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking.hostName = "nixos-desktop";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Stockholm";
   i18n.defaultLocale = "en_US.UTF-8";
+  # Swedish formats for dates, numbers, currency, etc.
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "sv_SE.UTF-8";
+    LC_IDENTIFICATION = "sv_SE.UTF-8";
+    LC_MEASUREMENT = "sv_SE.UTF-8";
+    LC_MONETARY = "sv_SE.UTF-8";
+    LC_NAME = "sv_SE.UTF-8";
+    LC_NUMERIC = "sv_SE.UTF-8";
+    LC_PAPER = "sv_SE.UTF-8";
+    LC_TELEPHONE = "sv_SE.UTF-8";
+    LC_TIME = "sv_SE.UTF-8";
+  };
 
   # User configuration
   users.users.${userConfig.name} = {
@@ -70,8 +85,12 @@
   services.pipewire = {
     enable = true;
     alsa.enable = true;
+    alsa.support32Bit = true; # 32-bit audio for Steam/Proton games
     pulse.enable = true;
   };
+
+  # Printing (CUPS)
+  services.printing.enable = true;
 
   # SSH — escape hatch so a broken display session can be debugged remotely.
   services.openssh = {
@@ -111,5 +130,5 @@
 
   # Used for backwards compatibility, please read the changelog before changing.
   # https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 }

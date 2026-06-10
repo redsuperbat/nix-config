@@ -17,7 +17,7 @@
       bind = [
         "$mod, Return, exec, $term"
         "F7, exec, $term"
-        "F6, exec, firefox"
+        "F6, exec, chromium"
         "F8, exec, slack"
         "$mod, Q, killactive,"
         "$mod, Space, exec, fuzzel"

@@ -96,6 +96,6 @@ in {
     ]
     ++ lib.optionals isLinux [
       ghostty # installed via homebrew on macOS, from nixpkgs on linux
-      firefox # browser (helium is darwin-only for now)
+      # browser: chromium is configured in programs-linux/chromium
     ];
 }

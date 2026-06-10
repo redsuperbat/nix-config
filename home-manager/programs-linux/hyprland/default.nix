@@ -11,21 +11,27 @@
     enable = true;
     settings = {
       "$mod" = "SUPER";
-      "$term" = "ghostty";
+      # Absolute store paths: Hyprland's exec runs via /bin/sh and the session
+      # (launched by tuigreet, not a login shell) does not have the user
+      # profile on PATH, so bare command names are not found.
+      "$term" = "${pkgs.ghostty}/bin/ghostty";
+      "$browser" = "${pkgs.chromium}/bin/chromium";
+      "$slack" = "${pkgs.slack}/bin/slack";
+      "$menu" = "${pkgs.fuzzel}/bin/fuzzel";
 
       # Mirrors the macOS skhd workflow (f6 browser / f7 terminal / f8 slack)
       bind = [
         "$mod, Return, exec, $term"
         "F7, exec, $term"
-        "F6, exec, chromium"
-        "F8, exec, slack"
+        "F6, exec, $browser"
+        "F8, exec, $slack"
         "$mod, Q, killactive,"
-        "CONTROL, Return, exec, fuzzel"
+        "CONTROL, Return, exec, $menu"
         "$mod, F, fullscreen,"
         "$mod, V, togglefloating,"
         "$mod, J, movefocus, l"
         "$mod, K, movefocus, r"
-        ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
+        ", Print, exec, ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy"
 
         # Workspaces
         "$mod, 1, workspace, 1"

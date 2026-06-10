@@ -107,6 +107,22 @@
     enable32Bit = true;
   };
 
+  # Chromium extensions are force-installed via the system managed-policy
+  # (ExtensionInstallForcelist). home-manager's programs.chromium.extensions
+  # does not work on Linux — Chromium only loads force-installed extensions
+  # from system policy dirs, which a user-level tool cannot write to.
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+    ];
+    # uBlock Origin is a Manifest V2 extension; allow MV2 so it can run on
+    # recent Chromium (which otherwise disables MV2).
+    extraOpts = {
+      ExtensionManifestV2Availability = 2;
+    };
+  };
+
   # Steam + Proton. `steam` is unfree (allowUnfree is set in the flake).
   programs.steam = {
     enable = true;

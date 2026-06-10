@@ -96,6 +96,7 @@ in {
     ]
     ++ lib.optionals isLinux [
       ghostty # installed via homebrew on macOS, from nixpkgs on linux
+      slack # installed via homebrew on macOS, from nixpkgs on linux
       # browser: chromium is configured in programs-linux/chromium
     ];
 }

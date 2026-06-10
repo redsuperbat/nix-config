@@ -52,10 +52,16 @@
   # home-manager/programs-linux/hyprland
   programs.hyprland.enable = true;
 
-  # Login manager with Wayland support for the Hyprland session
-  services.displayManager.sddm = {
+  # Login manager: greetd + tuigreet. SDDM was replaced because its systemd
+  # session tracking (wayland-session-bindpid@.service) failed to launch the
+  # Hyprland Wayland session. tuigreet runs in the console and starts Hyprland
+  # directly, which avoids that machinery entirely.
+  services.greetd = {
     enable = true;
-    wayland.enable = true;
+    settings.default_session = {
+      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+      user = "greeter";
+    };
   };
 
   # Audio
@@ -67,8 +73,30 @@
     pulse.enable = true;
   };
 
+  # SSH — escape hatch so a broken display session can be debugged remotely.
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = true;
+  };
+
   # Docker daemon (on macOS this is provided by colima)
   virtualisation.docker.enable = true;
+
+  # GPU drivers — 32-bit support is required by Steam/Proton games
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  # Steam + Proton. `steam` is unfree (allowUnfree is set in the flake).
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Steam Remote Play
+    dedicatedServer.openFirewall = true; # Source dedicated server ports
+    # Proton ships with Steam; add Proton-GE as an extra compatibility tool.
+    # Select it per-game via Steam > Properties > Compatibility.
+    extraCompatPackages = [pkgs.proton-ge-bin];
+  };
 
   fonts.packages = with pkgs; [
     jetbrains-mono

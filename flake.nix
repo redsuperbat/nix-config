@@ -3,6 +3,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Stable channel — used for packages that are routinely uncached on
+    # unstable and slow to build from source (e.g. deno).
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+
     workmux = {
       url = "github:raine/workmux";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +60,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-stable,
     darwin,
     home-manager,
     nix-homebrew,
@@ -112,6 +117,7 @@
       home-manager.users.${username} = ./home-manager/common;
       home-manager.extraSpecialArgs = {
         pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
+        pkgs-stable = import nixpkgs-stable nixpkgsOpts;
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;

@@ -1,6 +1,7 @@
 {
   userConfig,
   pkgs,
+  pkgs-stable,
   lib,
   helium,
   homeDir,
@@ -42,7 +43,9 @@ in {
       bottom
       cargo-nextest
       curl
-      deno
+      # Pulled from nixpkgs stable: deno on unstable is frequently uncached and
+      # takes ~2h to build from source. The stable channel is always cached.
+      pkgs-stable.deno
       dig
       docker
       eza

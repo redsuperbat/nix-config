@@ -20,7 +20,7 @@
         "F6, exec, chromium"
         "F8, exec, slack"
         "$mod, Q, killactive,"
-        "$mod, Space, exec, fuzzel"
+        "CONTROL, Return, exec, fuzzel"
         "$mod, F, fullscreen,"
         "$mod, V, togglefloating,"
         "$mod, J, movefocus, l"

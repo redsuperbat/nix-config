@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   userConfig,
   homeDir,
@@ -88,6 +89,20 @@
     enable = true;
     # 32-bit support is required by Steam/Proton games
     enable32Bit = true;
+  };
+
+  # NVIDIA RTX 3060 (Ampere). Use the proprietary `nvidia` driver instead of
+  # the default nouveau — required for usable gaming performance, CUDA, etc.
+  # `steam` etc. is unfree (allowUnfree is set in the flake).
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    # NVIDIA's own open-source kernel module. Recommended (and as of the R560
+    # driver, the default) for Turing-generation cards and newer — Ampere
+    # qualifies. The userspace libraries are still proprietary, hence unfree.
+    open = true;
+    modesetting.enable = true; # required for Wayland; good practice on X11 too
+    nvidiaSettings = true; # the `nvidia-settings` GUI + `nvidia-smi`
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # Chromium extensions are force-installed via the system managed-policy

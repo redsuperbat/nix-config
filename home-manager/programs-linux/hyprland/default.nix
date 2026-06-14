@@ -10,13 +10,13 @@
     ${pkgs.hyprland}/bin/hyprctl dispatch movefocus "$1"
   '';
 in {
-  # App launcher used by the keybinds below
   home.packages = with pkgs; [
     vicinae # Raycast-like launcher (apps, clipboard, calc, emoji, extensions)
     grim # screenshot
     slurp # region select for screenshots
     wl-clipboard # clipboard
-    wireplumber # provides wpctl for the volume keybinds below
+    wireplumber # wpctl, for querying/scripting audio from the CLI
+    swayosd # on-screen volume/mute overlay (server + client below)
   ];
 
   wayland.windowManager.hyprland = {
@@ -31,8 +31,12 @@ in {
       "$slack" = "${pkgs.slack}/bin/slack";
       "$menu" = "${pkgs.vicinae}/bin/vicinae";
 
-      # Start the Vicinae daemon with the session (omit if you switch to uwsm).
-      "exec-once" = ["${pkgs.vicinae}/bin/vicinae server"];
+      # Start session daemons (omit if you switch to uwsm). swayosd-server
+      # draws the volume/mute overlay that the audio keybinds trigger below.
+      "exec-once" = [
+        "${pkgs.vicinae}/bin/vicinae server"
+        "${pkgs.swayosd}/bin/swayosd-server"
+      ];
 
       # Mirrors the macOS skhd workflow (f6 browser / f7 terminal / f8 slack)
       bind = [
@@ -82,15 +86,16 @@ in {
         "$mod, mouse:273, resizewindow"
       ];
 
-      # Volume: bindel = repeats while held (e) and works when locked (l).
-      # -l 1.0 caps the level at 100% so raising never overshoots.
+      # Volume: swayosd-client changes the level AND shows the on-screen bar.
+      # bindel = repeats while held (e) and works when locked (l).
+      # --max-volume 100 caps raising at 100% so it never overshoots.
       bindel = [
-        ", XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioRaiseVolume, exec, ${pkgs.swayosd}/bin/swayosd-client --output-volume raise --max-volume 100"
+        ", XF86AudioLowerVolume, exec, ${pkgs.swayosd}/bin/swayosd-client --output-volume lower"
       ];
       # Mute toggle: bindl = no repeat, still fires when locked.
       bindl = [
-        ", XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMute, exec, ${pkgs.swayosd}/bin/swayosd-client --output-volume mute-toggle"
       ];
 
       general = {

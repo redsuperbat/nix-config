@@ -1,10 +1,22 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # Move window focus, first dropping out of fullscreen if the active window
+  # is fullscreen. Hyprland's movefocus won't exit fullscreen on its own in
+  # 0.54 (neither movefocus_cycles_fullscreen=false nor on_focus_under_fullscreen
+  # do it), so we explicitly clear the fullscreen state first.
+  focusMove = pkgs.writeShellScript "hypr-focus-move" ''
+    if [ "$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r .fullscreen)" != "0" ]; then
+      ${pkgs.hyprland}/bin/hyprctl dispatch fullscreenstate 0 0
+    fi
+    ${pkgs.hyprland}/bin/hyprctl dispatch movefocus "$1"
+  '';
+in {
   # App launcher used by the keybinds below
   home.packages = with pkgs; [
     vicinae # Raycast-like launcher (apps, clipboard, calc, emoji, extensions)
     grim # screenshot
     slurp # region select for screenshots
     wl-clipboard # clipboard
+    wireplumber # provides wpctl for the volume keybinds below
   ];
 
   wayland.windowManager.hyprland = {
@@ -37,8 +49,11 @@
         # Ctrl+Shift+V pastes in terminals; GUI apps treat it as
         # paste-without-formatting, which still pastes.
         "$mod, V, sendshortcut, CTRL SHIFT, V, activewindow"
-        "$mod, J, movefocus, l"
-        "$mod, K, movefocus, r"
+        # Vim-style window focus movement (exits fullscreen first; see focusMove)
+        "$mod, H, exec, ${focusMove} l"
+        "$mod, J, exec, ${focusMove} d"
+        "$mod, K, exec, ${focusMove} u"
+        "$mod, L, exec, ${focusMove} r"
 
         # Cycle through all windows on the workspace in layout order. (MRU
         # order via the hist flag only ping-pongs the two newest windows.)
@@ -67,6 +82,17 @@
         "$mod, mouse:273, resizewindow"
       ];
 
+      # Volume: bindel = repeats while held (e) and works when locked (l).
+      # -l 1.0 caps the level at 100% so raising never overshoots.
+      bindel = [
+        ", XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ];
+      # Mute toggle: bindl = no repeat, still fires when locked.
+      bindl = [
+        ", XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ];
+
       general = {
         gaps_in = 4;
         gaps_out = 8;
@@ -75,13 +101,6 @@
 
       decoration = {
         rounding = 6;
-      };
-
-      misc = {
-        # When focus moves to a window under a fullscreen one, hand the
-        # fullscreen state to it instead of exiting fullscreen (the default,
-        # 2, exits unless the dispatcher opts in like cyclenext's hist mode).
-        on_focus_under_fullscreen = 1;
       };
 
       input = {

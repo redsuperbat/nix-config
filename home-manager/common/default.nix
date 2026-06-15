@@ -53,6 +53,7 @@ in {
       ffmpeg
       fzf
       gh
+      glow # terminal markdown renderer
       google-cloud-sdk
       gws
       jq

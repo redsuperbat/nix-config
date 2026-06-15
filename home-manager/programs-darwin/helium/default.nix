@@ -8,7 +8,7 @@
     package = helium.packages.${pkgs.system}.helium.overrideAttrs (old: {
       src = pkgs.fetchurl {
         url = old.src.url;
-        hash = "sha256-qLsd9TNAri8ytp2LyRiRQmCxrvC60r/JYQZCpdEP8es=";
+        hash = "sha256-BrbexBlCQh9htQEy4Wiul/oNSn2MVERoqpLT8VRLENM=";
       };
     });
     extensions = [

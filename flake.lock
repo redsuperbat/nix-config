@@ -166,11 +166,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776160196,
-        "narHash": "sha256-6vt4ebaJ/b5qeXapWzYtSh3g6Wd/8XOAJ2zo8wOAyQQ=",
+        "lastModified": 1778868513,
+        "narHash": "sha256-wbOYtF5N7TISQpfHRQzSSNo7EEsUAp+ZkyY7xzS3s7I=",
         "owner": "ntgn",
         "repo": "helium-flake",
-        "rev": "9946ec4be3f81e48e49595bd9307bf544a05cee0",
+        "rev": "2248af12b62611a9dd850d2ad17e11d4e31e8105",
         "type": "gitlab"
       },
       "original": {

@@ -1,7 +1,7 @@
 {
   userConfig,
   pkgs,
-  pkgs-stable,
+  pkgs-unstable,
   lib,
   helium,
   homeDir,
@@ -43,9 +43,7 @@ in {
       bottom
       cargo-nextest
       curl
-      # Pulled from nixpkgs stable: deno on unstable is frequently uncached and
-      # takes ~2h to build from source. The stable channel is always cached.
-      pkgs-stable.deno
+      deno
       dig
       docker
       eza
@@ -83,9 +81,6 @@ in {
       # cli AI agents
       claude-code
       codex
-
-      # Desktop applications
-      bitwarden-desktop
     ]
     ++ lib.optionals isDarwin [
       colima # Docker container runtime for macos
@@ -98,6 +93,9 @@ in {
     ++ lib.optionals isLinux [
       ghostty # installed via homebrew on macOS, from nixpkgs on linux
       slack # installed via homebrew on macOS, from nixpkgs on linux
+      # Installed via homebrew cask on macOS: the nixpkgs build pins an LLVM-18
+      # stdenv that fails to compile against the apple-sdk-26 / libc++ 21 headers.
+      bitwarden-desktop
       # browser: chromium is configured in programs-linux/chromium
     ];
 }

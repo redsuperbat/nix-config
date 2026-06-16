@@ -4,6 +4,7 @@
   rustproof,
   configDir,
   pkgs-pinned,
+  pkgs-unstable,
   ...
 }: {
   programs.neovim = {
@@ -12,7 +13,8 @@
     # Neovim 0.12 bundles parsers that can be outdated/incompatible with
     # nvim-treesitter's queries, causing "Invalid field name" errors.
     # Let nvim-treesitter manage all parsers via auto_install instead.
-    package = pkgs.neovim-unwrapped.overrideAttrs {
+    # Cherry-picked from unstable for a newer neovim than stable ships.
+    package = pkgs-unstable.neovim-unwrapped.overrideAttrs {
       treesitter-parsers = {};
       doCheck = false;
     };

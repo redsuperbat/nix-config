@@ -1,11 +1,10 @@
 {
   description = "Nix config for my machine";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
-    # Stable channel — used for packages that are routinely uncached on
-    # unstable and slow to build from source (e.g. deno).
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    # Unstable channel - cherry-picked for packages we want newer than stable ships
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     workmux = {
       url = "github:raine/workmux";
@@ -47,12 +46,14 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      # Track the release branch matching the stable nixpkgs base above.
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     darwin = {
-      url = "github:LnL7/nix-darwin";
+      # Track the release branch matching the stable nixpkgs base above.
+      url = "github:LnL7/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -60,7 +61,7 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,
+    nixpkgs-unstable,
     darwin,
     home-manager,
     nix-homebrew,
@@ -90,9 +91,30 @@
     overlays = [
       (final: prev: {
         direnv = prev.direnv.overrideAttrs {doCheck = false;};
+        # home-manager's release-26.05 tip ships a programs.antigravity-cli
+        # module whose default package isn't backported to nixos-26.05 yet. HM
+        # forces every module's package default during assertion evaluation, so
+        # provide it from unstable to keep the config evaluating. Eval-only —
+        # nothing builds unless the module is actually enabled.
+        antigravity-cli =
+          (import nixpkgs-unstable {
+            inherit (prev) config;
+            system = prev.stdenv.hostPlatform.system;
+          })
+          .antigravity-cli;
       })
       claude-code.overlays.default
     ];
+
+    # nixpkgs settings shared across both nix-darwin and NixOS hosts.
+    # `system` differs per host so it is passed in.
+    mkNixpkgsModule = system: {
+      nixpkgs.hostPlatform = system;
+      nixpkgs.config.allowUnfree = true;
+      # bitwarden-desktop pulls electron 39.8.10, currently flagged EOL.
+      nixpkgs.config.permittedInsecurePackages = ["electron-39.8.10"];
+      nixpkgs.overlays = overlays;
+    };
 
     # Wiring for the home-manager module that is identical on both platforms.
     # `homeDir` differs (/Users on darwin, /home on linux) so it is passed in.
@@ -117,7 +139,7 @@
       home-manager.users.${username} = ./home-manager/common;
       home-manager.extraSpecialArgs = {
         pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
-        pkgs-stable = import nixpkgs-stable nixpkgsOpts;
+        pkgs-unstable = import nixpkgs-unstable nixpkgsOpts;
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
@@ -139,11 +161,7 @@
           inherit userConfig homeDir;
         };
         modules = [
-          {
-            nixpkgs.hostPlatform = system;
-            nixpkgs.config.allowUnfree = true;
-            nixpkgs.overlays = overlays;
-          }
+          (mkNixpkgsModule system)
           ./hosts/${hostname}
           nix-homebrew.darwinModules.nix-homebrew
           {
@@ -161,6 +179,9 @@
                 "linear-linear"
                 "pinta" # Photo editor
                 "slack" # install from here to make slack not owned by root
+                # nixpkgs build pins an LLVM-18 stdenv that fails against the
+                # apple-sdk-26 / libc++ 21 headers, so install the cask instead.
+                "bitwarden"
               ];
             };
           }
@@ -183,11 +204,7 @@
           inherit userConfig homeDir;
         };
         modules = [
-          {
-            nixpkgs.hostPlatform = system;
-            nixpkgs.config.allowUnfree = true;
-            nixpkgs.overlays = overlays;
-          }
+          (mkNixpkgsModule system)
           ./hosts/${hostname}
           home-manager.nixosModules.home-manager
           (mkHomeManager {inherit system username homeDir hostname;})

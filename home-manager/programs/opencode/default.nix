@@ -10,4 +10,6 @@
     config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/opencode/opencode-tui.json";
   xdg.configFile."opencode/skill".source =
     config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/opencode/skills";
+  xdg.configFile."opencode/command".source =
+    config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/opencode/commands";
 }

@@ -6,6 +6,15 @@
   # Set shell to fish
   home.sessionVariables.SHELL = "${pkgs.fish}";
 
+  # Override fish's embedded `oc.fish` completion. Fish 4.x ships a completion
+  # for OpenCascade's `oc` command that runs `oc completion fish | source`.
+  # Since `oc` resolves to opencode here, that sources opencode's bash-only
+  # yargs completion script and errors out in fish. Inheriting opencode's
+  # completions instead avoids the broken bash source.
+  xdg.configFile."fish/completions/oc.fish".text = ''
+    complete -c oc -w opencode
+  '';
+
   programs.fish = {
     enable = true;
     shellInit =
@@ -55,6 +64,7 @@
 
     functions = {
       email = "himalaya-tui";
+      oc = "opencode $argv";
       # himalaya CLI (v2) dropped HIMALAYA_CONFIG env-var support, so pass the
       # committed theme + per-machine account file explicitly via -c. `command`
       # avoids recursing into this same-named function.
@@ -278,7 +288,6 @@
       htop = "btm";
       pdf = "tdf";
       cd = "z";
-      oc = "opencode";
       cc = "claude";
 
       # git

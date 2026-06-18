@@ -1,9 +1,7 @@
 {
   userConfig,
   pkgs,
-  pkgs-unstable,
   lib,
-  helium,
   homeDir,
   isDarwin,
   ...
@@ -23,9 +21,8 @@
 
   scripts = [../scripts];
 in {
-  # Import all programs (shared + platform-specific). The helium home-manager
-  # module is only needed by the darwin-only helium program.
-  imports = shared ++ platform ++ scripts ++ lib.optionals isDarwin [helium.homeModules.helium];
+  # Import all programs (shared + platform-specific).
+  imports = shared ++ platform ++ scripts;
 
   # Home-Manager configuration for the user's home environment
   home = {

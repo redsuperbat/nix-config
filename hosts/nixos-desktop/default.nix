@@ -135,6 +135,10 @@
     extraCompatPackages = [pkgs.proton-ge-bin];
   };
 
+  # Helium browser (ungoogled-chromium based). `pkgs.helium` is provided by
+  # the helium-browser flake overlay applied in flake.nix (Linux only).
+  environment.systemPackages = [pkgs.helium];
+
   fonts.packages = with pkgs; [
     jetbrains-mono
     nerd-fonts.symbols-only

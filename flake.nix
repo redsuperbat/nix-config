@@ -23,9 +23,11 @@
       url = "github:NixOS/nixpkgs/a421ac6595024edcfbb1ef950a3712b89161c359";
     };
 
-    helium = {
-      url = "gitlab:ntgn/helium-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+    # Helium browser. Provides `pkgs.helium` via its overlay on all platforms.
+    # Pins its own nixpkgs since it ships a prebuilt binary and uses that
+    # nixpkgs only for runtime libs, so we don't follow.
+    helium-browser = {
+      url = "github:schembriaiden/helium-browser-nix-flake";
     };
 
     # Email TUI. Pins its own nixpkgs (until a crates.io fix is backported),
@@ -68,7 +70,7 @@
     rustproof,
     nixpkgs-pinned,
     workmux,
-    helium,
+    helium-browser,
     himalaya-tui,
     himalaya,
     claude-code,
@@ -113,7 +115,7 @@
       nixpkgs.config.allowUnfree = true;
       # bitwarden-desktop pulls electron 39.8.10, currently flagged EOL.
       nixpkgs.config.permittedInsecurePackages = ["electron-39.8.10"];
-      nixpkgs.overlays = overlays;
+      nixpkgs.overlays = overlays ++ [helium-browser.overlays.default];
     };
 
     # Wiring for the home-manager module that is identical on both platforms.
@@ -143,7 +145,7 @@
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
-        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux helium himalaya-tui himalaya;
+        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux himalaya-tui himalaya;
       };
     };
 

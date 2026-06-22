@@ -35,7 +35,7 @@ curl -s -X POST \
     -d "$update_query" \
     https://api.linear.app/graphql >/dev/null
 
-workmux add "$branch_name" -a "claude --permission-mode plan" -p "Plan out what changes are needed to fix this ticket:
+workmux add "$branch_name" -a "opencode --agent plan" -p "Plan out what changes are needed to fix this ticket:
 
 $(linear $ticket_id)
 

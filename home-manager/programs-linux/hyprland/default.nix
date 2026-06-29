@@ -26,9 +26,6 @@ in {
       # Absolute store paths: Hyprland's exec runs via /bin/sh and the session
       # (launched by tuigreet, not a login shell) does not have the user
       # profile on PATH, so bare command names are not found.
-      "$term" = "${pkgs.ghostty}/bin/ghostty";
-      "$browser" = "${pkgs.chromium}/bin/chromium";
-      "$slack" = "${pkgs.slack}/bin/slack";
       "$menu" = "${pkgs.vicinae}/bin/vicinae";
 
       # Start session daemons (omit if you switch to uwsm). swayosd-server
@@ -38,14 +35,8 @@ in {
         "${pkgs.swayosd}/bin/swayosd-server"
       ];
 
-      # Mirrors the macOS skhd workflow (f6 browser / f7 terminal / f8 slack)
       bind = [
         "$mod, Return, fullscreen,"
-        # Leading comma = no modifier. Without it Hyprland reads the key as the
-        # modmask and the path as the dispatcher ("dispatcher does not exist").
-        ", F7, exec, $term"
-        ", F6, exec, $browser"
-        ", F8, exec, $slack"
         "$mod, Q, killactive,"
         "CONTROL, Return, exec, $menu toggle"
         "$mod, F, fullscreen,"

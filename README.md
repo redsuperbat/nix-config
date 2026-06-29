@@ -49,6 +49,6 @@ make nixos-rebuild
 ## Layout
 
 - `home-manager/programs/` — cross-platform program modules (imported everywhere)
-- `home-manager/programs-darwin/` — macOS-only modules (`skhd`, `helium`)
-- `home-manager/programs-linux/` — Linux-only modules (`hyprland`)
+- `home-manager/programs-darwin/` — macOS-only modules
+- `home-manager/programs-linux/` — Linux-only modules
 - `home-manager/common/` — picks the right platform dir and guards packages by platform

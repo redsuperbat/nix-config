@@ -28,6 +28,11 @@
         bind -e alt-h
         bind -e -M visual alt-h
 
+        # Ctrl-G: open the current command buffer in $EDITOR (nvim)
+        bind -M insert ctrl-g edit_command_buffer
+        bind -M default ctrl-g edit_command_buffer
+        bind -M visual ctrl-g edit_command_buffer
+
         set -l foreground DCD7BA normal
         set -l selection 2D4F67 brcyan
         set -l comment 727169 brblack

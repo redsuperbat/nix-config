@@ -22,11 +22,10 @@
       ''
         fish_vi_key_bindings
 
-        # Unbind alt-h (man page) so that quick <esc>h in vi mode
-        # doesn't accidentally trigger it
-        bind -e -M insert alt-h
-        bind -e alt-h
-        bind -e -M visual alt-h
+        # Disable alt-h (man page) so that quick <esc>h in vi mode
+        bind --preset -M insert alt-h true
+        bind --preset -M default alt-h true
+        bind --preset -M visual alt-h true
 
         # Ctrl-G: open the current command buffer in $EDITOR (nvim)
         bind -M insert ctrl-g edit_command_buffer

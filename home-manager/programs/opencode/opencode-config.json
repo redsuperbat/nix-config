@@ -12,6 +12,10 @@
     "aws-knowledge": {
       "type": "remote",
       "url": "https://knowledge-mcp.global.api.aws"
+    },
+    "vanta": {
+      "type": "remote",
+      "url": "https://mcp.eu.vanta.com/mcp"
     }
   }
 }

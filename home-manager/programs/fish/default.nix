@@ -260,7 +260,18 @@
               set arrow "$arrow_color# "
           end
 
-          set -l cwd $cyan(prompt_pwd | path basename)
+          set -l cwd_path (pwd)
+          set -l git_root (git rev-parse --show-toplevel 2>/dev/null)
+          if test -n "$git_root"
+              if test "$cwd_path" = "$git_root"
+                  set cwd_path (path basename $git_root)
+              else
+                  set cwd_path (path basename $git_root)/(string replace "$git_root/" "" $cwd_path)
+              end
+          else
+              set cwd_path (path basename $cwd_path)
+          end
+          set -l cwd $cyan$cwd_path
 
           set -l repo_info
           if set -l repo_type (_repo_type)

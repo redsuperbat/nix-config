@@ -4,6 +4,7 @@
   "autoupdate": false,
   "instructions": ["CLAUDE.md", "AGENTS.md"],
   "permission": "allow",
+  "plugin": ["opencode-mem@2.18.0"],
   "mcp": {
     "microsoft-learn": {
       "type": "remote",

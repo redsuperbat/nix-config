@@ -177,6 +177,11 @@
               enable = true;
               casks = [
                 "ghostty"
+                # nixpkgs build is only ad-hoc signed and lives at a rotating
+                # /nix/store path, which orphans the macOS screen-recording TCC
+                # grant on every update. The cask is signed and lives at a stable
+                # /Applications path, so screen-sharing permission persists.
+                "helium-browser"
                 "signal"
                 "linear-linear"
                 "pinta" # Photo editor

@@ -17,7 +17,10 @@
     if isDarwin
     then ../programs-darwin
     else ../programs-linux;
-  platform = builtins.map (name: platformDir + "/${name}") (builtins.attrNames (builtins.readDir platformDir));
+  platform =
+    if builtins.pathExists platformDir
+    then builtins.map (name: platformDir + "/${name}") (builtins.attrNames (builtins.readDir platformDir))
+    else [];
 
   scripts = [../scripts];
 in {

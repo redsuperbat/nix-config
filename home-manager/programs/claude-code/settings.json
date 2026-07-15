@@ -57,9 +57,10 @@
   "feedbackSurveyRate": 0,
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": true,
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "tui": "fullscreen"
+  "model": "claude-fable-5[1m]"
 }

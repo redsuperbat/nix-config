@@ -62,6 +62,7 @@ in {
       marksman
       moreutils # sponge etc
       ripgrep
+      rsync
       terraform
       tmux-sessionizer
       tokei # Count lines of code

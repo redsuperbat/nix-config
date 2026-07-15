@@ -12,6 +12,7 @@
         name = userConfig.fullName;
       };
       pull.rebase = "true";
+      init.defaultBranch = "main";
       core.hooksPath = "${config.xdg.configHome}/git/hooks";
     };
     signing = {

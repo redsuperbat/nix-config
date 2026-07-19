@@ -105,26 +105,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Chromium extensions are force-installed via the system managed-policy
-  # (ExtensionInstallForcelist). home-manager's programs.chromium.extensions
-  # does not work on Linux — Chromium only loads force-installed extensions
-  # from system policy dirs, which a user-level tool cannot write to.
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      # uBlock Origin Lite (MV3). The original uBlock Origin is MV2, which
-      # Chromium >= 139 refuses to run (the ExtensionManifestV2Availability
-      # policy is no longer honored) and the Web Store no longer hosts, so
-      # force-installing it fails silently.
-      "ddkjiahejlhfcafbddmgiahcphecmpfh"
-      "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium (vim keybindings)
-      "nngceckbapebfimnlniiiahkandclblb" # Bitwarden (password manager)
-    ];
-    # Bitwarden handles passwords; turn off Chromium's built-in manager and
-    # its "save password?" prompts.
-    extraOpts.PasswordManagerEnabled = false;
-  };
-
   # Steam + Proton. `steam` is unfree (allowUnfree is set in the flake).
   # Patch bubblewrap to work around "Unexpected capabilities but not setuid"
   # error (nixpkgs#217119). The check is removed so Steam's FHS sandbox can
@@ -141,9 +121,9 @@
     # Select it per-game via Steam > Properties > Compatibility.
     extraCompatPackages = [pkgs.proton-ge-bin];
     package = pkgs.steam.override {
-      buildFHSEnv = (args:
+      buildFHSEnv = args:
         (pkgs.buildFHSEnv.override {bubblewrap = patchedBwrap;})
-        args);
+        args;
     };
   };
 

@@ -92,6 +92,15 @@
         ''
           workmux add -A -p "$argv[1]"
         '';
+      nds =
+        # fish
+        ''
+          if uname | string match -q Darwin
+              nh darwin switch $argv
+          else
+              nh os switch $argv
+          end
+        '';
       fish_greeting = ""; # Do not print fish greeting
       kill_port =
         # fish
@@ -315,7 +324,6 @@
       gap = "git add :/ -Ap";
 
       watch = "viddy --shell fish --shell-options -i --";
-      nds = "nh darwin switch";
       nos = "nh os switch";
 
       kc = "kubectl";

@@ -141,12 +141,9 @@
     # Select it per-game via Steam > Properties > Compatibility.
     extraCompatPackages = [pkgs.proton-ge-bin];
     package = pkgs.steam.override {
-      buildFHSEnv = args:
+      buildFHSEnv = (args:
         (pkgs.buildFHSEnv.override {bubblewrap = patchedBwrap;})
-        (args
-          // {
-            extraBwrapArgs = (args.extraBwrapArgs or []) ++ ["--cap-add ALL"];
-          });
+        args);
     };
   };
 

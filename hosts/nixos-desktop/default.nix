@@ -126,13 +126,28 @@
   };
 
   # Steam + Proton. `steam` is unfree (allowUnfree is set in the flake).
-  programs.steam = {
+  # Patch bubblewrap to work around "Unexpected capabilities but not setuid"
+  # error (nixpkgs#217119). The check is removed so Steam's FHS sandbox can
+  # run even when the bwrap binary carries file capabilities without setuid.
+  programs.steam = let
+    patchedBwrap = pkgs.bubblewrap.overrideAttrs (o: {
+      patches = (o.patches or []) ++ [./bwrap.patch];
+    });
+  in {
     enable = true;
     remotePlay.openFirewall = true; # Steam Remote Play
     dedicatedServer.openFirewall = true; # Source dedicated server ports
     # Proton ships with Steam; add Proton-GE as an extra compatibility tool.
     # Select it per-game via Steam > Properties > Compatibility.
     extraCompatPackages = [pkgs.proton-ge-bin];
+    package = pkgs.steam.override {
+      buildFHSEnv = args:
+        (pkgs.buildFHSEnv.override {bubblewrap = patchedBwrap;})
+        (args
+          // {
+            extraBwrapArgs = (args.extraBwrapArgs or []) ++ ["--cap-add ALL"];
+          });
+    };
   };
 
   # Helium browser (ungoogled-chromium based). `pkgs.helium` is provided by

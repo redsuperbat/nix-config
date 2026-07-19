@@ -63,7 +63,7 @@ in {
       moreutils # sponge etc
       ripgrep
       rsync
-      terraform
+      # terraform disable for now since it breaks the build
       tmux-sessionizer
       tokei # Count lines of code
       uv # Python package manager
@@ -97,6 +97,5 @@ in {
       # Installed via homebrew cask on macOS: the nixpkgs build pins an LLVM-18
       # stdenv that fails to compile against the apple-sdk-26 / libc++ 21 headers.
       bitwarden-desktop
-      # browser: chromium is configured in programs-linux/chromium
     ];
 }

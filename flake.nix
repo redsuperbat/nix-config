@@ -132,7 +132,7 @@
       nixpkgsOpts = {
         # Allow paid packages to be installed, without a MIT license etc
         config.allowUnfree = true;
-        system = system;
+        inherit system;
       };
     in {
       home-manager.useGlobalPkgs = true;

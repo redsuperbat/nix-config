@@ -21,6 +21,7 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     settings = {
       "$mod" = "SUPER";
       # Absolute store paths: Hyprland's exec runs via /bin/sh and the session

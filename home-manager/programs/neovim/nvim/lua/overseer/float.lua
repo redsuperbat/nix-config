@@ -97,7 +97,7 @@ function M.enter(task, opts)
     vim.schedule(function()
       vim.cmd("startinsert!")
     end)
-    vim.keymap.set("t", "<esc><esc>", function()
+    vim.keymap.set("t", "<C-q>", function()
       vim.cmd.close()
       if on_close then
         on_close()

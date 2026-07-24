@@ -66,6 +66,16 @@ function M.enter(task, opts)
       vim.api.nvim_set_option_value("scrolloff", 0, { scope = "local", win = win_id })
       vim.api.nvim_set_option_value("sidescrolloff", 0, { scope = "local", win = win_id })
 
+      -- open_output already ran overseer's scroll_to_end, which parks the cursor at the
+      -- end of the last line while the global sidescrolloff was still in effect. On
+      -- reopen the buffer holds a full-width frame, so the view is left scrolled right
+      -- and lazygit renders shifted off the left edge. Undo it now that the window exists.
+      vim.api.nvim_win_call(win_id, function()
+        local lnum = vim.api.nvim_win_get_cursor(win_id)[1]
+        vim.api.nvim_win_set_cursor(win_id, { lnum, 0 })
+        vim.fn.winrestview({ leftcol = 0 })
+      end)
+
       sync_pty_size(task, win_id)
       vim.defer_fn(function()
         sync_pty_size(task, win_id)

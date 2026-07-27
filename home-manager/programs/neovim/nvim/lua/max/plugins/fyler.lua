@@ -25,6 +25,7 @@ end
 ---@type LazySpec
 return {
   "FylerOrg/fyler.nvim",
+  dependencies = { "nvim-web-devicons" },
   keys = {
     {
       "<leader>e",
@@ -42,6 +43,13 @@ return {
     },
   },
   opts = {
+    integrations = {
+      -- Use nvim-web-devicons as the icon provider
+      icon = "nvim_web_devicons",
+    },
+    extensions = {
+      git = { enabled = true },
+    },
     hooks = {
       on_rename = function(src_path, destination_path)
         require("snacks").rename.on_rename_file(src_path, destination_path)

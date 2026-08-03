@@ -30,6 +30,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   networking.hostName = "nixos-desktop";
   networking.networkmanager.enable = true;
 
@@ -137,10 +139,12 @@
   environment.systemPackages = let
     helium-wrapped = pkgs.helium.overrideAttrs (old: {
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.makeWrapper];
-      postInstall = (old.postInstall or "") + ''
-        wrapProgram $out/bin/helium \
-          --set QT_PLUGIN_PATH "${pkgs.qt6.qtbase}/lib/qt-6/plugins"
-      '';
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          wrapProgram $out/bin/helium \
+            --set QT_PLUGIN_PATH "${pkgs.qt6.qtbase}/lib/qt-6/plugins"
+        '';
     });
   in [helium-wrapped];
 

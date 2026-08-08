@@ -2,9 +2,10 @@
   xdg.desktopEntries.nmtui = {
     name = "nmtui";
     comment = "NetworkManager text user interface";
-    settings.Keywords = "wifi;network;wireless;";
-    exec = "${pkgs.networkmanager}/bin/nmtui";
-    terminal = true;
+    icon = "network-wired";
+    exec = "${pkgs.ghostty}/bin/ghostty -e ${pkgs.networkmanager}/bin/nmtui";
     categories = ["System" "Network"];
+    settings.Keywords = "wifi;network;wireless";
   };
 }
+

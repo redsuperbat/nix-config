@@ -14,6 +14,7 @@ in {
     vicinae # Raycast-like launcher (apps, clipboard, calc, emoji, extensions)
     grim # screenshot
     slurp # region select for screenshots
+    hyprshot # macOS-style screenshots (full screen / region / window), saves + clipboard
     wl-clipboard # clipboard
     wireplumber # wpctl, for querying/scripting audio from the CLI
     swayosd # on-screen volume/mute overlay (server + client below)
@@ -59,7 +60,8 @@ in {
         "$mod, Tab, alterzorder, top"
         "$mod SHIFT, Tab, cyclenext, prev"
         "$mod SHIFT, Tab, alterzorder, top"
-        ", Print, exec, ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy"
+        "$mod SHIFT, 3, exec, ${pkgs.hyprshot}/bin/hyprshot -m output"
+        "$mod SHIFT, 4, exec, ${pkgs.hyprshot}/bin/hyprshot -m region"
 
         # Workspaces
         "$mod, 1, workspace, 1"
@@ -68,8 +70,6 @@ in {
         "$mod, 4, workspace, 4"
         "$mod SHIFT, 1, movetoworkspace, 1"
         "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
       ];
 
       # Move/resize windows with the mouse + $mod

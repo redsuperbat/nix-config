@@ -98,9 +98,6 @@
   # `steam` etc. is unfree (allowUnfree is set in the flake).
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
-    # NVIDIA's own open-source kernel module. Recommended (and as of the R560
-    # driver, the default) for Turing-generation cards and newer — Ampere
-    # qualifies. The userspace libraries are still proprietary, hence unfree.
     open = true;
     modesetting.enable = true; # required for Wayland; good practice on X11 too
     nvidiaSettings = true; # the `nvidia-settings` GUI + `nvidia-smi`
@@ -129,9 +126,6 @@
     };
   };
 
-  # Helium browser (ungoogled-chromium based). `pkgs.helium` is provided by
-  # the helium-browser flake overlay applied in flake.nix (Linux only).
-  #
   # Patch: The system QT_PLUGIN_PATH may point to a different Qt version than
   # the one helium was built against, causing a crash on startup when Qt6
   # tries to load incompatible platform plugins. We set QT_PLUGIN_PATH to

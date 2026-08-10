@@ -21,6 +21,17 @@ local function cursor_dir(instance)
   return node.type == "directory" and path or vim.fs.dirname(path)
 end
 
+---@return string
+local function added_fg()
+  for _, group in ipairs({ "String", "GitSignsAdd", "Added" }) do
+    local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+    if hl.fg then
+      return string.format("#%06x", hl.fg)
+    end
+  end
+  return "#98BB6C"
+end
+
 ---@module "lazy"
 ---@type LazySpec
 return {
@@ -44,15 +55,27 @@ return {
   },
   opts = {
     integrations = {
-      -- Use nvim-web-devicons as the icon provider
       icon = "nvim_web_devicons",
     },
     extensions = {
-      git = { enabled = true },
+      git = {
+        enabled = true,
+        icons = {
+          -- Upstream has no entry for added files, so a `git add`ed file
+          -- would otherwise render with no marker at all.
+          ["A "] = { icon = "+", hl = "FylerGitStaged" },
+          ["AM"] = { icon = "+", hl = "FylerGitStaged" },
+        },
+      },
+      watcher = { enabled = true },
     },
     hooks = {
       on_rename = function(src_path, destination_path)
         require("snacks").rename.on_rename_file(src_path, destination_path)
+      end,
+      -- Also runs on ColorScheme, so the tint survives a theme switch.
+      on_highlight = function()
+        vim.api.nvim_set_hl(0, "FylerGitUntracked", { fg = added_fg(), bold = true })
       end,
     },
     mappings = {

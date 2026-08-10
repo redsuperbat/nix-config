@@ -32,11 +32,101 @@ local function added_fg()
   return "#98BB6C"
 end
 
+local function register_gitignore_extension()
+  local refreshes = 0
+
+  require("fyler.extensions").register({
+    name = "gitignore",
+    setup = function(opts, config)
+      config.extensions.gitignore = vim.tbl_deep_extend("force", { enabled = true }, opts)
+    end,
+    hooks = {
+      finder_refresh_post = function(instance, visible, hl_ns, lines)
+        if not require("fyler.config").DATA.extensions.gitignore.enabled then
+          return
+        end
+
+        local paths = {}
+        for _, item in ipairs(visible) do
+          paths[#paths + 1] = item.path
+        end
+        if #paths == 0 then
+          return
+        end
+
+        refreshes = refreshes + 1
+        local token = refreshes
+        vim.system(
+          { "git", "-C", instance.state.pseudo_root_path, "check-ignore", "-z", "--stdin" },
+          { stdin = table.concat(paths, "\0") .. "\0", text = true },
+          function(result)
+            -- 1 means nothing was ignored, 128 means not a repository
+            if result.code ~= 0 or token ~= refreshes then
+              return
+            end
+
+            local ignored = {}
+            for _, path in ipairs(vim.split(result.stdout, "\0", { plain = true, trimempty = true })) do
+              ignored[path] = true
+            end
+
+            vim.schedule(function()
+              for i, item in ipairs(visible) do
+                if ignored[item.path] then
+                  pcall(vim.api.nvim_buf_set_extmark, instance.buf_id, hl_ns, i - 1, 0, {
+                    hl_group = "FylerGitIgnored",
+                    end_line = i - 1,
+                    end_col = #(lines[i] or ""),
+                    hl_mode = "combine",
+                    priority = 5000,
+                  })
+                end
+              end
+            end)
+          end
+        )
+      end,
+    },
+  })
+end
+
+local function refresh_on_write()
+  local pending = false
+
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    group = vim.api.nvim_create_augroup("MaxFylerGitRefresh", { clear = true }),
+    desc = "Force a Fyler git status refresh after a write",
+    callback = function(args)
+      if vim.bo[args.buf].buftype ~= "" or pending then
+        return
+      end
+
+      pending = true
+      vim.defer_fn(function()
+        pending = false
+        local instance = require("fyler.finder").instance_get_or_nil()
+        if not instance then
+          return
+        end
+        pcall(function()
+          instance:refresh({ force = true, recursive = true })
+        end)
+      end, 300)
+    end,
+  })
+end
+
 ---@module "lazy"
 ---@type LazySpec
 return {
   "FylerOrg/fyler.nvim",
   dependencies = { "nvim-web-devicons" },
+  config = function(_, opts)
+    -- Registered before setup so it is found when its opts are read
+    register_gitignore_extension()
+    require("fyler").setup(opts)
+    refresh_on_write()
+  end,
   keys = {
     {
       "<leader>e",
@@ -68,6 +158,7 @@ return {
         },
       },
       watcher = { enabled = true },
+      gitignore = { enabled = true },
     },
     hooks = {
       on_rename = function(src_path, destination_path)

@@ -215,6 +215,11 @@ return {
     integrations = {
       icon = "nvim_web_devicons",
     },
+    ui = {
+      hidden_items = {
+        switches = {},
+      },
+    },
     extensions = {
       git = {
         enabled = true,

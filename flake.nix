@@ -47,6 +47,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    codex-cli-nix = {
+      url = "github:sadjow/codex-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       # Track the release branch matching the stable nixpkgs base above.
       url = "github:nix-community/home-manager/release-26.05";
@@ -74,6 +79,7 @@
     himalaya-tui,
     himalaya,
     claude-code,
+    codex-cli-nix,
     ...
   }: let
     users = {
@@ -145,7 +151,7 @@
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
-        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux himalaya-tui himalaya;
+        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux himalaya-tui himalaya codex-cli-nix;
       };
     };
 

@@ -4,6 +4,7 @@
   lib,
   homeDir,
   isDarwin,
+  codex-cli-nix,
   ...
 }: let
   isLinux = !isDarwin;
@@ -81,7 +82,7 @@ in {
 
       # cli AI agents
       claude-code
-      codex
+      codex-cli-nix.packages.${pkgs.system}.default
     ]
     ++ lib.optionals isDarwin [
       colima # Docker container runtime for macos

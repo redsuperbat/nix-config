@@ -90,6 +90,73 @@ local function register_gitignore_extension()
   })
 end
 
+local function register_untracked_dirs_extension()
+  local refreshes = 0
+
+  require("fyler.extensions").register({
+    name = "untracked_dirs",
+    setup = function(opts, config)
+      config.extensions.untracked_dirs = vim.tbl_deep_extend("force", { enabled = true }, opts)
+    end,
+    hooks = {
+      finder_refresh_post = function(instance, visible, hl_ns, _)
+        local config = require("fyler.config").DATA
+        local git_cfg = config.extensions.git
+        if not config.extensions.untracked_dirs.enabled or not (git_cfg and git_cfg.enabled) then
+          return
+        end
+
+        refreshes = refreshes + 1
+        local token = refreshes
+        vim.system(
+          { "git", "-C", instance.state.pseudo_root_path, "ls-files", "--others", "--exclude-standard", "--directory", "-z" },
+          { text = true },
+          function(result)
+            if result.code ~= 0 or token ~= refreshes then
+              return
+            end
+
+            -- Entries ending in "/" are entire untracked directories. `git
+            -- status --porcelain` collapses these to a single entry, so the
+            -- built-in git extension never sees the files inside them.
+            local untracked_dirs = {}
+            local root = instance.state.pseudo_root_path
+            for _, entry in ipairs(vim.split(result.stdout, "\0", { plain = true, trimempty = true })) do
+              if entry:sub(-1) == "/" then
+                untracked_dirs[#untracked_dirs + 1] = require("fyler.lib.path").do_join(root, entry) .. "/"
+              end
+            end
+            if #untracked_dirs == 0 then
+              return
+            end
+
+            local marker = git_cfg.icons["??"] or { icon = "?", hl = "FylerGitUntracked" }
+            vim.schedule(function()
+              for i, item in ipairs(visible) do
+                for _, dir in ipairs(untracked_dirs) do
+                  if item.path:sub(1, #dir) == dir then
+                    pcall(vim.api.nvim_buf_set_extmark, instance.buf_id, hl_ns, i - 1, item._name_col + #item.name, {
+                      virt_text = { { marker.icon, marker.hl } },
+                      hl_mode = "combine",
+                    })
+                    pcall(vim.api.nvim_buf_set_extmark, instance.buf_id, hl_ns, i - 1, item._name_col, {
+                      hl_group = marker.hl,
+                      end_line = i - 1,
+                      end_col = item._name_col + #item.name,
+                      hl_mode = "combine",
+                    })
+                    break
+                  end
+                end
+              end
+            end)
+          end
+        )
+      end,
+    },
+  })
+end
+
 local function refresh_on_write()
   local pending = false
 
@@ -122,8 +189,9 @@ return {
   "FylerOrg/fyler.nvim",
   dependencies = { "nvim-web-devicons" },
   config = function(_, opts)
-    -- Registered before setup so it is found when its opts are read
+    -- Registered before setup so they are found when their opts are read
     register_gitignore_extension()
+    register_untracked_dirs_extension()
     require("fyler").setup(opts)
     refresh_on_write()
   end,
@@ -159,6 +227,7 @@ return {
       },
       watcher = { enabled = true },
       gitignore = { enabled = true },
+      untracked_dirs = { enabled = true },
     },
     hooks = {
       on_rename = function(src_path, destination_path)

@@ -52,6 +52,8 @@ return {
           ["<CR>"] = { "select_and_accept", "fallback" },
           ["<C-j>"] = { "select_next" },
           ["<C-k>"] = { "select_prev" },
+          ["<C-n>"] = { "select_next", "fallback" },
+          ["<C-p>"] = { "select_prev", "fallback" },
         },
         cmdline = {
           enabled = false,

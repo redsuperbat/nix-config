@@ -104,7 +104,27 @@
               kill -9 (lsof -ti:$port)
           end
         '';
-      git_bootstrap = "_clone__tmux $argv[1] (basename $argv[1] .git)";
+      git_bootstrap =
+        # fish
+        ''
+          set -l repository_url $argv[1]
+          if test -z "$repository_url"
+              if not type -q pbpaste
+                  echo "git_bootstrap: pbpaste is not available" >&2
+                  return 1
+              end
+              set repository_url (pbpaste | string trim)
+          end
+
+          if not string match -rq '^(https?|ssh|git)://[^[:space:]/]+/[^[:space:]]+$|^[^[:space:]@]+@[^[:space:]:]+:[^[:space:]]+$' -- "$repository_url"
+              echo "git_bootstrap: invalid repository URL: $repository_url" >&2
+              return 1
+          end
+
+          set -l repository_name (path basename (string replace -r '/$' "" "$repository_url"))
+          set repository_name (string replace -r '\.git$' "" "$repository_name")
+          _clone__tmux "$repository_url" "$repository_name"
+        '';
       new_project =
         # fish
         ''

@@ -44,7 +44,6 @@ in {
       bottom
       cargo-nextest
       curl
-      deno
       dig
       docker
       eza

@@ -3,9 +3,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
-    # Unstable channel - cherry-picked for packages we want newer than stable ships
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
     workmux = {
       url = "github:raine/workmux";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,7 +65,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
     darwin,
     home-manager,
     nix-homebrew,
@@ -99,17 +95,6 @@
     overlays = [
       (final: prev: {
         direnv = prev.direnv.overrideAttrs {doCheck = false;};
-        # home-manager's release-26.05 tip ships a programs.antigravity-cli
-        # module whose default package isn't backported to nixos-26.05 yet. HM
-        # forces every module's package default during assertion evaluation, so
-        # provide it from unstable to keep the config evaluating. Eval-only —
-        # nothing builds unless the module is actually enabled.
-        antigravity-cli =
-          (import nixpkgs-unstable {
-            inherit (prev) config;
-            system = prev.stdenv.hostPlatform.system;
-          })
-          .antigravity-cli;
       })
       claude-code.overlays.default
     ];
@@ -147,7 +132,6 @@
       home-manager.users.${username} = ./home-manager/common;
       home-manager.extraSpecialArgs = {
         pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
-        pkgs-unstable = import nixpkgs-unstable nixpkgsOpts;
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;

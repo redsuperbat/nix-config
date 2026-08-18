@@ -1,91 +1,89 @@
 ---@module "lazy"
 ---@type LazySpec
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    branch = "main",
-    keys = {
-      {
-        "<C-space>",
-        function()
-          local select = require("vim.treesitter._select")
-          if vim.fn.mode() == "n" then
-            vim.cmd("normal! v")
-          end
-          select.select_parent(vim.v.count1)
-        end,
-        desc = "Increment Selection",
-        mode = { "n", "x" },
-      },
-      {
-        "<bs>",
-        function()
-          require("vim.treesitter._select").select_child(vim.v.count1)
-        end,
-        desc = "Decrement Selection",
-        mode = "x",
-      },
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  branch = "main",
+  keys = {
+    {
+      "<C-space>",
+      function()
+        local select = require("vim.treesitter._select")
+        if vim.fn.mode() == "n" then
+          vim.cmd("normal! v")
+        end
+        select.select_parent(vim.v.count1)
+      end,
+      desc = "Increment Selection",
+      mode = { "n", "x" },
     },
-    config = function()
-      local parsers = {
-        "bash",
-        "c",
-        "diff",
-        "javascript",
-        "typescript",
-        "css",
-        "fish",
-        "html",
-        "lua",
-        "luadoc",
-        "markdown",
-        "markdown_inline",
-        "query",
-        "vim",
-        "vimdoc",
-      }
+    {
+      "<bs>",
+      function()
+        require("vim.treesitter._select").select_child(vim.v.count1)
+      end,
+      desc = "Decrement Selection",
+      mode = "x",
+    },
+  },
+  config = function()
+    local parsers = {
+      "bash",
+      "c",
+      "diff",
+      "javascript",
+      "typescript",
+      "css",
+      "fish",
+      "html",
+      "lua",
+      "luadoc",
+      "markdown",
+      "markdown_inline",
+      "query",
+      "vim",
+      "vimdoc",
+    }
 
-      require("nvim-treesitter").install(parsers)
+    require("nvim-treesitter").install(parsers)
 
-      ---@param buf integer
-      ---@param language string
-      local function treesitter_try_attach(buf, language)
-        -- Check if a parser exists and load it
-        if not vim.treesitter.language.add(language) then
+    ---@param buf integer
+    ---@param language string
+    local function treesitter_try_attach(buf, language)
+      -- Check if a parser exists and load it
+      if not vim.treesitter.language.add(language) then
+        return
+      end
+      -- Enable syntax highlighting and other treesitter features
+      vim.treesitter.start(buf, language)
+    end
+
+    local available_parsers = require("nvim-treesitter").get_available()
+
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        local buf, filetype = args.buf, args.match
+
+        local language = vim.treesitter.language.get_lang(filetype)
+        if not language then
           return
         end
-        -- Enable syntax highlighting and other treesitter features
-        vim.treesitter.start(buf, language)
-      end
 
-      local available_parsers = require("nvim-treesitter").get_available()
+        local installed_parsers = require("nvim-treesitter").get_installed("parsers")
 
-      vim.api.nvim_create_autocmd("FileType", {
-        callback = function(args)
-          local buf, filetype = args.buf, args.match
-
-          local language = vim.treesitter.language.get_lang(filetype)
-          if not language then
-            return
-          end
-
-          local installed_parsers = require("nvim-treesitter").get_installed("parsers")
-
-          if vim.tbl_contains(installed_parsers, language) then
-            -- Enable the parser if it is already installed
+        if vim.tbl_contains(installed_parsers, language) then
+          -- Enable the parser if it is already installed
+          treesitter_try_attach(buf, language)
+        elseif vim.tbl_contains(available_parsers, language) then
+          -- If a parser is available in `nvim-treesitter`, auto-install it and enable it after the installation is done
+          require("nvim-treesitter").install(language):await(function()
             treesitter_try_attach(buf, language)
-          elseif vim.tbl_contains(available_parsers, language) then
-            -- If a parser is available in `nvim-treesitter`, auto-install it and enable it after the installation is done
-            require("nvim-treesitter").install(language):await(function()
-              treesitter_try_attach(buf, language)
-            end)
-          else
-            -- Try to enable treesitter features in case the parser exists but is not available from `nvim-treesitter`
-            treesitter_try_attach(buf, language)
-          end
-        end,
-      })
-    end,
-  },
+          end)
+        else
+          -- Try to enable treesitter features in case the parser exists but is not available from `nvim-treesitter`
+          treesitter_try_attach(buf, language)
+        end
+      end,
+    })
+  end,
 }

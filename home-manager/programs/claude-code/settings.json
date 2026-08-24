@@ -7,7 +7,6 @@
   "permissions": {
     "defaultMode": "bypassPermissions"
   },
-  "model": "claude-fable-5[1m]",
   "hooks": {
     "Notification": [
       {
@@ -55,6 +54,9 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+  "enabledPlugins": {
+    "ponytail@ponytail": true
+  },
   "extraKnownMarketplaces": {
     "ponytail": {
       "source": {
@@ -70,8 +72,5 @@
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "editorMode": "vim",
-  "skipAutoPermissionPrompt": true,
-  "enabledPlugins": {
-    "ponytail@ponytail": true
-  }
+  "skipAutoPermissionPrompt": true
 }

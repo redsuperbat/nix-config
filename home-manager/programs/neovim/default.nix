@@ -48,6 +48,8 @@
       copilot-language-server
       shfmt # shell formatter
       sqlfluff
+      terraform
+      prettier
       stylua
       tailwindcss-language-server
       taplo # Toml toolkit

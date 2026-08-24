@@ -5,6 +5,7 @@
   homeDir,
   isDarwin,
   codex-cli-nix,
+  tablezz,
   ...
 }: let
   isLinux = !isDarwin;
@@ -82,6 +83,8 @@ in {
       # cli AI agents
       claude-code
       codex-cli-nix.packages.${pkgs.system}.default
+
+      tablezz.packages.${pkgs.system}.default # postgres table viewer
     ]
     ++ lib.optionals isDarwin [
       colima # Docker container runtime for macos

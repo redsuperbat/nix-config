@@ -13,6 +13,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Keyboard-centric PostgreSQL table viewer for the terminal.
+    tablezz = {
+      url = "github:redsuperbat/tablezz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     # Pinned version for temp broken packages on unstable
@@ -69,6 +75,7 @@
     home-manager,
     nix-homebrew,
     rustproof,
+    tablezz,
     nixpkgs-pinned,
     workmux,
     helium-browser,
@@ -135,7 +142,7 @@
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
-        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux himalaya-tui himalaya codex-cli-nix;
+        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux himalaya-tui himalaya codex-cli-nix tablezz;
       };
     };
 

@@ -562,11 +562,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787581327,
-        "narHash": "sha256-YQ6fqlQOe7uVt3RLkcqrEptd1CU+LlZqnefatrm8V2E=",
+        "lastModified": 1787670498,
+        "narHash": "sha256-IsmQ/ZQOBfPy9ko1AShqUYhzp30j87OwdlCI7wnEQ8c=",
         "owner": "redsuperbat",
         "repo": "tablezz",
-        "rev": "fd7023592aa837adb502d66eb7b451f5eb925e02",
+        "rev": "308962a9dc01485d0b60c6dcd293b9832cbdf35b",
         "type": "github"
       },
       "original": {

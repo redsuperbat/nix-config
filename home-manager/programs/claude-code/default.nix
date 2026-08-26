@@ -10,6 +10,9 @@
   home.file.".claude/keybindings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/claude-code/keybindings.json";
 
+  home.file.".claude/output-styles".source =
+    config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/claude-code/output-styles";
+
   home.file.".claude/skills".source =
     config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/claude-code/skills";
 

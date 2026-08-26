@@ -72,6 +72,7 @@
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "editorMode": "vim",
+  "outputStyle": "Plain Language",
   "skipAutoPermissionPrompt": true,
   "model": "claude-fable-5[1m]"
 }

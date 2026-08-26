@@ -2,7 +2,13 @@
 ---@type LazySpec
 return {
   "MagicDuck/grug-far.nvim",
-  opts = {},
+  opts = {
+    engines = {
+      ripgrep = {
+        extraArgs = "--hidden --glob !.git/",
+      },
+    },
+  },
   cmd = "GrugFar",
   keys = {
     {

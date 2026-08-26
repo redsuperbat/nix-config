@@ -64,7 +64,6 @@ in {
       moreutils # sponge etc
       ripgrep
       rsync
-      # terraform disable for now since it breaks the build
       tmux-sessionizer
       tokei # Count lines of code
       uv # Python package manager
@@ -81,7 +80,16 @@ in {
       flutter
 
       # cli AI agents
-      claude-code
+      # claude wrapped so node.js is on PATH inside claude-code sessions
+      (symlinkJoin {
+        name = "claude-code-with-node";
+        paths = [claude-code];
+        nativeBuildInputs = [makeWrapper];
+        postBuild = ''
+          wrapProgram $out/bin/claude \
+            --prefix PATH : ${lib.makeBinPath [nodejs]}
+        '';
+      })
       codex-cli-nix.packages.${pkgs.system}.default
 
       tablezz.packages.${pkgs.system}.default # postgres table viewer

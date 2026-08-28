@@ -82,6 +82,11 @@
           end
         '';
       cl = "clear; tmux clear-history";
+      wm_resume =
+        # fish
+        ''
+          workmux open -c (workmux ls --json | jq -r '.[]|select(.is_main == false and .is_open == false)')
+        '';
       wm =
         # fish
         ''

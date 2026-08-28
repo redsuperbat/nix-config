@@ -1,6 +1,6 @@
 local tsc_picker = {
   finder = function()
-    local cmd = { "tsgo", "--noEmit", "--pretty", "false" }
+    local cmd = { "tsc", "--noEmit", "--pretty", "false" }
     local cwd = require("max.utils.fs").root()
     local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
     local output = result.stdout or ""

@@ -139,14 +139,14 @@
           if test -d $project_path
               echo "Project exists, creating new session"
               tmux new-session -ds $project_name -c $project_path
-              tmux switch-client -t $project_path
+              tmux switch-client -t $project_name
               return
           end
 
           echo "Bootstrapping $project_name"
           mkdir -p $project_path
           tmux new-session -ds $project_name -c $project_path
-          tmux switch-client -t $project_path
+          tmux switch-client -t $project_name
         '';
       _clone__tmux =
         # fish

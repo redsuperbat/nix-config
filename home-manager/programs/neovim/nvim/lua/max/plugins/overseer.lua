@@ -10,5 +10,6 @@ return {
 
     overseer.register_template(require("overseer.template.lazygit.default"))
     overseer.register_template(require("overseer.template.lazygit.reflog"))
+    overseer.register_template(require("overseer.template.tablezz.default"))
   end,
 }

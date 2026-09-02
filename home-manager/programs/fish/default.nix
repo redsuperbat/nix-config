@@ -82,6 +82,11 @@
           end
         '';
       cl = "clear; tmux clear-history";
+      wmd =
+        # fish
+        ''
+          workmux dashboard
+        '';
       wm_resume =
         # fish
         ''

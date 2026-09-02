@@ -11,6 +11,8 @@
     nerdfont: true
     merge_strategy: rebase
     agent: claude --permission-mode auto
+    auto_name:
+      background: true
     panes:
       - command: <agent>
         focus: true

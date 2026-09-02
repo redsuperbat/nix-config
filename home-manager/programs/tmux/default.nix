@@ -58,6 +58,7 @@
       bind o popup -h 85% -w 85% -E "tmux-file-picker"                                                                   # Open file picker
       bind s popup -h 85% -w 85% -E "tms switch"                                                                         # Switch between sessions
       bind w popup -h 85% -w 85% -E "tms windows"                                                                        # Switch between windows
+      bind C-e popup -h 85% -w 85% -E "workmux dashboard"                                                                # Agent dashboard
       bind F popup -E "tms"                                                                                              # Run tms to add new session
       bind G popup -E "github_tms"                                                                                       # Run function similar to tms but for github
       bind K run-shell "tms kill"                                                                                        # Kill current

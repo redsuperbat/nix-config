@@ -58,7 +58,7 @@
       bind o popup -h 85% -w 85% -E "tmux-file-picker"                                                                   # Open file picker
       bind s popup -h 85% -w 85% -E "tms switch"                                                                         # Switch between sessions
       bind w popup -h 85% -w 85% -E "tms windows"                                                                        # Switch between windows
-      bind C-e popup -h 85% -w 85% -E "workmux dashboard"                                                                # Agent dashboard
+      bind C-e popup -h 95% -w 95% -E "workmux dashboard"                                                                # Agent dashboard
       bind F popup -E "tms"                                                                                              # Run tms to add new session
       bind G popup -E "github_tms"                                                                                       # Run function similar to tms but for github
       bind K run-shell "tms kill"                                                                                        # Kill current
@@ -95,6 +95,7 @@
         set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}, none]│"
       ''}
       set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_yellow}] 󰭦 %Y-%m-%d 󰅐 %H:%M "
+      set -ga status-right "#(${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/scripts/continuum_save.sh)" # re-add continuum autosave hook, overwritten by status-right above
 
       set -g mouse on # Allows scrolling in windows
 

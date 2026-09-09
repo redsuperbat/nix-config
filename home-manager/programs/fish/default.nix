@@ -97,6 +97,12 @@
         ''
           workmux add -A -p "$argv[1]"
         '';
+      try_pkg =
+        # fish
+        ''
+          test (count $argv) -gt 0 || begin; echo "usage: try_pkg <pkg>..." >&2; return 1; end
+          nix shell nixpkgs#$argv
+        '';
       nds =
         # fish
         ''

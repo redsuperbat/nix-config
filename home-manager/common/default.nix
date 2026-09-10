@@ -4,7 +4,7 @@
   lib,
   homeDir,
   isDarwin,
-  codex-cli-nix,
+  codex,
   tablezz,
   ...
 }: let
@@ -90,7 +90,7 @@ in {
             --prefix PATH : ${lib.makeBinPath [nodejs]}
         '';
       })
-      codex-cli-nix.packages.${pkgs.system}.default
+      codex.packages.${pkgs.system}.default
 
       tablezz.packages.${pkgs.system}.default # postgres table viewer
     ]

@@ -38,7 +38,7 @@
         "type": "github"
       }
     },
-    "codex-cli-nix": {
+    "codex": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
@@ -410,7 +410,7 @@
     "root": {
       "inputs": {
         "claude-code": "claude-code",
-        "codex-cli-nix": "codex-cli-nix",
+        "codex": "codex",
         "darwin": "darwin",
         "helium-browser": "helium-browser",
         "himalaya": "himalaya",

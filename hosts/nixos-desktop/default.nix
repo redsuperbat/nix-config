@@ -34,6 +34,8 @@
 
   networking.hostName = "nixos-desktop";
   networking.networkmanager.enable = true;
+  # Intel 3168 is prone to idle drops; disable wifi powersave roaming/powersaving.
+  networking.networkmanager.wifi.powersave = false;
 
   time.timeZone = "Europe/Stockholm";
   i18n.defaultLocale = "en_US.UTF-8";

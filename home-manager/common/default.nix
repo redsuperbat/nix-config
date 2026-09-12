@@ -103,6 +103,7 @@ in {
       raycast
     ]
     ++ lib.optionals isLinux [
+      discord
       ghostty # installed via homebrew on macOS, from nixpkgs on linux
       slack # installed via homebrew on macOS, from nixpkgs on linux
       # Installed via homebrew cask on macOS: the nixpkgs build pins an LLVM-18

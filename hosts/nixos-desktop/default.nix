@@ -87,6 +87,12 @@
 
   services.printing.enable = true;
 
+  # Intel 3168 has a companion BT radio; enable the BlueZ stack.
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
   virtualisation.docker.enable = true;
 
   hardware.graphics = {

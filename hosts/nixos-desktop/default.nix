@@ -93,6 +93,9 @@
     powerOnBoot = true;
   };
 
+  # Blueman tray applet + manager for pairing via GUI
+  services.blueman.enable = true;
+
   virtualisation.docker.enable = true;
 
   hardware.graphics = {

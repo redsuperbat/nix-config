@@ -27,6 +27,7 @@ vim.opt.ignorecase = true -- Ignore case
 vim.opt.inccommand = "nosplit" -- preview incremental substitute
 vim.opt.laststatus = 3 -- global statusline
 vim.opt.list = true -- Show some invisible characters (tabs...
+vim.opt.listchars = { tab = "  ", trail = "-", nbsp = "+" }
 vim.opt.mouse = "a" -- Enable mouse mode
 vim.opt.number = true -- Print line number
 vim.opt.pumblend = 10 -- Popup blend

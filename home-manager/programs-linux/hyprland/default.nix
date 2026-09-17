@@ -18,6 +18,7 @@ in {
     wl-clipboard # clipboard
     wireplumber # wpctl, for querying/scripting audio from the CLI
     swayosd # on-screen volume/mute overlay (server + client below)
+    pavucontrol # graphical mixer with per-app volume sliders
   ];
 
   wayland.windowManager.hyprland = {

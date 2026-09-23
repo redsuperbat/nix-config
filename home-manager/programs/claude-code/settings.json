@@ -1,63 +1,52 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "alwaysThinkingEnabled": true,
-  "bashEditDiffEnabled": false,
-  "editorMode": "vim",
-  "enabledPlugins": {
-    "ponytail@ponytail": true
-  },
-  "extraKnownMarketplaces": {
-    "ponytail": {
-      "source": {
-        "repo": "DietrichGebert/ponytail",
-        "source": "github"
-      }
-    }
-  },
-  "feedbackSurveyRate": 0,
   "fileSuggestion": {
-    "command": "tmux display-popup -E \"tmux-file-picker --no-at-prefix\"",
-    "type": "command"
+    "type": "command",
+    "command": "tmux display-popup -E \"tmux-file-picker --no-at-prefix\""
+  },
+  "syncClaudeAiSkills": false,
+  "permissions": {
+    "defaultMode": "bypassPermissions"
   },
   "hooks": {
     "Notification": [
       {
+        "matcher": "permission_prompt|elicitation_dialog",
         "hooks": [
           {
-            "command": "workmux set-window-status waiting",
-            "type": "command"
+            "type": "command",
+            "command": "workmux set-window-status waiting"
           }
-        ],
-        "matcher": "permission_prompt|elicitation_dialog"
+        ]
       }
     ],
     "PostToolUse": [
       {
         "hooks": [
           {
-            "command": "workmux set-window-status working",
-            "type": "command"
+            "type": "command",
+            "command": "workmux set-window-status working"
           }
         ]
       }
     ],
     "SessionStart": [
       {
+        "matcher": "startup|resume|clear|fork",
         "hooks": [
           {
-            "command": "workmux register-agent",
-            "type": "command"
+            "type": "command",
+            "command": "workmux register-agent"
           }
-        ],
-        "matcher": "startup|resume|clear|fork"
+        ]
       }
     ],
     "Stop": [
       {
         "hooks": [
           {
-            "command": "workmux set-window-status done",
-            "type": "command"
+            "type": "command",
+            "command": "workmux set-window-status done"
           }
         ]
       }
@@ -66,26 +55,36 @@
       {
         "hooks": [
           {
-            "command": "workmux set-window-status working",
-            "type": "command"
+            "type": "command",
+            "command": "workmux set-window-status working"
           }
         ]
       }
     ]
   },
-  "model": "fable[1m]",
-  "outputStyle": "Plain Language",
-  "permissions": {
-    "defaultMode": "bypassPermissions"
+  "bashEditDiffEnabled": false,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
   },
-  "skipAutoPermissionPrompt": true,
+  "enabledPlugins": {
+    "ponytail@ponytail": true
+  },
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "outputStyle": "Plain Language",
+  "feedbackSurveyRate": 0,
+  "spinnerTipsEnabled": false,
+  "alwaysThinkingEnabled": true,
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
-  "spinnerTipsEnabled": false,
-  "statusLine": {
-    "command": "~/.claude/statusline.sh",
-    "type": "command"
-  },
-  "syncClaudeAiSkills": false,
-  "tui": "fullscreen"
+  "editorMode": "vim",
+  "skipAutoPermissionPrompt": true
 }

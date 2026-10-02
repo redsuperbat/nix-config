@@ -36,6 +36,13 @@
   networking.networkmanager.enable = true;
   # Intel 3168 is prone to idle drops; disable wifi powersave roaming/powersaving.
   networking.networkmanager.wifi.powersave = false;
+  # Prefer the USB wifi dongle (rtl8xxxu) over the built-in card: lower metric wins
+  # the default route; built-in wifi keeps NM's default 600 as fallback.
+  networking.networkmanager.settings."connection-usb-wifi" = {
+    match-device = "driver:rtl8xxxu";
+    "ipv4.route-metric" = 100;
+    "ipv6.route-metric" = 100;
+  };
 
   time.timeZone = "Europe/Stockholm";
   i18n.defaultLocale = "en_US.UTF-8";

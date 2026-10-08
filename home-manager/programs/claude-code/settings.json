@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "$schema": "https://www.schemastore.org/claude-code-settings.json",
   "fileSuggestion": {
     "type": "command",
     "command": "tmux display-popup -E \"tmux-file-picker --no-at-prefix\""
@@ -86,5 +86,6 @@
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "editorMode": "vim",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "switchModelsOnFlag": false
 }

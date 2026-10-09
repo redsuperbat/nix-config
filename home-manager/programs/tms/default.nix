@@ -9,7 +9,7 @@
     (pkgs.writers.writeFishBin "tms"
       # fish
       ''
-        set -l fzf ${pkgs.fzf}/bin/fzf --reverse
+        set -l fzf ${pkgs.fzf}/bin/fzf --preview-window right,75% --list-border --input-border
 
         switch "$argv[1]"
             case "" # pick a git repo, create or switch to its session

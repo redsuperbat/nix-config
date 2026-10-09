@@ -64,7 +64,6 @@ in {
       moreutils # sponge etc
       ripgrep
       rsync
-      tmux-sessionizer
       tokei # Count lines of code
       uv # Python package manager
       viddy # Better watch

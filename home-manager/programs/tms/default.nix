@@ -29,16 +29,12 @@
                     --header 'ctrl-x: kill session' --bind "ctrl-x:execute-silent(tmux kill-session -t ={})+reload($list)")
                 or exit
                 tmux switch-client -t "=$name"
-            case windows
-                set -l win (tmux list-windows -F '#{window_index} #{window_name}' | $fzf --preview 'tmux capture-pane -ep -t :{1}')
-                or exit
-                tmux select-window -t :(string split -f1 ' ' $win)
             case kill # kill current session, move to the last one first
                 set -l current (tmux display -p '#S')
                 tmux switch-client -l 2>/dev/null
                 tmux kill-session -t "=$current"
             case '*'
-                echo "usage: tms [switch|windows|kill]" >&2
+                echo "usage: tms [switch|kill]" >&2
                 exit 1
         end
       '')

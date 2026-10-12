@@ -85,7 +85,7 @@
       wmd =
         # fish
         ''
-          workmux dashboard
+          wm-dash
         '';
       wm_resume =
         # fish

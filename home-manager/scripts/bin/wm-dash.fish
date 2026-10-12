@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 # Workmux agent dashboard in the current terminal: agent list on the left, live preview on the right.
-# List: j/k move, i insert mode, enter jump to agent, q quit.
+# List: j/k move, i insert mode, enter jump to agent, r remove agent and its worktree, q quit.
 # Insert mode: every key goes to the agent, ctrl+q returns to the list.
 
 function agents
@@ -8,20 +8,27 @@ function agents
         .pane_id,
         ({working: "🤖", waiting: "💬", done: "✅"}[.status] // "  "),
         "\(.project)/\(.worktree)",
-        .title
+        .title,
+        .worktree,
+        .project_path,
+        .workdir
     ] | @tsv'
 end
 
-function cleanup
+function tui_on
+    # Raw so ctrl+c etc. reach the agent; reads time out after 0.2s so the screen keeps redrawing.
+    stty raw -echo min 0 time 2
+    printf '\e[?1049h\e[?7l\e[?25l\e[?2004h' # alt screen, no wrap, hidden cursor, bracketed paste
+end
+
+function tui_off
     stty $saved_stty
     printf '\e[?2004l\e[?7h\e[?25h\e[?1049l'
 end
 
 set saved_stty (stty -g)
-trap 'cleanup; exit' INT TERM HUP
-# Raw so ctrl+c etc. reach the agent; reads time out after 0.2s so the screen keeps redrawing.
-stty raw -echo min 0 time 2
-printf '\e[?1049h\e[?7l\e[?25l\e[?2004h' # alt screen, no wrap, hidden cursor, bracketed paste
+trap 'tui_off; exit' INT TERM HUP
+tui_on
 
 set E \e # escape char; frames are printed as data, so agent output with % or \ stays intact
 set rows
@@ -79,7 +86,7 @@ while true
             set -l f (string split \t -- $rows[$r])
             set left (string shorten -m (math $listw - 1) -- " $f[2] $f[3]  $f[4]")
         else if test $r -eq $h
-            set left ' j/k · i insert · enter jump · q quit'
+            set left ' j/k · i insert · enter jump · r remove · q quit'
         end
         set left (string pad -r -w $listw -- (string shorten -m $listw -- $left))
         test $r -eq $sel; and set left $E'[7m'$left$E'[0m'
@@ -112,11 +119,27 @@ while true
         case 0d 0a # enter: jump and close, so a popup doesn't stay on top
             if test -n "$target"
                 tmux switch-client -t $target
-                cleanup
+                tui_off
                 exit
             end
+        case 72 # r: remove the agent, and its worktree unless it runs in the main checkout
+            test -n "$target"; or continue
+            set -l f (string split \t -- $rows[$sel])
+            tui_off
+            if test "$f[7]" = "$f[6]"
+                read -l -P "Close agent $f[3] (main checkout, no worktree to remove)? [y/N] " ok
+                test "$ok" = y; and tmux kill-pane -t $target
+            else
+                # workmux asks for confirmation and warns about uncommitted changes itself.
+                pushd $f[6]
+                workmux remove $f[5]
+                or read -l -P 'workmux remove failed, press enter to go back' _
+                popd
+            end
+            tui_on
+            set tick 0 # refresh the list right away
         case 71 03 # q, ctrl+c
-            cleanup
+            tui_off
             exit
     end
 end

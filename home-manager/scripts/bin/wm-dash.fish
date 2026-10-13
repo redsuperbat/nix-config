@@ -28,7 +28,34 @@ function tui_on
     printf '\e[?1049h\e[?7l\e[?25l\e[?2004h' # alt screen, no wrap, hidden cursor, bracketed paste
 end
 
+# Resize the previewed pane's window so the pane exactly fills the preview box and the agent
+# reflows to it; unfit hands the size back to tmux and restores the old split layout.
+# Skipped when the agent shares the dashboard's window: resizing it would resize us too, in a loop.
+set -g fitted
+function fit -a pane bw bh
+    if test "$pane" != "$fitted"
+        unfit
+        test -n "$pane"; or return
+        set -g fitted $pane
+        set -g fitted_layout (tmux display -p -t $pane '#{window_layout}' 2>/dev/null)
+        set -q TMUX_PANE; and test "$(tmux display -p -t $pane '#{window_id}' 2>/dev/null)" = "$(tmux display -p -t $TMUX_PANE '#{window_id}')"
+        and set -g fitted_layout
+    end
+    test -n "$fitted_layout"; or return
+    set -l s (tmux display -p -t $pane '#{pane_width} #{pane_height} #{window_width} #{window_height}' 2>/dev/null | string split ' ')
+    test (count $s) -eq 4; or return
+    test $s[1] = $bw -a $s[2] = $bh; and return
+    tmux resize-window -t $pane -x (math $s[3] + $bw - $s[1]) -y (math $s[4] + $bh - $s[2]) \; resize-pane -t $pane -x $bw -y $bh 2>/dev/null
+end
+
+function unfit
+    set -q fitted[1]; or return
+    test -n "$fitted_layout"; and tmux set -wu -t $fitted window-size \; select-layout -t $fitted "$fitted_layout" 2>/dev/null
+    set -g fitted
+end
+
 function tui_off
+    unfit
     stty $saved_stty
     printf '\e[?2004l\e[?7h\e[?25h\e[?1049l'
 end
@@ -66,6 +93,7 @@ while true
     end
     set -l lines
     set -l cursor
+    fit "$target" (math $w - $bx - 1) $ch
     # pane id, height, cursor x/y, cursor visible; the id check skips agents whose pane is gone
     set -l p (test -n "$target"; and tmux display -p -t $target '#{pane_id} #{pane_height} #{cursor_x} #{cursor_y} #{cursor_flag}' 2>/dev/null | string split ' ')
     if test "$p[1]" = "$target" -a (count $p) -eq 5

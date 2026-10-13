@@ -13,9 +13,9 @@ function agents
         .project_path,
         .workdir
     ] | @tsv' | while read -l row
-        # Idle agent with a monitor running (Claude Code footer shows "· N monitor(s)"): show ⏳.
+        # Idle agent with a background task (Claude Code footer shows "· N monitor(s)" or "· N shell(s)"): show ⏳.
         set -l f (string split \t -- $row)
-        if test "$f[2]" != 🤖; and tmux capture-pane -p -t $f[1] 2>/dev/null | tail -n 3 | string match -qr '· \d+ monitors?\b'
+        if test "$f[2]" != 🤖; and tmux capture-pane -p -t $f[1] 2>/dev/null | string match -r '\S.*' | tail -n 2 | string match -qr '· \d+ (monitor|shell)s?\b'
             set f[2] ⏳
         end
         string join \t -- $f
@@ -115,17 +115,24 @@ while true
     set -l fill (math "max(0, $w - $bx - 1 - $(string length -- $title))")
     set frame $frame$E"[1;$bx""H"$bc"╭$title$(string repeat -n $fill ─)╮"$E'[0m'
     set frame $frame$E"[$h;$bx""H"$bc"╰$(string repeat -n (math $w - $bx - 1) ─)╯"$E'[0m'
+    # Each agent takes 2 rows: icon + name, then title. Scroll so the selection stays visible.
+    set -l off (math "max(0, $sel - floor(($h - 1) / 2))")
     for r in (seq $h)
         set -l left ''
-        if test $r -le (count $rows)
-            set -l f (string split \t -- $rows[$r])
-            set left (string shorten -m (math $listw - 1) -- " $f[2] $f[3]  $f[4]")
+        set -l n (math "$off + floor(($r - 1) / 2) + 1")
+        set -l l (math "($r - 1) % 2")
+        set -l item 0
+        if test $n -le (count $rows)
+            set item $n
+            set -l f (string split \t -- $rows[$n])
+            test $l -eq 0; and set left " $f[2] $f[3]"; or set left "    $(string replace -r '^[^\\p{L}\\p{N}]+' '' -- $f[4])"
         else if test $r -eq $h
             set left ' j/k · i insert · enter jump · r remove · q quit'
         end
         set left (string pad -r -w $listw -- (string shorten -m $listw -- $left))
-        test $r -eq $sel; and set left $E'[7m'$left$E'[0m'
-        test $r -eq $h -a $r -gt (count $rows); and set left $E'[2m'$left$E'[0m'
+        test $item -eq $sel; and set left $E'[7m'$left$E'[0m'
+        test $l -eq 1 -a $item -gt 0 -a $item -ne $sel; and set left $E'[2m'$left$E'[0m'
+        test $r -eq $h -a $item -eq 0; and set left $E'[2m'$left$E'[0m'
         set frame $frame$E"[$r;1H"$left
         if test $r -gt 1 -a $r -lt $h
             set -l i (math $r - 1)

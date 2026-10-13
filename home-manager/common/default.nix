@@ -6,6 +6,7 @@
   isDarwin,
   codex,
   tablezz,
+  wm-dash,
   ...
 }: let
   isLinux = !isDarwin;
@@ -92,6 +93,7 @@ in {
       codex.packages.${pkgs.system}.default
 
       tablezz.packages.${pkgs.system}.default # postgres table viewer
+      wm-dash.packages.${pkgs.system}.default # workmux agent dashboard
     ]
     ++ lib.optionals isDarwin [
       colima # Docker container runtime for macos

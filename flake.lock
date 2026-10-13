@@ -421,6 +421,7 @@
         "nixpkgs-pinned": "nixpkgs-pinned",
         "rustproof": "rustproof",
         "tablezz": "tablezz",
+        "wm-dash": "wm-dash",
         "workmux": "workmux"
       }
     },
@@ -590,6 +591,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "wm-dash": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791898723,
+        "narHash": "sha256-SPM40ypAYMAewMMB6H+TNI8bnQesmTNSsqXAkHMu9hY=",
+        "owner": "redsuperbat",
+        "repo": "wm-dash",
+        "rev": "35cc6a53bbbf1311307f52e2a1bb8d1c304d2226",
+        "type": "github"
+      },
+      "original": {
+        "owner": "redsuperbat",
+        "repo": "wm-dash",
         "type": "github"
       }
     },

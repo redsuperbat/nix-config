@@ -19,6 +19,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Workmux agent dashboard (TUI), bound to prefix+w in tmux.
+    wm-dash = {
+      url = "github:redsuperbat/wm-dash";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     # Pinned version for temp broken packages on unstable
@@ -76,6 +82,7 @@
     nix-homebrew,
     rustproof,
     tablezz,
+    wm-dash,
     nixpkgs-pinned,
     workmux,
     helium-browser,
@@ -142,7 +149,7 @@
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
-        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux himalaya-tui himalaya codex tablezz;
+        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux himalaya-tui himalaya codex tablezz wm-dash;
       };
     };
 

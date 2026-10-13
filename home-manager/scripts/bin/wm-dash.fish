@@ -12,7 +12,14 @@ function agents
         .worktree,
         .project_path,
         .workdir
-    ] | @tsv'
+    ] | @tsv' | while read -l row
+        # Idle agent with a monitor running (Claude Code footer shows "· N monitor(s)"): show ⏳.
+        set -l f (string split \t -- $row)
+        if test "$f[2]" != 🤖; and tmux capture-pane -p -t $f[1] 2>/dev/null | tail -n 3 | string match -qr '· \d+ monitors?\b'
+            set f[2] ⏳
+        end
+        string join \t -- $f
+    end
 end
 
 function tui_on

@@ -57,7 +57,7 @@
       bind e run "tmux capture-pane -e -S - -p -J > /tmp/tmux-edit && tmux new-window 'nvim \"+autocmd TermOpen * normal! G\" \"+terminal tail -f -n +1 /tmp/tmux-edit\"'" # Open entire history of pane in neovim with colors, scrolled to bottom
       bind o popup -h 85% -w 85% -E "tmux-file-picker"                                                                   # Open file picker
       bind s popup -B -h 85% -w 85% -E "tms switch"                                                                         # Switch between sessions
-      bind w popup -h 95% -w 95% -E "wm-dash"                                                                            # Agent dashboard in a popup, q closes it
+      bind w popup -h 100% -w 100% -E "wm-dash"                                                                            # Agent dashboard in a popup, q closes it
       bind F popup -E "tms"                                                                                             # Run tms to add new session
       bind G popup -E "github_tms"                                                                                       # Run function similar to tms but for github
       bind K run-shell "tms kill"                                                                                        # Kill current

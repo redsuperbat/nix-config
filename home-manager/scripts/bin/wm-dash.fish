@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 # Workmux agent dashboard in the current terminal: agent list on the left, live preview on the right.
-# List: j/k move, i insert mode, enter jump to agent, r remove agent and its worktree, q quit.
+# List: j/k move, i insert mode, enter jump to agent, L lazygit in its worktree, r remove agent and its worktree, q quit.
+# Agents are sorted by status: needs you (💬) first, then done, background task, working.
 # Insert mode: every key goes to the agent, ctrl+q returns to the list.
 
 function agents
@@ -18,8 +19,10 @@ function agents
         if test "$f[2]" != 🤖; and tmux capture-pane -p -t $f[1] 2>/dev/null | string match -r '\S.*' | tail -n 2 | string match -qr '· \d+ (monitor|shell)s?\b'
             set f[2] ⏳
         end
-        string join \t -- $f
-    end
+        # Prefix a sort key so agents that need you come first; stripped again after sorting.
+        set -l rank (contains -i -- $f[2] 💬 ✅ ⏳ 🤖; or echo 5)
+        string join \t -- $rank $f[3] $f
+    end | sort -t \t -k1,1n -k2,2 | cut -f3-
 end
 
 function tui_on
@@ -127,7 +130,7 @@ while true
             set -l f (string split \t -- $rows[$n])
             test $l -eq 0; and set left " $f[2] $f[3]"; or set left "    $(string replace -r '^[^\\p{L}\\p{N}]+' '' -- $f[4])"
         else if test $r -eq $h
-            set left ' j/k · i insert · enter jump · r remove · q quit'
+            set left ' j/k · i insert · enter jump · L lazygit · r remove · q quit'
         end
         set left (string pad -r -w $listw -- (string shorten -m $listw -- $left))
         test $item -eq $sel; and set left $E'[7m'$left$E'[0m'
@@ -164,6 +167,12 @@ while true
                 tui_off
                 exit
             end
+        case 4c # L: lazygit in the agent's working directory to review its diff
+            test -n "$target"; or continue
+            set -l f (string split \t -- $rows[$sel])
+            tui_off
+            lazygit -p $f[7]
+            tui_on
         case 72 # r: remove the agent, and its worktree unless it runs in the main checkout
             test -n "$target"; or continue
             set -l f (string split \t -- $rows[$sel])

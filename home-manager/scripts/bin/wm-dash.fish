@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 # Workmux agent dashboard in the current terminal: agent list on the left, live preview on the right.
-# List: j/k move, i insert mode, enter jump to agent, L lazygit in its worktree, r remove agent and its worktree, q quit.
+# List: j/k move, i insert mode, enter jump to agent, l lazygit / v neovim in its worktree, r remove agent and its worktree, q quit.
 # Agents are sorted by status: needs you (💬) first, then done, background task, working.
 # Insert mode: every key goes to the agent, ctrl+q returns to the list.
 
@@ -130,7 +130,7 @@ while true
             set -l f (string split \t -- $rows[$n])
             test $l -eq 0; and set left " $f[2] $f[3]"; or set left "    $(string replace -r '^[^\\p{L}\\p{N}]+' '' -- $f[4])"
         else if test $r -eq $h
-            set left ' j/k · i insert · enter jump · L lazygit · r remove · q quit'
+            set left ' j/k · i insert · enter jump · l lazygit · v nvim · r remove · q quit'
         end
         set left (string pad -r -w $listw -- (string shorten -m $listw -- $left))
         test $item -eq $sel; and set left $E'[7m'$left$E'[0m'
@@ -167,11 +167,19 @@ while true
                 tui_off
                 exit
             end
-        case 4c # L: lazygit in the agent's working directory to review its diff
+        case 6c # l: lazygit in the agent's working directory to review its diff
             test -n "$target"; or continue
             set -l f (string split \t -- $rows[$sel])
             tui_off
             lazygit -p $f[7]
+            tui_on
+        case 76 # v: neovim in the agent's working directory
+            test -n "$target"; or continue
+            set -l f (string split \t -- $rows[$sel])
+            tui_off
+            pushd $f[7]
+            nvim
+            popd
             tui_on
         case 72 # r: remove the agent, and its worktree unless it runs in the main checkout
             test -n "$target"; or continue

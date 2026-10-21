@@ -39,18 +39,6 @@
       url = "github:schembriaiden/helium-browser-nix-flake";
     };
 
-    # Email TUI. Pins its own nixpkgs (until a crates.io fix is backported),
-    # so we intentionally do not override its nixpkgs input here.
-    himalaya-tui = {
-      url = "github:pimalaya/himalaya-tui";
-    };
-
-    # Email CLI (v2, 2.0.0-alpha). Same config format as himalaya-tui; pins
-    # its own nixpkgs for the same reason, so no follows override here.
-    himalaya = {
-      url = "github:pimalaya/himalaya";
-    };
-
     claude-code = {
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -86,8 +74,6 @@
     nixpkgs-pinned,
     workmux,
     helium-browser,
-    himalaya-tui,
-    himalaya,
     claude-code,
     codex,
     ...
@@ -149,7 +135,7 @@
         # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
         # `imports` without triggering infinite recursion.
         isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
-        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux himalaya-tui himalaya codex tablezz wm-dash;
+        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux codex tablezz wm-dash;
       };
     };
 

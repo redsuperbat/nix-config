@@ -62,16 +62,7 @@
       '';
 
     functions = {
-      email = "himalaya-tui";
       oc = "opencode $argv";
-      # himalaya CLI (v2) dropped HIMALAYA_CONFIG env-var support, so pass the
-      # committed theme + per-machine account file explicitly via -c. `command`
-      # avoids recursing into this same-named function.
-      himalaya =
-        # fish
-        ''
-          command himalaya -c $HOME/.config/himalaya/config.toml:$HOME/.config/himalaya/account.toml $argv
-        '';
       # Clear all logs in all windows
       clw =
         # fish

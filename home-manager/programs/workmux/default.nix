@@ -1,21 +1,12 @@
 {
   workmux,
   pkgs,
+  config,
+  configDir,
   ...
 }: {
   home.packages = [workmux.packages.${pkgs.system}.default];
 
-  xdg.configFile."workmux/config.yaml".text = ''
-    post_create:
-      - direnv allow
-    nerdfont: true
-    merge_strategy: rebase
-    agent: claude --permission-mode auto
-    auto_name:
-      background: true
-    panes:
-      - command: <agent>
-        focus: true
-        split: horizontal
-  '';
+  xdg.configFile."workmux/config.yaml".source =
+    config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/workmux/config.yaml";
 }

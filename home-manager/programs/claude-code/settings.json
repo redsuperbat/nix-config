@@ -68,7 +68,8 @@
     "command": "~/.claude/statusline.sh"
   },
   "enabledPlugins": {
-    "ponytail@ponytail": true
+    "ponytail@ponytail": true,
+    "better-stack@anthropic-plugin-directory": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {
@@ -86,6 +87,6 @@
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "editorMode": "vim",
-  "skipAutoPermissionPrompt": true,
-  "switchModelsOnFlag": false
+  "switchModelsOnFlag": false,
+  "skipAutoPermissionPrompt": true
 }

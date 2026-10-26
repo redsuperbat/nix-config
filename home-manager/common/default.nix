@@ -75,9 +75,9 @@ in {
           --prefix PATH : ${lib.makeBinPath [nodejs]}
       '';
     })
-    codex.packages.${pkgs.system}.default
+    codex.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-    tablezz.packages.${pkgs.system}.default # postgres table viewer
-    wm-dash.packages.${pkgs.system}.default # workmux agent dashboard
+    tablezz.packages.${pkgs.stdenv.hostPlatform.system}.default # postgres table viewer
+    wm-dash.packages.${pkgs.stdenv.hostPlatform.system}.default # workmux agent dashboard
   ];
 }

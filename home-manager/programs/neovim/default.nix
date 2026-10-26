@@ -43,7 +43,7 @@
       nil # nix language server
       postgres-language-server
       ruff # Python linter & formatter
-      rustproof.packages.${pkgs.system}.default # Spell checker
+      rustproof.packages.${pkgs.stdenv.hostPlatform.system}.default # Spell checker
       shellcheck
       copilot-language-server
       shfmt # shell formatter

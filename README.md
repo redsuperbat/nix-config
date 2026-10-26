@@ -1,6 +1,6 @@
 # Nix Configuration for Reproducible Work Machines
 
-Supports both macOS (via [nix-darwin](https://github.com/LnL7/nix-darwin)) and
+Supports both macOS (via [nix-darwin](https://github.com/nix-darwin/nix-darwin)) and
 NixOS, sharing a single home-manager configuration.
 
 - macOS host: `darwinConfigurations.macbook-pro` (`aarch64-darwin`)

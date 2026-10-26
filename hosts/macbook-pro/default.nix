@@ -125,8 +125,7 @@
       cp -r ${pkgs.karabiner-dk}/Applications/.Karabiner-VirtualHIDDevice-Manager.app /Applications/.Nix-Karabiner
 
       # Input Monitoring permission is tied to the binary's path, so give kanata one that doesn't change
-      mkdir -p /usr/local/bin
-      ln -sf ${pkgs.kanata}/bin/kanata /usr/local/bin/kanata
+      ln -sf ${pkgs.kanata}/bin/kanata /Applications/kanata
     '';
   };
 
@@ -149,7 +148,7 @@
       KeepAlive = true;
     };
     kanata.serviceConfig = {
-      ProgramArguments = ["/usr/local/bin/kanata" "--cfg" "${kanataConfig}"];
+      ProgramArguments = ["/Applications/kanata" "--cfg" "${kanataConfig}"];
       ProcessType = "Interactive";
       KeepAlive = true;
       StandardErrorPath = "/Library/Logs/kanata.log";

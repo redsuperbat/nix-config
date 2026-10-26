@@ -133,6 +133,7 @@
   # Kanata sends keys through Karabiner's virtual keyboard driver (not the Karabiner app).
   launchd.daemons = let
     kanataConfig = pkgs.writeText "kanata.kbd" ''
+      (defcfg process-unmapped-keys yes)
       (defsrc caps)
       (deflayer base (tap-hold-press 200 200 esc lctl))
     '';

@@ -2,7 +2,7 @@ post_create:
   - direnv allow
 nerdfont: true
 merge_strategy: rebase
-agent: claude --permission-mode auto
+agent: claude --permission-mode bypassPermissions
 auto_name:
   background: true
 panes:

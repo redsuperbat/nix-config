@@ -102,7 +102,6 @@ in {
       };
 
       input = {
-        kb_options = "caps:escape"; # match macOS remapCapsLockToEscape
         repeat_delay = 200;
         repeat_rate = 60;
       };

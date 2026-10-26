@@ -76,6 +76,15 @@
   # home-manager/programs-linux/hyprland
   programs.hyprland.enable = true;
 
+  # Caps Lock: tap for Esc, hold with another key for Ctrl
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = ["*"];
+      settings.main.capslock = "overload(control, esc)";
+    };
+  };
+
   services.greetd = {
     enable = true;
     settings.default_session = {

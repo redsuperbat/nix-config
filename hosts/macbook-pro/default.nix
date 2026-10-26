@@ -134,8 +134,11 @@
   launchd.daemons = let
     kanataConfig = pkgs.writeText "kanata.kbd" ''
       (defcfg process-unmapped-keys yes)
-      (defsrc caps)
-      (deflayer base (tap-hold-press 200 200 esc lctl))
+      (defsrc caps f1 f2 f7 f8 f9 f10 f11 f12)
+      (deflayer base
+        (tap-hold-press 200 200 esc lctl)
+        ;; The virtual keyboard sends plain F-keys, so restore the media actions printed on the top row
+        brdn brup prev pp next mute vold volu)
     '';
   in {
     # Blocks until the driver is approved in System Settings, so it runs here instead of at activation

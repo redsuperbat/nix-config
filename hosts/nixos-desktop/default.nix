@@ -157,16 +157,15 @@
 
   # Patch: The system QT_PLUGIN_PATH may point to a different Qt version than
   # the one helium was built against, causing a crash on startup when Qt6
-  # tries to load incompatible platform plugins. We set QT_PLUGIN_PATH to
-  # point at the qtbase plugins from the same nixpkgs that built helium.
+  # tries to load incompatible platform plugins. Unsetting it makes Qt fall
+  # back to its own built-in plugin path, which always matches.
   environment.systemPackages = let
     helium-wrapped = pkgs.helium.overrideAttrs (old: {
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.makeWrapper];
       postInstall =
         (old.postInstall or "")
         + ''
-          wrapProgram $out/bin/helium \
-            --set QT_PLUGIN_PATH "${pkgs.qt6.qtbase}/lib/qt-6/plugins"
+          wrapProgram $out/bin/helium --unset QT_PLUGIN_PATH
         '';
     });
   in [helium-wrapped];

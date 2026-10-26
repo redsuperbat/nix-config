@@ -28,7 +28,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # LTS kernel: nvidia 595.71.05 doesn't build on Linux 7.2+ (strncpy removed).
+  # Switch back to linuxPackages_latest once nixpkgs ships a driver that supports 7.3.
+  boot.kernelPackages = pkgs.linuxPackages;
 
   powerManagement.cpuFreqGovernor = "performance";
 

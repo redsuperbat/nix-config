@@ -1,8 +1,6 @@
 {
   pkgs,
   pkgs-pinned,
-  lib,
-  isDarwin,
   ...
 }: {
   # Tmux terminal multiplexer configuration
@@ -17,37 +15,34 @@
     mouse = true;
     terminal = "screen-256color";
     shell = "${pkgs.fish}/bin/fish";
-    plugins =
-      (with pkgs.tmuxPlugins; [
-        vim-tmux-navigator
-        {
-          plugin = pkgs-pinned.tmuxPlugins.fingers;
-          extraConfig = ''
-            set -g @fingers-key f
-            set -g @fingers-pattern-0 '[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' # Pattern for emails
-          '';
-        }
-        {
-          plugin = resurrect;
-          extraConfig = "set -g @resurrect-capture-pane-contents 'on'"; # allow tmux-resurrect to capture pane contents
-        }
-        {
-          plugin = continuum;
-          extraConfig = "set -g @continuum-restore 'on'"; # enable tmux-continuum functionality
-        }
-        {
-          plugin = catppuccin;
-          extraConfig = ''
-            set -g @catppuccin_flavor "macchiato"
-            set -g @catppuccin_status_background "none"
-            set -g @catppuccin_window_status_style "none"
-            set -g @catppuccin_pane_status_enabled "off"
-            set -g @catppuccin_pane_border_status "off"
-          '';
-        }
-      ])
-      # battery only on darwin (the laptop) — the linux desktop has none
-      ++ lib.optionals isDarwin [pkgs.tmuxPlugins.battery];
+    plugins = with pkgs.tmuxPlugins; [
+      vim-tmux-navigator
+      {
+        plugin = pkgs-pinned.tmuxPlugins.fingers;
+        extraConfig = ''
+          set -g @fingers-key f
+          set -g @fingers-pattern-0 '[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' # Pattern for emails
+        '';
+      }
+      {
+        plugin = resurrect;
+        extraConfig = "set -g @resurrect-capture-pane-contents 'on'"; # allow tmux-resurrect to capture pane contents
+      }
+      {
+        plugin = continuum;
+        extraConfig = "set -g @continuum-restore 'on'"; # enable tmux-continuum functionality
+      }
+      {
+        plugin = catppuccin;
+        extraConfig = ''
+          set -g @catppuccin_flavor "macchiato"
+          set -g @catppuccin_status_background "none"
+          set -g @catppuccin_window_status_style "none"
+          set -g @catppuccin_pane_status_enabled "off"
+          set -g @catppuccin_pane_border_status "off"
+        '';
+      }
+    ];
 
     extraConfig = ''
       unbind Space
@@ -89,10 +84,6 @@
       set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}, none]│"
       set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_blue}, none] 󱃾 #(kubectl config current-context) "
       set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}, none]│"
-      ${lib.optionalString isDarwin ''
-        set -ga status-right "#{?#{e|>=:10,#{battery_percentage}},#{#[bg=#{@thm_red},fg=#{@thm_bg}]},#{#[bg=#{@thm_bg},fg=#{@thm_pink}]}} #{battery_icon} #{battery_percentage} "
-        set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}, none]│"
-      ''}
       set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_yellow}] 󰭦 %Y-%m-%d 󰅐 %H:%M "
       set -ga status-right "#(${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/scripts/continuum_save.sh)" # re-add continuum autosave hook, overwritten by status-right above
 
@@ -131,8 +122,6 @@
 
       set -g window-status-current-format " #I#{?#{!=:#{window_name},Window},: #W,} "
       set -g window-status-current-style "bg=#{@thm_peach},fg=#{@thm_bg},bold"
-
-      ${lib.optionalString isDarwin "run-shell ${pkgs.tmuxPlugins.battery}/share/tmux-plugins/battery/battery.tmux # run this at the end because nix"}
 
       # Issue in tmux 3.6 https://github.com/Morantron/tmux-fingers/issues/143
       run -b "TERM=$TERM #{@fingers-cli} load-config"

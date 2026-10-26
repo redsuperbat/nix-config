@@ -111,11 +111,14 @@
 
     # Wiring for the home-manager module that is identical on both platforms.
     # `homeDir` differs (/Users on darwin, /home on linux) so it is passed in.
+    # `platformDir` holds the platform-specific home-manager programs.
+    # `flakeAttr` is this host's flake output, e.g. "darwinConfigurations.macbook-pro".
     mkHomeManager = {
       system,
       username,
       homeDir,
-      hostname,
+      platformDir,
+      flakeAttr,
     }: let
       userConfig = users.${username};
       configDir = "${homeDir}/Config"; # Directory where configuration will be stored
@@ -129,13 +132,10 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "bak";
-      home-manager.users.${username} = ./home-manager/common;
+      home-manager.users.${username}.imports = [./home-manager/common platformDir];
       home-manager.extraSpecialArgs = {
         pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
-        # Passed explicitly (not derived from pkgs.stdenv) so it can be used in
-        # `imports` without triggering infinite recursion.
-        isDarwin = nixpkgs.lib.hasSuffix "darwin" system;
-        inherit userConfig configDir workspaceDir self homeDir hostname rustproof workmux codex tablezz wm-dash;
+        inherit userConfig configDir workspaceDir self homeDir flakeAttr rustproof workmux codex tablezz wm-dash;
       };
     };
 
@@ -183,7 +183,11 @@
             };
           }
           home-manager.darwinModules.home-manager
-          (mkHomeManager {inherit system username homeDir hostname;})
+          (mkHomeManager {
+            inherit system username homeDir;
+            platformDir = ./home-manager/programs-darwin;
+            flakeAttr = "darwinConfigurations.${hostname}";
+          })
         ];
       };
 
@@ -204,7 +208,11 @@
           (mkNixpkgsModule system)
           ./hosts/${hostname}
           home-manager.nixosModules.home-manager
-          (mkHomeManager {inherit system username homeDir hostname;})
+          (mkHomeManager {
+            inherit system username homeDir;
+            platformDir = ./home-manager/programs-linux;
+            flakeAttr = "nixosConfigurations.${hostname}";
+          })
         ];
       };
   in {

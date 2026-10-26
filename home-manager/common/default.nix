@@ -3,32 +3,18 @@
   pkgs,
   lib,
   homeDir,
-  isDarwin,
   codex,
   tablezz,
   wm-dash,
   ...
 }: let
-  isLinux = !isDarwin;
-
-  # Shared programs are imported on every platform.
+  # Shared programs are imported on every platform. Platform-specific programs
+  # (programs-darwin / programs-linux) are imported by the flake.
   shared = builtins.map (name: ../programs/${name}) (builtins.attrNames (builtins.readDir ../programs));
-
-  # Platform-specific programs live in programs-darwin / programs-linux and are
-  # only imported on the matching platform.
-  platformDir =
-    if isDarwin
-    then ../programs-darwin
-    else ../programs-linux;
-  platform =
-    if builtins.pathExists platformDir
-    then builtins.map (name: platformDir + "/${name}") (builtins.attrNames (builtins.readDir platformDir))
-    else [];
 
   scripts = [../scripts];
 in {
-  # Import all programs (shared + platform-specific).
-  imports = shared ++ platform ++ scripts;
+  imports = shared ++ scripts;
 
   # Home-Manager configuration for the user's home environment
   home = {
@@ -39,76 +25,59 @@ in {
   };
 
   # Ensure common packages are installed
-  home.packages = with pkgs;
-    [
-      biome
-      black
-      bottom
-      cargo-nextest
-      curl
-      dig
-      docker
-      eza
-      fd
-      ffmpeg
-      fzf
-      gh
-      glow # terminal markdown renderer
-      google-cloud-sdk
-      gws
-      jq
-      yq
-      kubectl
-      kubelogin
-      lazydocker
-      marksman
-      moreutils # sponge etc
-      ripgrep
-      rsync
-      tokei # Count lines of code
-      uv # Python package manager
-      viddy # Better watch
-      tdf # terminal pdf viewer
-      sd # Better sed
-      presenterm # terminal based slideshow tool
+  home.packages = with pkgs; [
+    biome
+    black
+    bottom
+    cargo-nextest
+    curl
+    dig
+    docker
+    eza
+    fd
+    ffmpeg
+    fzf
+    gh
+    glow # terminal markdown renderer
+    google-cloud-sdk
+    gws
+    jq
+    yq
+    kubectl
+    kubelogin
+    lazydocker
+    marksman
+    moreutils # sponge etc
+    ripgrep
+    rsync
+    tokei # Count lines of code
+    uv # Python package manager
+    viddy # Better watch
+    tdf # terminal pdf viewer
+    sd # Better sed
+    presenterm # terminal based slideshow tool
 
-      tree
-      llm # cli tool for any language model
-      dive # cli tool for viewing docker images
+    tree
+    llm # cli tool for any language model
+    dive # cli tool for viewing docker images
 
-      ollama
-      flutter
+    ollama
+    flutter
 
-      # cli AI agents
-      # claude wrapped so node.js is on PATH inside claude-code sessions
-      (symlinkJoin {
-        name = "claude-code-with-node";
-        paths = [claude-code];
-        nativeBuildInputs = [makeWrapper];
-        postBuild = ''
-          wrapProgram $out/bin/claude \
-            --prefix PATH : ${lib.makeBinPath [nodejs]}
-        '';
-      })
-      codex.packages.${pkgs.system}.default
+    # cli AI agents
+    # claude wrapped so node.js is on PATH inside claude-code sessions
+    (symlinkJoin {
+      name = "claude-code-with-node";
+      paths = [claude-code];
+      nativeBuildInputs = [makeWrapper];
+      postBuild = ''
+        wrapProgram $out/bin/claude \
+          --prefix PATH : ${lib.makeBinPath [nodejs]}
+      '';
+    })
+    codex.packages.${pkgs.system}.default
 
-      tablezz.packages.${pkgs.system}.default # postgres table viewer
-      wm-dash.packages.${pkgs.system}.default # workmux agent dashboard
-    ]
-    ++ lib.optionals isDarwin [
-      colima # Docker container runtime for macos
-      coreutils-prefixed # GNU coreutils with a 'g' prefix
-      # mac specfic apps
-      xcodes
-      cocoapods
-      raycast
-    ]
-    ++ lib.optionals isLinux [
-      discord
-      ghostty # installed via homebrew on macOS, from nixpkgs on linux
-      slack # installed via homebrew on macOS, from nixpkgs on linux
-      # Installed via homebrew cask on macOS: the nixpkgs build pins an LLVM-18
-      # stdenv that fails to compile against the apple-sdk-26 / libc++ 21 headers.
-      bitwarden-desktop
-    ];
+    tablezz.packages.${pkgs.system}.default # postgres table viewer
+    wm-dash.packages.${pkgs.system}.default # workmux agent dashboard
+  ];
 }

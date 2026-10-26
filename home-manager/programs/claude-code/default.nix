@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   configDir,
   ...
@@ -20,14 +19,4 @@
     source = ./statusline.sh;
     executable = true;
   };
-
-  # Set editorMode in ~/.claude.json (runtime state file) without clobbering other keys
-  home.activation.claudeEditorMode = config.lib.dag.entryAfter ["writeBoundary"] ''
-    FILE="$HOME/.claude.json"
-    if [ -f "$FILE" ]; then
-      ${pkgs.jq}/bin/jq '.editorMode = "vim"' "$FILE" > "$FILE.tmp" && mv "$FILE.tmp" "$FILE"
-    else
-      echo '{"editorMode": "vim"}' > "$FILE"
-    fi
-  '';
 }

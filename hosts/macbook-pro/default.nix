@@ -118,9 +118,37 @@
         Show24Hour = true;
       };
     };
-    keyboard = {
-      enableKeyMapping = true;
-      remapCapsLockToEscape = true;
+    # The driver's system extension only loads from inside /Applications, not the Nix store
+    activationScripts.preActivation.text = ''
+      rm -rf /Applications/.Nix-Karabiner
+      mkdir -p /Applications/.Nix-Karabiner
+      cp -r ${pkgs.karabiner-dk}/Applications/.Karabiner-VirtualHIDDevice-Manager.app /Applications/.Nix-Karabiner
+    '';
+  };
+
+  # Caps Lock: tap for Esc, hold with another key for Ctrl.
+  # Kanata sends keys through Karabiner's virtual keyboard driver (not the Karabiner app).
+  launchd.daemons = let
+    kanataConfig = pkgs.writeText "kanata.kbd" ''
+      (defsrc caps)
+      (deflayer base (tap-hold-press 200 200 esc lctl))
+    '';
+  in {
+    # Blocks until the driver is approved in System Settings, so it runs here instead of at activation
+    karabiner-vhid-activate.serviceConfig = {
+      ProgramArguments = ["/Applications/.Nix-Karabiner/.Karabiner-VirtualHIDDevice-Manager.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Manager" "activate"];
+      RunAtLoad = true;
+    };
+    karabiner-vhid-daemon.serviceConfig = {
+      ProgramArguments = ["${pkgs.karabiner-dk}/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"];
+      ProcessType = "Interactive";
+      KeepAlive = true;
+    };
+    kanata.serviceConfig = {
+      ProgramArguments = ["${pkgs.kanata}/bin/kanata" "--cfg" "${kanataConfig}"];
+      ProcessType = "Interactive";
+      KeepAlive = true;
+      StandardErrorPath = "/Library/Logs/kanata.log";
     };
   };
 

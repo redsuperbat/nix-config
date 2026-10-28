@@ -257,6 +257,41 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1790510107,
+        "narHash": "sha256-EVMNYv7hYDDD9TGVT/hIyTYgpiXA8y3m5xIEIxuGNU0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3181085bfd08663b6b9e60bc7a8395c2aaa741bd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1793088589,
+        "narHash": "sha256-fIko/sSjsKLbGKmOmi9RxLGIyYQWatvo/ZK0jamIS7Y=",
+        "owner": "sst",
+        "repo": "opencode",
+        "rev": "1097e2668b1e08ad63bdf0b1c4860b9bc01e420c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sst",
+        "ref": "v2.2.0",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "claude-code": "claude-code",
@@ -267,6 +302,7 @@
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-pinned": "nixpkgs-pinned",
+        "opencode": "opencode",
         "rustproof": "rustproof",
         "tablezz": "tablezz",
         "wm-dash": "wm-dash",

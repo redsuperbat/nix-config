@@ -49,6 +49,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    opencode.url = "github:sst/opencode/v2.2.0";
+
     home-manager = {
       # Track the release branch matching the stable nixpkgs base above.
       url = "github:nix-community/home-manager/release-26.05";
@@ -76,6 +78,7 @@
     helium-browser,
     claude-code,
     codex,
+    opencode,
     ...
   }: let
     users = {
@@ -135,7 +138,7 @@
       home-manager.users.${username}.imports = [./home-manager/common platformDir];
       home-manager.extraSpecialArgs = {
         pkgs-pinned = import nixpkgs-pinned nixpkgsOpts;
-        inherit userConfig configDir workspaceDir self homeDir flakeAttr rustproof workmux codex tablezz wm-dash;
+        inherit userConfig configDir workspaceDir self homeDir flakeAttr rustproof workmux codex opencode tablezz wm-dash;
       };
     };
 

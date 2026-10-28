@@ -1,9 +1,12 @@
 {
   config,
   configDir,
+  opencode,
+  pkgs,
   ...
 }: {
   programs.opencode.enable = true;
+  programs.opencode.package = opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
   xdg.configFile."opencode/config.json".source =
     config.lib.file.mkOutOfStoreSymlink "${configDir}/nix-config/home-manager/programs/opencode/opencode-config.json";
   xdg.configFile."opencode/tui.json".source =

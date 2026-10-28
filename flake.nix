@@ -179,6 +179,7 @@
                 # nixpkgs build pins an LLVM-18 stdenv that fails against the
                 # apple-sdk-26 / libc++ 21 headers, so install the cask instead.
                 "bitwarden"
+                "llama-app" # llama.cpp menu bar app; not in nixpkgs
               ];
             };
           }

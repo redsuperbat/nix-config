@@ -31,7 +31,7 @@ return {
         prisma = { lsp_format = "prefer" },
         css = { lsp_format = "prefer" },
         markdown = { "prettier", lsp_format = "fallback" },
-        rust = { lsp_format = "prefer" },
+        rust = { "rustfmt" },
         ruby = { "rubocop" },
         yaml = { "prettier", lsp_format = "fallback" },
         javascript = { "biome", "prettier", stop_after_first = true },

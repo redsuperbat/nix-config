@@ -27,7 +27,7 @@ in {
     settings = {
       "$mod" = "SUPER";
       # Absolute store paths: Hyprland's exec runs via /bin/sh and the session
-      # (launched by tuigreet, not a login shell) does not have the user
+      # (launched by SDDM, not a login shell) does not have the user
       # profile on PATH, so bare command names are not found.
       "$menu" = "${pkgs.vicinae}/bin/vicinae";
 

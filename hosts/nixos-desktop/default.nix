@@ -85,11 +85,56 @@
     };
   };
 
-  services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd start-hyprland";
-      user = "greeter";
+  # SDDM with the astronaut theme recoloured to Kanagawa Wave.
+  services.displayManager = {
+    # The Hyprland package also ships a "hyprland-uwsm" session. SDDM picked it
+    # by default, but uwsm isn't enabled (programs.hyprland.withUWSM), so its
+    # systemd units were missing and login ended in a black screen.
+    defaultSession = "hyprland";
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      package = pkgs.kdePackages.sddm; # the theme is Qt6
+      theme = "sddm-astronaut-theme";
+      extraPackages = [
+        (pkgs.sddm-astronaut.override {
+          themeConfig = {
+            HourFormat = "HH:mm";
+            DateFormat = "dddd d MMMM";
+            DimBackground = "0.4";
+            DimBackgroundColor = "#1F1F28";
+            BackgroundColor = "#1F1F28";
+            FormBackgroundColor = "#1F1F28";
+            HeaderTextColor = "#DCD7BA";
+            DateTextColor = "#DCD7BA";
+            TimeTextColor = "#DCD7BA";
+            LoginFieldBackgroundColor = "#2A2A37";
+            PasswordFieldBackgroundColor = "#2A2A37";
+            LoginFieldTextColor = "#DCD7BA";
+            PasswordFieldTextColor = "#DCD7BA";
+            UserIconColor = "#7E9CD8";
+            PasswordIconColor = "#7E9CD8";
+            PlaceholderTextColor = "#727169";
+            WarningColor = "#FF5D62";
+            LoginButtonTextColor = "#1F1F28";
+            LoginButtonBackgroundColor = "#7E9CD8";
+            SystemButtonsIconsColor = "#DCD7BA";
+            SessionButtonTextColor = "#DCD7BA";
+            VirtualKeyboardButtonTextColor = "#DCD7BA";
+            DropdownTextColor = "#DCD7BA";
+            DropdownSelectedBackgroundColor = "#2D4F67";
+            DropdownBackgroundColor = "#1F1F28";
+            HighlightTextColor = "#DCD7BA";
+            HighlightBackgroundColor = "#2D4F67";
+            HighlightBorderColor = "#7E9CD8";
+            HoverUserIconColor = "#957FB8";
+            HoverPasswordIconColor = "#957FB8";
+            HoverSystemButtonsIconsColor = "#957FB8";
+            HoverSessionButtonTextColor = "#957FB8";
+            HoverVirtualKeyboardButtonTextColor = "#957FB8";
+          };
+        })
+      ];
     };
   };
 
@@ -168,7 +213,9 @@
           wrapProgram $out/bin/helium --unset QT_PLUGIN_PATH
         '';
     });
-  in [helium-wrapped];
+  in
+    # SDDM looks up themes in /run/current-system/sw/share/sddm/themes
+    [helium-wrapped] ++ config.services.displayManager.sddm.extraPackages;
 
   fonts.packages = with pkgs; [
     jetbrains-mono

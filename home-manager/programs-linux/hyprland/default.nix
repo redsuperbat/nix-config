@@ -11,7 +11,6 @@
   '';
 in {
   home.packages = with pkgs; [
-    vicinae # Raycast-like launcher (apps, clipboard, calc, emoji, extensions)
     grim # screenshot
     slurp # region select for screenshots
     hyprshot # macOS-style screenshots (full screen / region / window), saves + clipboard

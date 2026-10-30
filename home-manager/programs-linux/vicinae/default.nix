@@ -30,7 +30,9 @@
       # @vicinae.needsConfirmation true
       # @vicinae.mode silent
       # @vicinae.exec ["${pkgs.bash}/bin/bash"]
-      exec ${pkgs.hyprshutdown}/bin/hyprshutdown
+      # Detach output from Vicinae: hyprshutdown closes Vicinae too, and its
+      # next log write to the dead pipe would kill it with SIGPIPE.
+      exec ${pkgs.hyprshutdown}/bin/hyprshutdown >/dev/null 2>&1 </dev/null
     '';
   };
 }

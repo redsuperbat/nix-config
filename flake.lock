@@ -451,11 +451,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793030046,
-        "narHash": "sha256-CsSWtTFks6V7/RUdu7UYmMssnuyAId8FOrFC/sBQ2sE=",
+        "lastModified": 1793634179,
+        "narHash": "sha256-Ov+EiFkzVRm8HcvR/RMVjhOqqV4Kd2MR13PaZ/cRjfU=",
         "owner": "redsuperbat",
         "repo": "wm-dash",
-        "rev": "19bd6ee6d883f629c061195c74941d11afc6aa7d",
+        "rev": "5b3b76a4bde33065494d21c31e4622368fc9e27a",
         "type": "github"
       },
       "original": {

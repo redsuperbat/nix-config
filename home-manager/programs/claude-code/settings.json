@@ -68,8 +68,7 @@
     "command": "~/.claude/statusline.sh"
   },
   "enabledPlugins": {
-    "ponytail@ponytail": true,
-    "better-stack@anthropic-plugin-directory": true
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "ponytail": {

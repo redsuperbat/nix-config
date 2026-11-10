@@ -146,13 +146,14 @@
       ProgramArguments = ["/Applications/.Nix-Karabiner/.Karabiner-VirtualHIDDevice-Manager.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Manager" "activate"];
       RunAtLoad = true;
     };
+    # `command` (unlike ProgramArguments) waits for /nix/store to mount; without it these exit at boot and never retry
+    karabiner-vhid-daemon.command = pkgs.lib.escapeShellArg "${pkgs.karabiner-dk}/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon";
     karabiner-vhid-daemon.serviceConfig = {
-      ProgramArguments = ["${pkgs.karabiner-dk}/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"];
       ProcessType = "Interactive";
       KeepAlive = true;
     };
+    kanata.command = "/Applications/kanata --cfg ${kanataConfig}";
     kanata.serviceConfig = {
-      ProgramArguments = ["/Applications/kanata" "--cfg" "${kanataConfig}"];
       ProcessType = "Interactive";
       KeepAlive = true;
       StandardErrorPath = "/Library/Logs/kanata.log";

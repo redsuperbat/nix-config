@@ -305,6 +305,7 @@
         "opencode": "opencode",
         "rustproof": "rustproof",
         "tablezz": "tablezz",
+        "tinycast": "tinycast",
         "wm-dash": "wm-dash",
         "workmux": "workmux"
       }
@@ -423,6 +424,26 @@
       "original": {
         "owner": "redsuperbat",
         "repo": "tablezz",
+        "type": "github"
+      }
+    },
+    "tinycast": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794822491,
+        "narHash": "sha256-BHHhFahyRvEduAPR3nXvOeVRp9moQB2/RiQWVeRyfK4=",
+        "owner": "redsuperbat",
+        "repo": "tinycast-flake",
+        "rev": "7f47f003a7715098fa58025fdbd79f36faac5ba2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "redsuperbat",
+        "repo": "tinycast-flake",
         "type": "github"
       }
     },

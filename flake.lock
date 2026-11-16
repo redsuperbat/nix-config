@@ -434,11 +434,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794822701,
-        "narHash": "sha256-gtHCaqHftz2zlneeLA10q7LzzciZF5+reJXV3P0S9Rw=",
+        "lastModified": 1794822758,
+        "narHash": "sha256-BHHhFahyRvEduAPR3nXvOeVRp9moQB2/RiQWVeRyfK4=",
         "owner": "redsuperbat",
         "repo": "tinycast-flake",
-        "rev": "31974d6dac84f5423639ec6351fd74e0b542f798",
+        "rev": "e911f8177b6d1bd3a29bb455ae800f6b01d3cdf7",
         "type": "github"
       },
       "original": {

@@ -11,6 +11,7 @@
   programs.tinycast = {
     enable = true;
     launcherShortcut = "ctrl+return";
+    launchAtLogin = true;
   };
 
   home.packages = with pkgs; [

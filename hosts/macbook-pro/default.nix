@@ -124,8 +124,17 @@
       mkdir -p /Applications/.Nix-Karabiner
       cp -r ${pkgs.karabiner-dk}/Applications/.Karabiner-VirtualHIDDevice-Manager.app /Applications/.Nix-Karabiner
 
-      # Input Monitoring permission is tied to the binary's path, so give kanata one that doesn't change
-      ln -sf ${pkgs.kanata}/bin/kanata /Applications/kanata
+      # Input Monitoring is tied to the code signature. Nix builds are ad-hoc signed, so every rebuild
+      # would need a re-grant; signing with a fixed self-signed cert keeps the permission. One-time setup:
+      #   openssl req -x509 -newkey rsa:2048 -nodes -keyout k.pem -out c.pem -days 3650 -subj /CN=kanata-local \
+      #     -addext extendedKeyUsage=codeSigning -addext keyUsage=digitalSignature
+      #   openssl pkcs12 -export -inkey k.pem -in c.pem -out k.p12 -passout pass:x
+      #   sudo security import k.p12 -k /Library/Keychains/System.keychain -P x -T /usr/bin/codesign
+      cp ${pkgs.kanata}/bin/kanata /Applications/kanata.tmp
+      chmod u+w /Applications/kanata.tmp
+      /usr/bin/codesign -f -s kanata-local /Applications/kanata.tmp \
+        || echo "warning: kanata-local cert missing, re-grant Input Monitoring to /Applications/kanata" >&2
+      mv -f /Applications/kanata.tmp /Applications/kanata
     '';
   };
 

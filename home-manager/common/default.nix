@@ -65,14 +65,16 @@ in {
     flutter
 
     # cli AI agents
-    # claude wrapped so node.js is on PATH inside claude-code sessions
+    # claude wrapped so node.js is on PATH inside claude-code sessions,
+    # and its Bash tool uses nix bash (not macOS bash 3.2 or zsh)
     (symlinkJoin {
       name = "claude-code-with-node";
       paths = [claude-code];
       nativeBuildInputs = [makeWrapper];
       postBuild = ''
         wrapProgram $out/bin/claude \
-          --prefix PATH : ${lib.makeBinPath [nodejs]}
+          --prefix PATH : ${lib.makeBinPath [nodejs]} \
+          --set CLAUDE_CODE_SHELL ${bash}/bin/bash
       '';
     })
     codex.packages.${pkgs.stdenv.hostPlatform.system}.default

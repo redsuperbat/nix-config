@@ -118,54 +118,11 @@
         Show24Hour = true;
       };
     };
-    # The driver's system extension only loads from inside /Applications, not the Nix store
-    activationScripts.preActivation.text = ''
-      rm -rf /Applications/.Nix-Karabiner
-      mkdir -p /Applications/.Nix-Karabiner
-      cp -r ${pkgs.karabiner-dk}/Applications/.Karabiner-VirtualHIDDevice-Manager.app /Applications/.Nix-Karabiner
 
-      # Input Monitoring is tied to the code signature. Nix builds are ad-hoc signed, so every rebuild
-      # would need a re-grant; signing with a fixed self-signed cert keeps the permission. One-time setup:
-      #   openssl req -x509 -newkey rsa:2048 -nodes -keyout k.pem -out c.pem -days 3650 -subj /CN=kanata-local \
-      #     -addext extendedKeyUsage=codeSigning -addext keyUsage=digitalSignature
-      #   openssl pkcs12 -export -inkey k.pem -in c.pem -out k.p12 -passout pass:x
-      #   sudo security import k.p12 -k /Library/Keychains/System.keychain -P x -T /usr/bin/codesign
-      cp ${pkgs.kanata}/bin/kanata /Applications/kanata.tmp
-      chmod u+w /Applications/kanata.tmp
-      /usr/bin/codesign -f -s kanata-local /Applications/kanata.tmp \
-        || echo "warning: kanata-local cert missing, re-grant Input Monitoring to /Applications/kanata" >&2
-      mv -f /Applications/kanata.tmp /Applications/kanata
-    '';
-  };
-
-  # Caps Lock: tap for Esc, hold with another key for Ctrl.
-  # Kanata sends keys through Karabiner's virtual keyboard driver (not the Karabiner app).
-  launchd.daemons = let
-    kanataConfig = pkgs.writeText "kanata.kbd" ''
-      (defcfg process-unmapped-keys yes)
-      (defsrc caps f1 f2 f7 f8 f9 f10 f11 f12)
-      (deflayer base
-        (tap-hold-press 200 200 esc lctl)
-        ;; The virtual keyboard sends plain F-keys, so restore the media actions printed on the top row
-        brdn brup prev pp next mute vold volu)
-    '';
-  in {
-    # Blocks until the driver is approved in System Settings, so it runs here instead of at activation
-    karabiner-vhid-activate.serviceConfig = {
-      ProgramArguments = ["/Applications/.Nix-Karabiner/.Karabiner-VirtualHIDDevice-Manager.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Manager" "activate"];
-      RunAtLoad = true;
-    };
-    # `command` (unlike ProgramArguments) waits for /nix/store to mount; without it these exit at boot and never retry
-    karabiner-vhid-daemon.command = pkgs.lib.escapeShellArg "${pkgs.karabiner-dk}/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon";
-    karabiner-vhid-daemon.serviceConfig = {
-      ProcessType = "Interactive";
-      KeepAlive = true;
-    };
-    kanata.command = "/Applications/kanata --cfg ${kanataConfig}";
-    kanata.serviceConfig = {
-      ProcessType = "Interactive";
-      KeepAlive = true;
-      StandardErrorPath = "/Library/Logs/kanata.log";
+    # Caps Lock -> Esc via macOS's built-in key remapping (hidutil)
+    keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToEscape = true;
     };
   };
 

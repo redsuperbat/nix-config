@@ -12,6 +12,8 @@
       };
       pull.rebase = "true";
       init.defaultBranch = "main";
+      rebase.autoStash = true;
+      fetch.prune = true;
       core.hooksPath = "${config.xdg.configHome}/git/hooks";
     };
     signing = {

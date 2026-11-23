@@ -12,8 +12,8 @@
       };
       pull.rebase = "true";
       init.defaultBranch = "main";
-      rebase.autoStash = true;
-      fetch.prune = true;
+      rebase.autoStash = true; # git stash automatically if worktree is dirty during pull
+      fetch.prune = true; # Automatically prune deleted branches in origin
       core.hooksPath = "${config.xdg.configHome}/git/hooks";
     };
     signing = {

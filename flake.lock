@@ -472,11 +472,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795080191,
-        "narHash": "sha256-WC7WzG9VPxeXi9ite/dtEHpfKwnbZrWbsauaQmFMxv8=",
+        "lastModified": 1795789268,
+        "narHash": "sha256-oQ9SqHul5G1u21D+EGkN71sENsO/7Ew3CiRQhEBG55M=",
         "owner": "redsuperbat",
         "repo": "wm-dash",
-        "rev": "117548c3d6e00dc3035731adad548fd42cf5ddde",
+        "rev": "a30ad1ab81464af42ce0582c9167e047f7d03d44",
         "type": "github"
       },
       "original": {
